@@ -19,20 +19,20 @@ public class Save : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.A))
+        if (Input.GetKeyDown(KeyCode.J))
         {
             NewModelMaterial = Model.GetComponent<MeshRenderer>().materials;
         }
 
-        if(Input.GetKeyDown(KeyCode.Q))
-        {
-            Model.GetComponent<MeshRenderer>().materials= OldModelMaterial;
-        }
+        //if(Input.GetKeyDown(KeyCode.Q))
+        //{
+        //    Model.GetComponent<MeshRenderer>().materials= OldModelMaterial;
+        //}
 
-        if(Input.GetKeyDown(KeyCode.E))
-        {
-            Model.GetComponent<MeshRenderer>().materials= NewModelMaterial;
-        }
+        //if(Input.GetKeyDown(KeyCode.E))
+        //{
+        //    Model.GetComponent<MeshRenderer>().materials= NewModelMaterial;
+        //}
 
     }
 }

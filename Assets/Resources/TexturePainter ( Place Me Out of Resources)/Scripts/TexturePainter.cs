@@ -8,6 +8,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 using System.Collections;
+using System.Collections.Generic;
 
 public enum Painter_BrushMode{PAINT,DECAL};
 public class TexturePainter : MonoBehaviour {
@@ -15,22 +16,51 @@ public class TexturePainter : MonoBehaviour {
 	public Camera sceneCamera,canvasCam;  //The camera that looks at the model, and the camera that looks at the canvas.
 	public Sprite cursorPaint,cursorDecal; // Cursor for the differen functions 
 	public RenderTexture canvasTexture; // Render Texture that looks at our Base Texture and the painted brushes
-	public Material baseMaterial; // The material of our base texture (Were we will save the painted texture)
 
-	Painter_BrushMode mode; //Our painter mode (Paint brushes or decals)
+	/*public Material baseMaterial;*/ // The material of our base texture (Were we will save the painted texture)
+
+    public MeshRenderer meshRenderer;
+    public List<Material> Newmaterial;
+    public List<Material> CanvasBaseMaterial;
+
+    Painter_BrushMode mode; //Our painter mode (Paint brushes or decals)
 	float brushSize=1.0f; //The size of our brush
 	Color brushColor; //The selected color
-	int brushCounter=0,MAX_BRUSH_COUNT=1000; //To avoid having millions of brushes
+	int brushCounter=0,MAX_BRUSH_COUNT=500; //To avoid having millions of brushes
 	bool saving=false; //Flag to check if we are saving the texture
 
-	
-	void Update () {
+    private void Start()
+    {
+        Newmaterial.Add(Resources.Load("TexturePainter ( Place Me Out of Resources)/Materials/New Material") as Material);
+        CanvasBaseMaterial.Add(Resources.Load("TexturePainter ( Place Me Out of Resources)/Materials/BaseMaterial") as Material);
+        meshRenderer.materials = CanvasBaseMaterial.ToArray();
+        //CanvasBaseMaterial = meshRenderer.materials;
+    }
+
+
+    void Update () {
         brushColor = ColorSelector.GetColor();  //Updates our painted color with the selected color
         if (Input.GetMouseButton(0)) {
 			DoAction();
 		}
 		UpdateBrushCursor ();
-	}
+        if(Input.GetKeyDown(KeyCode.J))
+        {
+            brushCursor.SetActive(false);
+            saving = true;
+            Invoke("SaveTexture", 0.1f);
+        }
+
+        if (Input.GetKeyDown(KeyCode.K))
+        {
+            meshRenderer.materials = Newmaterial.ToArray() ;
+        }
+
+        if (Input.GetKeyDown(KeyCode.L))
+        {
+            meshRenderer.materials= CanvasBaseMaterial.ToArray();
+        }
+    }
 
 	//The main action, instantiates a brush or decal entity at the clicked position on the UV map
 	void DoAction(){	
@@ -99,7 +129,7 @@ public class TexturePainter : MonoBehaviour {
 		tex.ReadPixels (new Rect (0, 0, canvasTexture.width, canvasTexture.height), 0, 0);
 		tex.Apply ();
 		RenderTexture.active = null;
-		baseMaterial.mainTexture =tex;	//Put the painted texture as the base
+        CanvasBaseMaterial[0].mainTexture =tex;	//Put the painted texture as the base
 		foreach (Transform child in brushContainer.transform) {//Clear brushes
 			Destroy(child.gameObject);
 		}

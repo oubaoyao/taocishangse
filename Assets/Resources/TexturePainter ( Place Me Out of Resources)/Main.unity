@@ -812,6 +812,10 @@ MonoBehaviour:
   cursorDecal: {fileID: 21300000, guid: b1fa017c585432546b6ec1de5ca8094f, type: 3}
   canvasTexture: {fileID: 8400000, guid: 1dd5c06a4ccfb6e4c8067820f3f0e29b, type: 2}
   baseMaterial: {fileID: 2100000, guid: 2d1ecbf1e18fa4c4e8113b71c877679d, type: 2}
+  meshRenderer: {fileID: 675977516}
+  Newmaterial:
+  - {fileID: 2100000, guid: 417a07068a8e4c84191bbf371401f275, type: 2}
+  CanvasBaseMaterial: []
 --- !u!4 &649232313
 Transform:
   m_ObjectHideFlags: 0
@@ -2003,7 +2007,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1800735146}
-  - component: {fileID: 1800735147}
   m_Layer: 0
   m_Name: _MainScene
   m_TagString: Untagged
@@ -2030,22 +2033,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1800735147
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1800735145}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 91d94175b4278ff488dabbefe0724210, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Model: {fileID: 675977514}
-  OldModelMaterial:
-  - {fileID: 2100000, guid: 302381251e75a564986b1e634c885dbe, type: 2}
-  NewModelMaterial: []
 --- !u!1 &1866494567
 GameObject:
   m_ObjectHideFlags: 0
