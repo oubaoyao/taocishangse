@@ -74,10 +74,10 @@ public class TexturePainter : MonoBehaviour {
         {
             brushColor = ColorSelector.GetColor();  //Updates our painted color with the selected color
                                                     //brushColor = Color.red;
-            if (Input.GetMouseButton(0))
-            {
-                DoAction();
-            }
+            //if (Input.GetMouseButton(0))
+            //{
+            //    DoAction();
+            //}
             UpdateBrushCursor();
         }
 
