@@ -13,6 +13,7 @@ public class Save : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        //Material material = new Material(Shader )
         //OldModelMaterial = Model.GetComponent<MeshRenderer>().materials;
     }
 

@@ -17,9 +17,14 @@ public class TexturePainter : MonoBehaviour {
 	public Sprite cursorPaint,cursorDecal; // Cursor for the differen functions 
 	public RenderTexture canvasTexture; // Render Texture that looks at our Base Texture and the painted brushes
 
-	/*public Material baseMaterial;*/ // The material of our base texture (Were we will save the painted texture)
+    /*public Material baseMaterial;*/ // The material of our base texture (Were we will save the painted texture)
+    private Material material;
 
     public MeshRenderer meshRenderer;
+
+    private Material Oldmaterial;
+    private Material NewMaterial;
+
     public List<Material> Newmaterial;
     public List<Material> CanvasBaseMaterial;
 
@@ -31,8 +36,14 @@ public class TexturePainter : MonoBehaviour {
 
     private void Start()
     {
-        Newmaterial.Add(Resources.Load("TexturePainter ( Place Me Out of Resources)/Materials/New Material") as Material);
-        CanvasBaseMaterial.Add(Resources.Load("TexturePainter ( Place Me Out of Resources)/Materials/BaseMaterial") as Material);
+        material = Resources.Load<Material>("TexturePainter ( Place Me Out of Resources)/Materials/BaseMaterial");
+
+        Oldmaterial = new Material(material);
+        NewMaterial= new Material(material);
+
+        Newmaterial.Add(Oldmaterial);
+        CanvasBaseMaterial.Add(NewMaterial);
+
         meshRenderer.materials = CanvasBaseMaterial.ToArray();
         //CanvasBaseMaterial = meshRenderer.materials;
     }
@@ -128,7 +139,8 @@ public class TexturePainter : MonoBehaviour {
 		Texture2D tex = new Texture2D(canvasTexture.width, canvasTexture.height, TextureFormat.RGB24, false);		
 		tex.ReadPixels (new Rect (0, 0, canvasTexture.width, canvasTexture.height), 0, 0);
 		tex.Apply ();
-		RenderTexture.active = null;
+
+        RenderTexture.active = null;
         CanvasBaseMaterial[0].mainTexture =tex;	//Put the painted texture as the base
 		foreach (Transform child in brushContainer.transform) {//Clear brushes
 			Destroy(child.gameObject);
