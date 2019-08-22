@@ -12,39 +12,59 @@ using System.Collections.Generic;
 
 public enum Painter_BrushMode{PAINT,DECAL};
 public class TexturePainter : MonoBehaviour {
-	public GameObject brushCursor,brushContainer; //The cursor that overlaps the model and our container for the brushes painted
+
+    public static TexturePainter Instance;
+
+    public GameObject brushCursor,brushContainer; //The cursor that overlaps the model and our container for the brushes painted
 	public Camera sceneCamera,canvasCam;  //The camera that looks at the model, and the camera that looks at the canvas.
 	public Sprite cursorPaint,cursorDecal; // Cursor for the differen functions 
 	public RenderTexture canvasTexture; // Render Texture that looks at our Base Texture and the painted brushes
 
-    /*public Material baseMaterial;*/ // The material of our base texture (Were we will save the painted texture)
-    private Material material;
+    public Material baseMaterial; // The material of our base texture (Were we will save the painted texture)
+    //private Material material;
+
+    //private Material Oldmaterial;
+    //private Material NewMaterial;
+
+    //public List<Material> Newmaterial;
+    //public List<Material> CanvasBaseMaterial;
+
+    public Transform ModelTransform;
+    public List<Transform> ModelGroup;
+
+    public GameObject Colorselector;
+
+    public bool IsGamestart = false;
 
     public MeshRenderer meshRenderer;
 
-    private Material Oldmaterial;
-    private Material NewMaterial;
-
-    public List<Material> Newmaterial;
-    public List<Material> CanvasBaseMaterial;
-
     Painter_BrushMode mode; //Our painter mode (Paint brushes or decals)
 	float brushSize=1.0f; //The size of our brush
-	Color brushColor; //The selected color
+	public Color brushColor; //The selected color
 	int brushCounter=0,MAX_BRUSH_COUNT=500; //To avoid having millions of brushes
 	bool saving=false; //Flag to check if we are saving the texture
 
+    private void Awake()
+    {
+        Instance = this;
+    }
+
     private void Start()
     {
-        material = Resources.Load<Material>("TexturePainter ( Place Me Out of Resources)/Materials/BaseMaterial");
 
-        Oldmaterial = new Material(material);
-        NewMaterial= new Material(material);
+        foreach (Transform item in ModelTransform)
+        {
+            ModelGroup.Add(item);
+        }
+        //material = Resources.Load<Material>("TexturePainter ( Place Me Out of Resources)/Materials/BaseMaterial");
 
-        Newmaterial.Add(Oldmaterial);
-        CanvasBaseMaterial.Add(NewMaterial);
+        //Oldmaterial = new Material(material);
+        //NewMaterial= new Material(material);
 
-        meshRenderer.materials = CanvasBaseMaterial.ToArray();
+        //Newmaterial.Add(Oldmaterial);
+        //CanvasBaseMaterial.Add(NewMaterial);
+
+        //meshRenderer.materials = CanvasBaseMaterial.ToArray();
         //CanvasBaseMaterial = meshRenderer.materials;
     }
 
@@ -62,15 +82,15 @@ public class TexturePainter : MonoBehaviour {
             Invoke("SaveTexture", 0.1f);
         }
 
-        if (Input.GetKeyDown(KeyCode.K))
-        {
-            meshRenderer.materials = Newmaterial.ToArray() ;
-        }
+        //if (Input.GetKeyDown(KeyCode.K))
+        //{
+        //    meshRenderer.materials = Newmaterial.ToArray() ;
+        //}
 
-        if (Input.GetKeyDown(KeyCode.L))
-        {
-            meshRenderer.materials= CanvasBaseMaterial.ToArray();
-        }
+        //if (Input.GetKeyDown(KeyCode.L))
+        //{
+        //    meshRenderer.materials= CanvasBaseMaterial.ToArray();
+        //}
     }
 
 	//The main action, instantiates a brush or decal entity at the clicked position on the UV map
@@ -132,7 +152,7 @@ public class TexturePainter : MonoBehaviour {
 		
 	}
 	//Sets the base material with a our canvas texture, then removes all our brushes
-	void SaveTexture(){		
+	public void SaveTexture(){		
 		brushCounter=0;
 		System.DateTime date = System.DateTime.Now;
 		RenderTexture.active = canvasTexture;
@@ -141,7 +161,7 @@ public class TexturePainter : MonoBehaviour {
 		tex.Apply ();
 
         RenderTexture.active = null;
-        CanvasBaseMaterial[0].mainTexture =tex;	//Put the painted texture as the base
+        baseMaterial.mainTexture = tex;	//Put the painted texture as the base
 		foreach (Transform child in brushContainer.transform) {//Clear brushes
 			Destroy(child.gameObject);
 		}
