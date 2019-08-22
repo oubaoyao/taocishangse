@@ -70,12 +70,18 @@ public class TexturePainter : MonoBehaviour {
 
 
     void Update () {
-        brushColor = ColorSelector.GetColor();  //Updates our painted color with the selected color
-        if (Input.GetMouseButton(0)) {
-			DoAction();
-		}
-		UpdateBrushCursor ();
-        if(Input.GetKeyDown(KeyCode.J))
+        if (IsGamestart)
+        {
+            brushColor = ColorSelector.GetColor();  //Updates our painted color with the selected color
+                                                    //brushColor = Color.red;
+            if (Input.GetMouseButton(0))
+            {
+                DoAction();
+            }
+            UpdateBrushCursor();
+        }
+
+        if (Input.GetKeyDown(KeyCode.J))
         {
             brushCursor.SetActive(false);
             saving = true;
@@ -159,6 +165,9 @@ public class TexturePainter : MonoBehaviour {
 		Texture2D tex = new Texture2D(canvasTexture.width, canvasTexture.height, TextureFormat.RGB24, false);		
 		tex.ReadPixels (new Rect (0, 0, canvasTexture.width, canvasTexture.height), 0, 0);
 		tex.Apply ();
+
+        byte[] vs = tex.EncodeToPNG();
+        System.IO.File.WriteAllBytes(Application.dataPath + "/Resources/SaveImage/" + Time.time + ".png", vs);
 
         RenderTexture.active = null;
         baseMaterial.mainTexture = tex;	//Put the painted texture as the base

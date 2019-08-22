@@ -50,7 +50,7 @@ public class Main : MonoBehaviour
     void Awake()
     {
         Instance = this;
-        GameObject.DontDestroyOnLoad(this.gameObject);
+        //GameObject.DontDestroyOnLoad(this.gameObject);
 
 #if UNITY_STANDALONE_WIN
         Screen.SetResolution(resolution.x, resolution.y, fullScreen);
@@ -82,7 +82,7 @@ public class Main : MonoBehaviour
 #endif
         //在这里更改场景入口
         //StateManager.ChangeState(new LoadingState());
-        StateManager.ChangeState(new UdpState());
+        StateManager.ChangeState(new TCSSstate());
 
     }
 

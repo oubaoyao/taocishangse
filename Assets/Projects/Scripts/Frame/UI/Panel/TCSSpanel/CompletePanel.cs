@@ -16,7 +16,7 @@ public class CompletePanel : BasePanel
         AppreciateButton = FindTool.FindChildComponent<Button>(transform, "BGImage/AppreciateButton");
         ReturnButton = FindTool.FindChildComponent<Button>(transform, "BGImage/ReturnButton");
 
-        gameuipanel = FindTool.FindChildComponent<GameUIPanel>(transform, "GameUIPanel");
+        gameuipanel = FindTool.FindParentComponent<GameUIPanel>(transform, "GameUIPanel");
     }
 
     public override void InitEvent()
