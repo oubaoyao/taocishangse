@@ -428,6 +428,7 @@ GameObject:
   m_Component:
   - component: {fileID: 581037059}
   - component: {fileID: 581037058}
+  - component: {fileID: 581037055}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -435,6 +436,33 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!114 &581037055
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 581037054}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1532b32c9929ea141974a1e47a80bb2c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  brush:
+    brushTexture: {fileID: 2800000, guid: b8702b5a8624a114f82a6d09bc3ce746, type: 3}
+    brushNormalTexture: {fileID: 2800000, guid: 945b831b22eb06945bf77e00f16ff51a,
+      type: 3}
+    brushHeightTexture: {fileID: 0}
+    brushScale: 0.1
+    rotateAngle: 0
+    brushNormalBlend: 0.1
+    brushHeightBlend: 0
+    brushColor: {r: 0.421064, g: 0.42414397, b: 0.86764705, a: 1}
+    colorBlendType: 0
+    normalBlendType: 0
+    heightBlendType: 0
+  useMethodType: 0
+  erase: 0
 --- !u!20 &581037058
 Camera:
   m_ObjectHideFlags: 0
@@ -900,7 +928,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!20 &960781801
 Camera:
   m_ObjectHideFlags: 0
@@ -2334,6 +2362,7 @@ GameObject:
   - component: {fileID: 5748944476079861345}
   - component: {fileID: 5748944476080860321}
   - component: {fileID: 5748944476078666338}
+  - component: {fileID: 5748944476078666339}
   m_Layer: 0
   m_Name: Cylinder005
   m_TagString: Untagged
@@ -2355,6 +2384,25 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 14
   m_Mesh: {fileID: 4300008, guid: 26f33c38f0f155c4fa8f57a7bd271319, type: 3}
+--- !u!114 &5748944476078666339
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5748944476078666337}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 04cc1b9412eea6e4a8798f4b2f88b4ad, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  paintSet:
+  - mainTextureName: _MainTex
+    normalTextureName: _BumpMap
+    heightTextureName: _ParallaxMap
+    useMainPaint: 1
+    useNormalPaint: 0
+    useHeightPaint: 0
 --- !u!1 &5748944476078666345
 GameObject:
   m_ObjectHideFlags: 0
@@ -2367,13 +2415,14 @@ GameObject:
   - component: {fileID: 5748944476079861353}
   - component: {fileID: 5748944476080860329}
   - component: {fileID: 5748944476078666346}
+  - component: {fileID: 5748944476078666356}
   m_Layer: 0
   m_Name: Cylinder001
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!64 &5748944476078666346
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -2400,6 +2449,7 @@ GameObject:
   - component: {fileID: 5748944476079861355}
   - component: {fileID: 5748944476080860331}
   - component: {fileID: 5748944476078666348}
+  - component: {fileID: 5748944476078666355}
   m_Layer: 0
   m_Name: Cylinder002
   m_TagString: Untagged
@@ -2433,6 +2483,7 @@ GameObject:
   - component: {fileID: 5748944476079861357}
   - component: {fileID: 5748944476080860333}
   - component: {fileID: 5748944476078666350}
+  - component: {fileID: 5748944476078666354}
   m_Layer: 0
   m_Name: Cylinder003
   m_TagString: Untagged
@@ -2466,6 +2517,7 @@ GameObject:
   - component: {fileID: 5748944476079861359}
   - component: {fileID: 5748944476080860335}
   - component: {fileID: 5748944476078666352}
+  - component: {fileID: 5748944476078666353}
   m_Layer: 0
   m_Name: Cylinder004
   m_TagString: Untagged
@@ -2487,6 +2539,64 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 14
   m_Mesh: {fileID: 4300006, guid: 26f33c38f0f155c4fa8f57a7bd271319, type: 3}
+--- !u!114 &5748944476078666353
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5748944476078666351}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 04cc1b9412eea6e4a8798f4b2f88b4ad, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  paintSet: []
+--- !u!114 &5748944476078666354
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5748944476078666349}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 04cc1b9412eea6e4a8798f4b2f88b4ad, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  paintSet: []
+--- !u!114 &5748944476078666355
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5748944476078666347}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 04cc1b9412eea6e4a8798f4b2f88b4ad, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  paintSet: []
+--- !u!114 &5748944476078666356
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5748944476078666345}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 04cc1b9412eea6e4a8798f4b2f88b4ad, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  paintSet:
+  - mainTextureName: _MainTex
+    normalTextureName: _BumpMap
+    heightTextureName: _ParallaxMap
+    useMainPaint: 1
+    useNormalPaint: 0
+    useHeightPaint: 0
 --- !u!33 &5748944476079861345
 MeshFilter:
   m_ObjectHideFlags: 0
