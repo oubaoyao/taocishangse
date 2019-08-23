@@ -34,7 +34,7 @@ public class TexturePainter : MonoBehaviour {
 
     public GameObject Colorselector;
 
-    public bool IsGamestart = false;
+    //public bool IsGamestart = false;
 
     public MeshRenderer meshRenderer;
 
@@ -52,10 +52,10 @@ public class TexturePainter : MonoBehaviour {
     private void Start()
     {
 
-        foreach (Transform item in ModelTransform)
-        {
-            ModelGroup.Add(item);
-        }
+        //foreach (Transform item in ModelTransform)
+        //{
+        //    ModelGroup.Add(item);
+        //}
         //material = Resources.Load<Material>("TexturePainter ( Place Me Out of Resources)/Materials/BaseMaterial");
 
         //Oldmaterial = new Material(material);
@@ -70,16 +70,16 @@ public class TexturePainter : MonoBehaviour {
 
 
     void Update () {
-        if (IsGamestart)
-        {
-            brushColor = ColorSelector.GetColor();  //Updates our painted color with the selected color
-                                                    //brushColor = Color.red;
-            //if (Input.GetMouseButton(0))
-            //{
-            //    DoAction();
-            //}
-            UpdateBrushCursor();
-        }
+        //if (IsGamestart)
+        //{
+        //    brushColor = ColorSelector.GetColor();  //Updates our painted color with the selected color
+        //                                            //brushColor = Color.red;
+        //    //if (Input.GetMouseButton(0))
+        //    //{
+        //    //    DoAction();
+        //    //}
+        //    UpdateBrushCursor();
+        //}
 
         //if (Input.GetKeyDown(KeyCode.J))
         //{

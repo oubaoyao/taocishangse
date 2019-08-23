@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using MTFrame;
 using UnityEngine.UI;
+using Es.InkPainter.Sample;
 
 public class CompletePanel : BasePanel
 {
@@ -24,16 +25,19 @@ public class CompletePanel : BasePanel
         base.InitEvent();
         RemakeButtom.onClick.AddListener(() => {
             Hide();
-            gameuipanel.gamePanel.ResetMaterial();
+            GamePanel.CurrentModel.gameObject.SetActive(true);
+            MousePainter.Instance.ResetMaterial(); 
             gameuipanel.Open();
         });
 
         AppreciateButton.onClick.AddListener(() => {
-
+            Hide();
+            TCSSstate.SwitchPanel(MTFrame.MTEvent.SwitchPanelEnum.AppreciatePanel);
         });
 
         ReturnButton.onClick.AddListener(() => {
-            TCSSstate.SwitchPanel(MTFrame.MTEvent.SwitchPanelEnum.StartMenuPanel);
+            Hide();
+            TCSSstate.SwitchPanel(MTFrame.MTEvent.SwitchPanelEnum.StartMenuPanel);      
         });
     }
 }

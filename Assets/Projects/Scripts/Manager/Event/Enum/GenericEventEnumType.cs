@@ -21,5 +21,6 @@ namespace MTFrame.MTEvent
     {
         StartMenuPanel,
         GamePanel,
+        AppreciatePanel,
     }
 }

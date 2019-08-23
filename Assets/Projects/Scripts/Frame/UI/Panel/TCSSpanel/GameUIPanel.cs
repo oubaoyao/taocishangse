@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using MTFrame;
 using UnityEngine.UI;
+using Es.InkPainter.Sample;
+using Es.InkPainter;
 
 public class GameUIPanel : BasePanel
 {
@@ -30,15 +32,26 @@ public class GameUIPanel : BasePanel
             Hide();
             gamePanel.chooseuipanel.Open();
             //TexturePainter.Instance.SaveTexture();
-            gamePanel.ResetMaterial();
+            MousePainter.Instance.ResetMaterial();
         });
 
         CompleteButton.onClick.AddListener(() => {
             StartCoroutine("getScreenTexture");
+            Debug.Log("保存截图");
+            if (GamePanel.CurrentModel.GetComponent<InkCanvas>() != null)
+                GamePanel.CurrentModel.GetComponent<InkCanvas>().SaveRenderTextureToPNG("1111");
+            else
+                Debug.Log("组件InkCanvas丢失!!!!");
+            GamePanel.CurrentModel.gameObject.SetActive(false);
+            completePanel.Open();
+
         });
 
         EraserButton.onClick.AddListener(() => {
-            //TexturePainter.Instance.brushColor = Color.white;
+            if (MousePainter.Instance.erase == true)
+                MousePainter.Instance.erase = true;
+            else
+                MousePainter.Instance.erase = false;
         });
 
         RightButton.onClick.AddListener(() => {
@@ -54,13 +67,13 @@ public class GameUIPanel : BasePanel
     {
         base.Open();
         //TexturePainter.Instance.Colorselector.SetActive(true);
-        //TexturePainter.Instance.IsGamestart = true;
+        MousePainter.Instance.IsGamestart = true;
     }
 
     public override void Hide()
     {
         base.Hide();
-        //TexturePainter.Instance.IsGamestart = false;
+        MousePainter.Instance.IsGamestart = false;
         //TexturePainter.Instance.Colorselector.SetActive(false);
         gamePanel.chooseuipanel.Open();
     }

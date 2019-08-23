@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using MTFrame;
 using UnityEngine.UI;
+using Es.InkPainter.Sample;
 
 public class WorksData
 {
@@ -16,17 +17,17 @@ public class GamePanel : BasePanel
 {
     public static Transform CurrentModel = null;
 
-    //作为模板数据的material
-    private Material material;
+    ////作为模板数据的material
+    //private Material material;
 
-    //复制模板得到的要使用的material
-    private Material Oldmaterial;
-    //复制模板得到的只在选择模型界面使用的展示用material
-    private Material NewMaterial;
+    ////复制模板得到的要使用的material
+    //private Material Oldmaterial;
+    ////复制模板得到的只在选择模型界面使用的展示用material
+    //private Material NewMaterial;
   
-    //替换MeshRanderer里面的material所需的list
-    public List<Material> CanvasBaseMaterial;
-    public List<Material> Newmaterial;
+    ////替换MeshRanderer里面的material所需的list
+    //public List<Material> CanvasBaseMaterial;
+    //public List<Material> Newmaterial;
 
     public ChooseUIPanel chooseuipanel;
     public GameUIPanel gameuiPanel;
@@ -34,7 +35,7 @@ public class GamePanel : BasePanel
     public override void InitFind()
     {
         base.InitFind();
-        material = Resources.Load<Material>("TexturePainter ( Place Me Out of Resources)/Materials/BaseMaterial");
+        //material = Resources.Load<Material>("TexturePainter ( Place Me Out of Resources)/Materials/BaseMaterial");
 
         chooseuipanel = FindTool.FindChildComponent<ChooseUIPanel>(transform, "ChooseUIPanel");
         gameuiPanel = FindTool.FindChildComponent<GameUIPanel>(transform, "GameUIPanel");
@@ -76,7 +77,7 @@ public class GamePanel : BasePanel
 
     public void InitModel()
     {
-        ResetMaterial();
+        MousePainter.Instance.ResetMaterial();
 
         ImageAddListen(chooseuipanel.ImageButtonGroup, 0);
         foreach (Transform item in ModelControl.Instance.ModelGroup)
@@ -124,16 +125,6 @@ public class GamePanel : BasePanel
         {
             InitButtons(buttons[i], i, index);
         }
-    }
-
-    public void ResetMaterial()
-    {
-        //TexturePainter.Instance.SaveTexture();
-        //CanvasBaseMaterial.Clear();
-        //NewMaterial = new Material(material);
-        //NewMaterial.mainTexture = null;
-        //CanvasBaseMaterial.Add(NewMaterial);
-        //TexturePainter.Instance.meshRenderer.materials = CanvasBaseMaterial.ToArray();
     }
 
 }

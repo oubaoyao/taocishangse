@@ -357,10 +357,32 @@ namespace Es.InkPainter
 			}
 		}
 
-		/// <summary>
-		/// Set and retrieve the texture.
-		/// </summary>
-		private void SetTexture()
+        public void SaveRenderTextureToPNG(string textureName)
+        {
+            //string path = EditorUtility.SaveFilePanel("Save to png", Application.dataPath, textureName + "_painted.png", "png");
+            string path = Application.dataPath + "/Resources/SavePng/" + textureName + ".png";
+            if (path.Length != 0)
+            {
+                RenderTexture renderTexture = paintSet[0].paintMainTexture;
+                var newTex = new Texture2D(renderTexture.width, renderTexture.height);
+                RenderTexture.active = renderTexture;
+                newTex.ReadPixels(new Rect(0, 0, renderTexture.width, renderTexture.height), 0, 0);
+                newTex.Apply();
+
+                byte[] pngData = newTex.EncodeToPNG();
+                if (pngData != null)
+                {
+                    File.WriteAllBytes(path, pngData);   
+                }
+                Debug.Log(path);
+            }
+        }
+
+
+        /// <summary>
+        /// Set and retrieve the texture.
+        /// </summary>
+        private void SetTexture()
 		{
 			foreach(var p in paintSet)
 			{

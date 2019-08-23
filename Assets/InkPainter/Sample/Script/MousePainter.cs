@@ -4,6 +4,7 @@ namespace Es.InkPainter.Sample
 {
 	public class MousePainter : MonoBehaviour
 	{
+        public static MousePainter Instance;
 		/// <summary>
 		/// Types of methods used to paint.
 		/// </summary>
@@ -22,12 +23,18 @@ namespace Es.InkPainter.Sample
 		[SerializeField]
 		private UseMethodType useMethodType = UseMethodType.RaycastHitInfo;
 
-		[SerializeField]
-		bool erase = false;
+		public bool erase = false;
 
-		private void Update()
+        public bool IsGamestart = false;
+
+        private void Awake()
+        {
+            Instance = this;
+        }
+
+        private void Update()
 		{
-			if(Input.GetMouseButton(0))
+			if(Input.GetMouseButton(0)&& IsGamestart)
 			{
 				var ray = Camera.main.ScreenPointToRay(Input.mousePosition);
 				bool success = true;
@@ -62,13 +69,20 @@ namespace Es.InkPainter.Sample
 			}
 		}
 
-		public void OnGUI()
-		{
-			if(GUILayout.Button("Reset"))
-			{
-				foreach(var canvas in FindObjectsOfType<InkCanvas>())
-					canvas.ResetPaint();
-			}
-		}
-	}
+		//public void OnGUI()
+		//{
+		//	if(GUILayout.Button("Reset"))
+		//	{
+		//		foreach(var canvas in FindObjectsOfType<InkCanvas>())
+		//			canvas.ResetPaint();
+		//	}
+		//}
+
+        public void ResetMaterial()
+        {
+            foreach (var canvas in FindObjectsOfType<InkCanvas>())
+                canvas.ResetPaint();
+        }
+
+    }
 }

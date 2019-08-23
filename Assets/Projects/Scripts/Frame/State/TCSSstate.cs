@@ -30,7 +30,9 @@ public class TCSSstate : BaseState
                 case SwitchPanelEnum.GamePanel:
                     CurrentTask.ChangeTask(new Gametask(this));
                     break;
-                    
+                case SwitchPanelEnum.AppreciatePanel:
+                    CurrentTask.ChangeTask(new AppreciateTask(this));
+                    break;
             }
         }
     }
