@@ -36,14 +36,8 @@ public class GameUIPanel : BasePanel
         });
 
         CompleteButton.onClick.AddListener(() => {
-            StartCoroutine("getScreenTexture");
-            Debug.Log("保存截图");
-            if (GamePanel.CurrentModel.GetComponent<InkCanvas>() != null)
-                GamePanel.CurrentModel.GetComponent<InkCanvas>().SaveRenderTextureToPNG("1111");
-            else
-                Debug.Log("组件InkCanvas丢失!!!!");
-            GamePanel.CurrentModel.gameObject.SetActive(false);
-            completePanel.Open();
+
+            SaveModelData();
 
         });
 
@@ -78,17 +72,40 @@ public class GameUIPanel : BasePanel
         gamePanel.chooseuipanel.Open();
     }
 
-    IEnumerator getScreenTexture()
+    IEnumerator getScreenTexture(string path)
     {
         yield return new WaitForEndOfFrame();
         //需要正确设置好图片保存格式
         Texture2D t = new Texture2D(500, 500, TextureFormat.RGB24, false);
         //按照设定区域读取像素；注意是以左下角为原点读取
-        t.ReadPixels(new Rect(300, 300, 500, 500), 0, 0);
+        t.ReadPixels(new Rect(250, 500, 500, 500), 0, 0);
         t.Apply();
         //二进制转换
         byte[] byt = t.EncodeToJPG();
-        System.IO.File.WriteAllBytes(Application.dataPath + "/Resources/SaveImage/" + Time.time + ".jpg", byt);
+        
+        System.IO.File.WriteAllBytes(path, byt);
+        GamePanel.CurrentModel.gameObject.SetActive(false);
+        completePanel.Open();
+    }
+
+    private void SaveModelData()
+    {
+        WorksData worksData = new WorksData();
+        string str1 = Application.dataPath + "/Resources/SaveImage/" + Time.time + ".jpg";
+        string str2 = Application.dataPath + "/Resources/SavePng/" + Time.time + ".png";
+        worksData.Model_name = GamePanel.CurrentModel.name;
+        worksData.Jpg_path = str1;
+        worksData.Texture_Path = str2;
+
+        WorksDataControl.Instance.worksDatas.Add(worksData);
+        StartCoroutine(getScreenTexture(str1));
+
+        if (GamePanel.CurrentModel.GetComponent<InkCanvas>() != null)
+        {
+            GamePanel.CurrentModel.GetComponent<InkCanvas>().SaveRenderTextureToPNG(str2);
+        }
+        else
+            Debug.Log("组件InkCanvas丢失!!!!");
 
     }
 }

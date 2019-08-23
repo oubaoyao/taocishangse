@@ -32,15 +32,15 @@ public abstract class ScrollItem : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(Input.GetKeyDown(KeyCode.N))
-        {
-            Left();
-        }
+        //if(Input.GetKeyDown(KeyCode.N))
+        //{
+        //    Left();
+        //}
 
-        if(Input.GetKeyDown(KeyCode.M))
-        {
-            Right();
-        }
+        //if(Input.GetKeyDown(KeyCode.M))
+        //{
+        //    Right();
+        //}
 
     }
 

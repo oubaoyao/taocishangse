@@ -7,6 +7,7 @@ public class GameScrollItem : ScrollItem
     public override void Left()
     {
         base.Left();
+
     }
 
     public override void Right()

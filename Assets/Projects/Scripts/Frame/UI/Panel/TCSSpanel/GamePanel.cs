@@ -5,32 +5,14 @@ using MTFrame;
 using UnityEngine.UI;
 using Es.InkPainter.Sample;
 
-public class WorksData
-{
-    public int Model_number;
-    public string Texture2D_Path;
-    public string Jpg_path;
-}
-
 
 public class GamePanel : BasePanel
 {
     public static Transform CurrentModel = null;
 
-    ////作为模板数据的material
-    //private Material material;
-
-    ////复制模板得到的要使用的material
-    //private Material Oldmaterial;
-    ////复制模板得到的只在选择模型界面使用的展示用material
-    //private Material NewMaterial;
-  
-    ////替换MeshRanderer里面的material所需的list
-    //public List<Material> CanvasBaseMaterial;
-    //public List<Material> Newmaterial;
-
     public ChooseUIPanel chooseuipanel;
     public GameUIPanel gameuiPanel;
+
 
     public override void InitFind()
     {
@@ -42,17 +24,12 @@ public class GamePanel : BasePanel
 
     }
 
-    public override void InitEvent()
-    {
-        base.InitEvent();
-
-    }
-
     public override void Open()
     {
         base.Open();
         gameuiPanel.Hide();
         gameuiPanel.completePanel.Hide();
+        InitModel();
     }
 
     //protected override void Start()
@@ -126,5 +103,4 @@ public class GamePanel : BasePanel
             InitButtons(buttons[i], i, index);
         }
     }
-
 }
