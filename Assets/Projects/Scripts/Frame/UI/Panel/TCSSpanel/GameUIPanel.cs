@@ -38,7 +38,7 @@ public class GameUIPanel : BasePanel
         });
 
         EraserButton.onClick.AddListener(() => {
-            TexturePainter.Instance.brushColor = Color.white;
+            //TexturePainter.Instance.brushColor = Color.white;
         });
 
         RightButton.onClick.AddListener(() => {
@@ -53,15 +53,15 @@ public class GameUIPanel : BasePanel
     public override void Open()
     {
         base.Open();
-        TexturePainter.Instance.Colorselector.SetActive(true);
-        TexturePainter.Instance.IsGamestart = true;
+        //TexturePainter.Instance.Colorselector.SetActive(true);
+        //TexturePainter.Instance.IsGamestart = true;
     }
 
     public override void Hide()
     {
         base.Hide();
-        TexturePainter.Instance.IsGamestart = false;
-        TexturePainter.Instance.Colorselector.SetActive(false);
+        //TexturePainter.Instance.IsGamestart = false;
+        //TexturePainter.Instance.Colorselector.SetActive(false);
         gamePanel.chooseuipanel.Open();
     }
 

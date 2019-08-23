@@ -79,9 +79,10 @@ public class GamePanel : BasePanel
         ResetMaterial();
 
         ImageAddListen(chooseuipanel.ImageButtonGroup, 0);
-        foreach (Transform item in TexturePainter.Instance.ModelGroup)
+        foreach (Transform item in ModelControl.Instance.ModelGroup)
         {
             item.gameObject.SetActive(false);
+            //item.GetComponent<MeshRenderer>().enabled = false;
             if (item.name == "Cylinder003")
             {
                 item.localEulerAngles = new Vector3(-90, 0, 90);
@@ -92,21 +93,24 @@ public class GamePanel : BasePanel
             }
 
         }
-        TexturePainter.Instance.ModelGroup[0].gameObject.SetActive(true);
-        CurrentModel = TexturePainter.Instance.ModelGroup[0];       
+        ModelControl.Instance.ModelGroup[0].gameObject.SetActive(true);
+        //ModelControl.Instance.ModelGroup[0].GetComponent<MeshRenderer>().enabled = true;
+        CurrentModel = ModelControl.Instance.ModelGroup[0];       
     }
 
 
     static void InitButtons(Button btn,int i,int index)
     {
         btn.onClick.AddListener(delegate () {
-            foreach (Transform item in TexturePainter.Instance.ModelGroup)
+            foreach (Transform item in ModelControl.Instance.ModelGroup)
             {
                 item.gameObject.SetActive(false);
+                //item.GetComponent<MeshRenderer>().enabled = false;
             }
             //Debug.LogFormat("i=={0},index=={1},i+index=={2}", i, index, i + index);
-            TexturePainter.Instance.ModelGroup[i+index].gameObject.SetActive(true);
-            CurrentModel = TexturePainter.Instance.ModelGroup[i + index];
+            ModelControl.Instance.ModelGroup[i + index].gameObject.SetActive(true);
+            //ModelControl.Instance.ModelGroup[i + index].GetComponent<MeshRenderer>().enabled = true;
+            CurrentModel = ModelControl.Instance.ModelGroup[i + index];
         });
     }
 
@@ -124,12 +128,12 @@ public class GamePanel : BasePanel
 
     public void ResetMaterial()
     {
-        TexturePainter.Instance.SaveTexture();
-        CanvasBaseMaterial.Clear();
-        NewMaterial = new Material(material);
-        NewMaterial.mainTexture = null;
-        CanvasBaseMaterial.Add(NewMaterial);
-        TexturePainter.Instance.meshRenderer.materials = CanvasBaseMaterial.ToArray();
+        //TexturePainter.Instance.SaveTexture();
+        //CanvasBaseMaterial.Clear();
+        //NewMaterial = new Material(material);
+        //NewMaterial.mainTexture = null;
+        //CanvasBaseMaterial.Add(NewMaterial);
+        //TexturePainter.Instance.meshRenderer.materials = CanvasBaseMaterial.ToArray();
     }
 
 }

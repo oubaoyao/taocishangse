@@ -13,7 +13,7 @@ using System.Collections.Generic;
 public enum Painter_BrushMode{PAINT,DECAL};
 public class TexturePainter : MonoBehaviour {
 
-    public static TexturePainter Instance;
+    //public static TexturePainter Instance;
 
     public GameObject brushCursor,brushContainer; //The cursor that overlaps the model and our container for the brushes painted
 	public Camera sceneCamera,canvasCam;  //The camera that looks at the model, and the camera that looks at the canvas.
@@ -44,10 +44,10 @@ public class TexturePainter : MonoBehaviour {
 	int brushCounter=0,MAX_BRUSH_COUNT=500; //To avoid having millions of brushes
 	bool saving=false; //Flag to check if we are saving the texture
 
-    private void Awake()
-    {
-        Instance = this;
-    }
+    //private void Awake()
+    //{
+    //    Instance = this;
+    //}
 
     private void Start()
     {
@@ -81,12 +81,12 @@ public class TexturePainter : MonoBehaviour {
             UpdateBrushCursor();
         }
 
-        if (Input.GetKeyDown(KeyCode.J))
-        {
-            brushCursor.SetActive(false);
-            saving = true;
-            Invoke("SaveTexture", 0.1f);
-        }
+        //if (Input.GetKeyDown(KeyCode.J))
+        //{
+        //    brushCursor.SetActive(false);
+        //    saving = true;
+        //    Invoke("SaveTexture", 0.1f);
+        //}
 
         //if (Input.GetKeyDown(KeyCode.K))
         //{

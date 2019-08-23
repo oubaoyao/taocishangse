@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.2628112, g: 0.35929906, b: 0.5437087, a: 1}
+  m_IndirectSpecularColor: {r: 0.24725088, g: 0.32000288, b: 0.4202818, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &4
 LightmapSettings:
@@ -128,7 +128,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!212 &18788273
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -658,7 +658,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &649232312
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1633,13 +1633,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1637215528}
-  m_LocalRotation: {x: 0.40821797, y: -0.23456973, z: 0.10938168, w: 0.87542605}
+  m_LocalRotation: {x: -0.04345977, y: -0.16761257, z: -0.01611567, w: 0.9847627}
   m_LocalPosition: {x: 0, y: 4, z: -4}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 941674328}
   m_RootOrder: 1
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: -5.221, y: -19.274, z: -0.988}
 --- !u!1 &1771839245
 GameObject:
   m_ObjectHideFlags: 0
@@ -1784,7 +1784,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1788134334
 Transform:
   m_ObjectHideFlags: 0
@@ -1924,6 +1924,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1800735146}
+  - component: {fileID: 1800735147}
   m_Layer: 0
   m_Name: _MainScene
   m_TagString: Untagged
@@ -1949,6 +1950,20 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1800735147
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1800735145}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0942e7e944bc34c4192a5a373e511054, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ModelTransform: {fileID: 1485575855}
+  ModelGroup: []
 --- !u!1 &1866494567
 GameObject:
   m_ObjectHideFlags: 0
@@ -2422,7 +2437,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!64 &5748944476078666346
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -2551,7 +2566,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 04cc1b9412eea6e4a8798f4b2f88b4ad, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  paintSet: []
+  paintSet:
+  - mainTextureName: _MainTex
+    normalTextureName: _BumpMap
+    heightTextureName: _ParallaxMap
+    useMainPaint: 1
+    useNormalPaint: 0
+    useHeightPaint: 0
 --- !u!114 &5748944476078666354
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2564,7 +2585,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 04cc1b9412eea6e4a8798f4b2f88b4ad, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  paintSet: []
+  paintSet:
+  - mainTextureName: _MainTex
+    normalTextureName: _BumpMap
+    heightTextureName: _ParallaxMap
+    useMainPaint: 1
+    useNormalPaint: 0
+    useHeightPaint: 0
 --- !u!114 &5748944476078666355
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2577,7 +2604,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 04cc1b9412eea6e4a8798f4b2f88b4ad, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  paintSet: []
+  paintSet:
+  - mainTextureName: _MainTex
+    normalTextureName: _BumpMap
+    heightTextureName: _ParallaxMap
+    useMainPaint: 1
+    useNormalPaint: 0
+    useHeightPaint: 0
 --- !u!114 &5748944476078666356
 MonoBehaviour:
   m_ObjectHideFlags: 0
