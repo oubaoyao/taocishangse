@@ -366,6 +366,7 @@ namespace Es.InkPainter
             RenderTexture.active = renderTexture;
             newTex.ReadPixels(new Rect(0, 0, renderTexture.width, renderTexture.height), 0, 0);
             newTex.Apply();
+            WorksDataControl.Instance.WorksTexture.Add(newTex);
 
             byte[] pngData = newTex.EncodeToPNG();
             if (pngData != null)

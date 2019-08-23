@@ -2199,6 +2199,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   worksDatas: []
+  texture: {fileID: 0}
+  WorksTexture: []
+  WorksDisplayTexture: []
 --- !u!1 &1952204203
 GameObject:
   m_ObjectHideFlags: 0

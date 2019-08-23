@@ -54,23 +54,10 @@ public class GamePanel : BasePanel
 
     public void InitModel()
     {
-        MousePainter.Instance.ResetMaterial();
+        //MousePainter.Instance.ResetMaterial();
 
         ImageAddListen(chooseuipanel.ImageButtonGroup, 0);
-        foreach (Transform item in ModelControl.Instance.ModelGroup)
-        {
-            item.gameObject.SetActive(false);
-            //item.GetComponent<MeshRenderer>().enabled = false;
-            if (item.name == "Cylinder003")
-            {
-                item.localEulerAngles = new Vector3(-90, 0, 90);
-            }
-            else
-            {
-                item.localEulerAngles = new Vector3(-90, 0, 0);
-            }
-
-        }
+        ModelControl.Instance.CloseModel();
         ModelControl.Instance.ModelGroup[0].gameObject.SetActive(true);
         //ModelControl.Instance.ModelGroup[0].GetComponent<MeshRenderer>().enabled = true;
         CurrentModel = ModelControl.Instance.ModelGroup[0];       
@@ -83,7 +70,6 @@ public class GamePanel : BasePanel
             foreach (Transform item in ModelControl.Instance.ModelGroup)
             {
                 item.gameObject.SetActive(false);
-                //item.GetComponent<MeshRenderer>().enabled = false;
             }
             //Debug.LogFormat("i=={0},index=={1},i+index=={2}", i, index, i + index);
             ModelControl.Instance.ModelGroup[i + index].gameObject.SetActive(true);
@@ -101,6 +87,14 @@ public class GamePanel : BasePanel
         for (int i = 0; i < buttons.Length; i++)
         {
             InitButtons(buttons[i], i, index);
+        }
+    }
+
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.P))
+        {
+            MousePainter.Instance.ResetMaterial();
         }
     }
 }

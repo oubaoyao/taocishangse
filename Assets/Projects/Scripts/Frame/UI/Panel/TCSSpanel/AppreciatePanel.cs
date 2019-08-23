@@ -4,6 +4,7 @@ using UnityEngine;
 using MTFrame;
 using UnityEngine.UI;
 using Es.InkPainter.Sample;
+using System.IO;
 
 public class AppreciatePanel : BasePanel
 {
@@ -11,6 +12,7 @@ public class AppreciatePanel : BasePanel
     public Button[] ImageButtonGroup;
     public List<Texture> WorksTexture = new List<Texture>();
     public RawImage[] ImageGroup;
+    private Texture[] WorksDisplayTextureArray;
     private Texture[] WorksTextureArray;
 
     private int Index = 0;
@@ -48,7 +50,9 @@ public class AppreciatePanel : BasePanel
         });
 
         BackButton.onClick.AddListener(() => {
+            ModelControl.Instance.CloseModel();
             TCSSstate.SwitchPanel(MTFrame.MTEvent.SwitchPanelEnum.StartMenuPanel);
+
         });
     }
 
@@ -56,23 +60,29 @@ public class AppreciatePanel : BasePanel
     {
         base.Open();
         Index = 0;
-        if (WorksDataControl.Instance.worksDatas!=null)
+        MousePainter.Instance.ResetMaterial();
+        if (WorksDataControl.Instance.WorksDisplayTexture.Count > 0)
         {
-            Debug.Log("111");
-            for (int i = 0; i < WorksDataControl.Instance.worksDatas.Count; i++)
-            {
-                WorksTexture.Add(Resources.Load<Texture>(WorksDataControl.Instance.worksDatas[i].Texture_Path));
-            }
+            WorksDisplayTextureArray = null;
             WorksTextureArray = null;
-            WorksTextureArray = WorksTexture.ToArray();
-            
-            if (WorksTextureArray.Length != 0)
+            WorksDisplayTextureArray = WorksDataControl.Instance.WorksDisplayTexture.ToArray();
+            WorksTextureArray = WorksDataControl.Instance.WorksTexture.ToArray();
+            //for (int i = 0; i < WorksDataControl.Instance.worksDatas.Count; i++)
+            //{
+            //    Texture texture = Resources.Load<Texture>("SavePng/" + WorksDataControl.Instance.worksDatas[i].Texture_Path);
+            //    Debug.Log(texture.name);
+            //    WorksTexture.Add(texture);
+            //}
+            //WorksTextureArray = null;
+            //WorksTextureArray = WorksTexture.ToArray();
+
+            if (WorksDisplayTextureArray.Length != 0)
             {
                 for (int i = 0; i < ImageGroup.Length; i++)
                 {
-                    if (i < WorksTextureArray.Length)
+                    if (i < WorksDisplayTextureArray.Length)
                     {
-                        ImageGroup[i].texture = WorksTextureArray[i];
+                        ImageGroup[i].texture = WorksDisplayTextureArray[i];
                     }
                 }
             }
@@ -84,23 +94,24 @@ public class AppreciatePanel : BasePanel
      void InitButtons(Button btn, int i, int index)
     {
         btn.onClick.AddListener(delegate () {
-            foreach (Transform item in ModelControl.Instance.ModelGroup)
-            {
-                item.gameObject.SetActive(false);
-                //item.GetComponent<MeshRenderer>().enabled = false;
-            }
+            ModelControl.Instance.CloseModel();
+            //foreach (Transform item in ModelControl.Instance.ModelGroup)
+            //{
+            //    item.gameObject.SetActive(false);
+            //    //item.GetComponent<MeshRenderer>().enabled = false;
+            //}
             //Debug.LogFormat("i=={0},index=={1},i+index=={2}", i, index, i + index);
             //ModelControl.Instance.ModelGroup[i + index].gameObject.SetActive(true);
             //ModelControl.Instance.ModelGroup[i + index].GetComponent<MeshRenderer>().enabled = true;
-            MousePainter.Instance.ResetMaterial();
-            if(i+index < WorksTextureArray.Length && WorksTextureArray!=null)
+            //MousePainter.Instance.ResetMaterial();
+            if (i+index < WorksDisplayTextureArray.Length && WorksDisplayTextureArray != null)
             {
                 foreach (Transform item in ModelControl.Instance.ModelGroup)
                 {
                     if (item.name == WorksDataControl.Instance.worksDatas[i + index].Model_name)
                     {
+                        item.gameObject.GetComponent<MeshRenderer>().materials[0].mainTexture = WorksTextureArray[i+index];
                         item.gameObject.SetActive(true);
-                        item.gameObject.GetComponent<MeshRenderer>().materials[0].mainTexture = Resources.Load<Texture>(WorksDataControl.Instance.worksDatas[i + index].Texture_Path);
                     }
                 }
             }
@@ -121,7 +132,7 @@ public class AppreciatePanel : BasePanel
 
     public void Left()
     {
-        if (WorksTextureArray.Length != 0)
+        if (WorksDisplayTextureArray.Length != 0)
         {
             Index--;
             if (Index < 0)
@@ -129,11 +140,12 @@ public class AppreciatePanel : BasePanel
                 Index = 0;
                 return;
             }
+            Debug.Log("222");
             for (int i = 0; i < ImageGroup.Length; i++)
             {
-                if (i < WorksTextureArray.Length)
+                if (i < WorksDisplayTextureArray.Length)
                 {
-                    ImageGroup[i].texture = WorksTextureArray[i + Index];
+                    ImageGroup[i].texture = WorksDisplayTextureArray[i + Index];
                 }
             }
             ImageAddListen(ImageButtonGroup, Index);
@@ -143,23 +155,26 @@ public class AppreciatePanel : BasePanel
 
     public void Right()
     {
-        if (WorksTextureArray.Length != 0)
+        if (WorksDisplayTextureArray.Length != 0)
         {
             Index++;
-            if (Index + ImageGroup.Length >= WorksTextureArray.Length)
+            if (Index + ImageGroup.Length >= WorksDisplayTextureArray.Length)
             {
                 Index--;
                 return;
             }
+            Debug.Log("1111");
             for (int i = 0; i < ImageGroup.Length; i++)
             {
-                if (i < WorksTextureArray.Length)
+                if (i < WorksDisplayTextureArray.Length)
                 {
-                    ImageGroup[i].texture = WorksTextureArray[i + Index];
+                    ImageGroup[i].texture = WorksDisplayTextureArray[i + Index];
                 }
             }
             ImageAddListen(ImageButtonGroup, Index);
         }
 
     }
+
+
 }

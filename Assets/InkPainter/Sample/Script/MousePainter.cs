@@ -69,19 +69,22 @@ namespace Es.InkPainter.Sample
 			}
 		}
 
-		//public void OnGUI()
-		//{
-		//	if(GUILayout.Button("Reset"))
-		//	{
-		//		foreach(var canvas in FindObjectsOfType<InkCanvas>())
-		//			canvas.ResetPaint();
-		//	}
-		//}
+        //public void OnGUI()
+        //{
+        //    if (GUILayout.Button("Reset"))
+        //    {
+        //        foreach (var canvas in ModelControl.Instance.ModelGroup)
+        //            canvas.GetComponent< InkCanvas >().ResetPaint();
+        //    }
+        //}
 
         public void ResetMaterial()
         {
             foreach (var canvas in FindObjectsOfType<InkCanvas>())
+            {
                 canvas.ResetPaint();
+                Debug.Log("复原所有模型材质");
+            }
         }
 
     }

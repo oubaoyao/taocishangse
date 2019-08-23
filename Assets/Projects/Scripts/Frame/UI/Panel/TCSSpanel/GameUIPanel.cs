@@ -30,9 +30,10 @@ public class GameUIPanel : BasePanel
         base.InitEvent();
         Backbutton.onClick.AddListener(() => {
             Hide();
+            MousePainter.Instance.ResetMaterial();
             gamePanel.chooseuipanel.Open();
             //TexturePainter.Instance.SaveTexture();
-            MousePainter.Instance.ResetMaterial();
+            
         });
 
         CompleteButton.onClick.AddListener(() => {
@@ -80,6 +81,7 @@ public class GameUIPanel : BasePanel
         //按照设定区域读取像素；注意是以左下角为原点读取
         t.ReadPixels(new Rect(250, 500, 500, 500), 0, 0);
         t.Apply();
+        WorksDataControl.Instance.WorksDisplayTexture.Add(t);
         //二进制转换
         byte[] byt = t.EncodeToJPG();
         
@@ -91,11 +93,12 @@ public class GameUIPanel : BasePanel
     private void SaveModelData()
     {
         WorksData worksData = new WorksData();
-        string str1 = Application.dataPath + "/Resources/SaveImage/" + Time.time + ".jpg";
-        string str2 = Application.dataPath + "/Resources/SavePng/" + Time.time + ".png";
+        string str = Time.time.ToString();
+        string str1 = Application.streamingAssetsPath + "/SaveImage/" + str + ".jpg";
+        string str2 = Application.streamingAssetsPath + "/SavePng/" + str + ".png";
         worksData.Model_name = GamePanel.CurrentModel.name;
-        worksData.Jpg_path = str1;
-        worksData.Texture_Path = str2;
+        worksData.Jpg_path = str;
+        worksData.Texture_Path = str;
 
         WorksDataControl.Instance.worksDatas.Add(worksData);
         StartCoroutine(getScreenTexture(str1));
