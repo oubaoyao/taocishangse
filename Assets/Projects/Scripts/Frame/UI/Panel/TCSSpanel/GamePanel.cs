@@ -90,11 +90,5 @@ public class GamePanel : BasePanel
         }
     }
 
-    private void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.P))
-        {
-            MousePainter.Instance.ResetMaterial();
-        }
-    }
+
 }

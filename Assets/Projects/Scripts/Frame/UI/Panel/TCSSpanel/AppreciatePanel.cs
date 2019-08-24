@@ -15,6 +15,7 @@ public class AppreciatePanel : BasePanel
     private Texture[] WorksDisplayTextureArray;
     private Texture[] WorksTextureArray;
 
+
     private int Index = 0;
 
     public override void InitFind()
@@ -50,7 +51,8 @@ public class AppreciatePanel : BasePanel
         });
 
         BackButton.onClick.AddListener(() => {
-            ModelControl.Instance.CloseModel();
+            //ModelControl.Instance.SetMainTexture();
+            ModelControl.Instance.CloseModel2();
             TCSSstate.SwitchPanel(MTFrame.MTEvent.SwitchPanelEnum.StartMenuPanel);
 
         });
@@ -60,21 +62,13 @@ public class AppreciatePanel : BasePanel
     {
         base.Open();
         Index = 0;
-        MousePainter.Instance.ResetMaterial();
+        ModelControl.Instance.ResetMaterial();
         if (WorksDataControl.Instance.WorksDisplayTexture.Count > 0)
         {
             WorksDisplayTextureArray = null;
             WorksTextureArray = null;
             WorksDisplayTextureArray = WorksDataControl.Instance.WorksDisplayTexture.ToArray();
             WorksTextureArray = WorksDataControl.Instance.WorksTexture.ToArray();
-            //for (int i = 0; i < WorksDataControl.Instance.worksDatas.Count; i++)
-            //{
-            //    Texture texture = Resources.Load<Texture>("SavePng/" + WorksDataControl.Instance.worksDatas[i].Texture_Path);
-            //    Debug.Log(texture.name);
-            //    WorksTexture.Add(texture);
-            //}
-            //WorksTextureArray = null;
-            //WorksTextureArray = WorksTexture.ToArray();
 
             if (WorksDisplayTextureArray.Length != 0)
             {
@@ -91,10 +85,10 @@ public class AppreciatePanel : BasePanel
         }
     }
 
-     void InitButtons(Button btn, int i, int index)
+    void InitButtons(Button btn, int i, int index)
     {
         btn.onClick.AddListener(delegate () {
-            ModelControl.Instance.CloseModel();
+            ModelControl.Instance.CloseModel2();
             //foreach (Transform item in ModelControl.Instance.ModelGroup)
             //{
             //    item.gameObject.SetActive(false);
@@ -106,11 +100,11 @@ public class AppreciatePanel : BasePanel
             //MousePainter.Instance.ResetMaterial();
             if (i+index < WorksDisplayTextureArray.Length && WorksDisplayTextureArray != null)
             {
-                foreach (Transform item in ModelControl.Instance.ModelGroup)
+                foreach (Transform item in ModelControl.Instance.ModelGroup2)
                 {
                     if (item.name == WorksDataControl.Instance.worksDatas[i + index].Model_name)
                     {
-                        item.gameObject.GetComponent<MeshRenderer>().materials[0].mainTexture = WorksTextureArray[i+index];
+                        item.gameObject.GetComponent<MeshRenderer>().materials[0].mainTexture = WorksTextureArray[i + index];
                         item.gameObject.SetActive(true);
                     }
                 }
@@ -158,7 +152,7 @@ public class AppreciatePanel : BasePanel
         if (WorksDisplayTextureArray.Length != 0)
         {
             Index++;
-            if (Index + ImageGroup.Length >= WorksDisplayTextureArray.Length)
+            if (Index + ImageGroup.Length > WorksDisplayTextureArray.Length)
             {
                 Index--;
                 return;

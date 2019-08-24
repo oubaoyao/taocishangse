@@ -11,6 +11,7 @@ public class GameUIPanel : BasePanel
     public Button Backbutton, CompleteButton, EraserButton,RightButton,LeftButton;
     public GamePanel gamePanel;
     public CompletePanel completePanel;
+    public Slider sizeSlider;
 
     public override void InitFind()
     {
@@ -23,6 +24,7 @@ public class GameUIPanel : BasePanel
 
         completePanel = FindTool.FindChildComponent<CompletePanel>(transform, "CompletePanel");
         gamePanel = FindTool.FindParentComponent<GamePanel>(transform, "GamePanel");
+        sizeSlider = FindTool.FindChildComponent<Slider>(transform, "buttons/Slider");
     }
 
     public override void InitEvent()
@@ -30,7 +32,7 @@ public class GameUIPanel : BasePanel
         base.InitEvent();
         Backbutton.onClick.AddListener(() => {
             Hide();
-            MousePainter.Instance.ResetMaterial();
+            ModelControl.Instance.ResetMaterial();
             gamePanel.chooseuipanel.Open();
             //TexturePainter.Instance.SaveTexture();
             
@@ -44,9 +46,9 @@ public class GameUIPanel : BasePanel
 
         EraserButton.onClick.AddListener(() => {
             if (MousePainter.Instance.erase == true)
-                MousePainter.Instance.erase = true;
-            else
                 MousePainter.Instance.erase = false;
+            else
+                MousePainter.Instance.erase = true;
         });
 
         RightButton.onClick.AddListener(() => {
@@ -56,21 +58,24 @@ public class GameUIPanel : BasePanel
         LeftButton.onClick.AddListener(() => {
             gamePanel.rotation_left();
         });
+
+        
     }
 
     public override void Open()
     {
         base.Open();
-        //TexturePainter.Instance.Colorselector.SetActive(true);
+        sizeSlider.value = 0.5f;
         MousePainter.Instance.IsGamestart = true;
+        ModelControl.Instance.ColorSelector.SetActive(true);
     }
 
     public override void Hide()
     {
         base.Hide();
         MousePainter.Instance.IsGamestart = false;
-        //TexturePainter.Instance.Colorselector.SetActive(false);
         gamePanel.chooseuipanel.Open();
+        ModelControl.Instance.ColorSelector.SetActive(false);
     }
 
     IEnumerator getScreenTexture(string path)
@@ -110,5 +115,10 @@ public class GameUIPanel : BasePanel
         else
             Debug.Log("组件InkCanvas丢失!!!!");
 
+    }
+
+    public void UpdateSizeSlider()
+    {
+        MousePainter.Instance.brush.Scale = sizeSlider.value;
     }
 }

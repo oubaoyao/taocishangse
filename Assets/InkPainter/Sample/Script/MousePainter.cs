@@ -17,8 +17,7 @@ namespace Es.InkPainter.Sample
 			DirectUV,
 		}
 
-		[SerializeField]
-		private Brush brush;
+		public Brush brush;
 
 		[SerializeField]
 		private UseMethodType useMethodType = UseMethodType.RaycastHitInfo;
@@ -78,14 +77,14 @@ namespace Es.InkPainter.Sample
         //    }
         //}
 
-        public void ResetMaterial()
-        {
-            foreach (var canvas in FindObjectsOfType<InkCanvas>())
-            {
-                canvas.ResetPaint();
-                Debug.Log("复原所有模型材质");
-            }
-        }
+        //public void ResetMaterial()
+        //{
+        //    foreach (var canvas in FindObjectsOfType<InkCanvas>())
+        //    {
+        //        canvas.ResetPaint();
+        //        Debug.Log("复原所有模型材质");
+        //    }
+        //}
 
     }
 }

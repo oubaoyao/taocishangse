@@ -20,13 +20,19 @@ public class ColorSelector : MonoBehaviour {
 		myslf = this;
 	}
 	void Start () {
-		if (refCamera == null)
-			refCamera = Camera.main;
-		selectedColor = Color.red;
-		SelectInnerColor (Vector2.zero);
-		finalColorSprite.color=finalColor;
 
-	}
+        InitColor();
+
+    }
+
+    public void InitColor()
+    {
+        if (refCamera == null)
+            refCamera = Camera.main;
+        selectedColor = Color.red;
+        SelectInnerColor(Vector2.zero);
+        finalColorSprite.color = finalColor;
+    }
 
 	void Update () {
 		if (Input.GetMouseButton (0)) {
