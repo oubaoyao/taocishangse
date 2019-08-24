@@ -21,10 +21,9 @@ public class ModelViewControls : MonoBehaviour {
     }
 
     void Start () {
-        //CameraControlUpdate();
         TimeTool.Instance.AddDelayed(TimeDownType.NoUnityTimeLineImpact, 2.0f, () => {
             Stop_Rotate();
-            Reset();
+            //Reset();
         });
         
         currentDistance = Mathf.Clamp(desiredDistance, minDistance, maxDistance);

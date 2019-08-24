@@ -5,13 +5,16 @@ using MTFrame;
 using UnityEngine.UI;
 using Es.InkPainter.Sample;
 using Es.InkPainter;
+using System;
 
 public class GameUIPanel : BasePanel
 {
-    public Button Backbutton, CompleteButton, EraserButton,RightButton,LeftButton;
+    public Button Backbutton, CompleteButton, EraserButton,RightButton,LeftButton, PaintButton;
     public GamePanel gamePanel;
     public CompletePanel completePanel;
     public Slider sizeSlider;
+
+    public Texture2D PaintTexture, EraserTexture;
 
     public override void InitFind()
     {
@@ -19,6 +22,7 @@ public class GameUIPanel : BasePanel
         Backbutton = FindTool.FindChildComponent<Button>(transform, "buttons/BackButton");
         CompleteButton = FindTool.FindChildComponent<Button>(transform, "buttons/CompleteButton");
         EraserButton = FindTool.FindChildComponent<Button>(transform, "buttons/EraserButton");
+        PaintButton = FindTool.FindChildComponent<Button>(transform, "buttons/PaintButton");
         RightButton = FindTool.FindChildComponent<Button>(transform, "buttons/RightButton");
         LeftButton = FindTool.FindChildComponent<Button>(transform, "buttons/LeftButton");
 
@@ -33,50 +37,44 @@ public class GameUIPanel : BasePanel
         Backbutton.onClick.AddListener(() => {
             Hide();
             ModelControl.Instance.ResetMaterial();
-            gamePanel.chooseuipanel.Open();
-            //TexturePainter.Instance.SaveTexture();
-            
+            gamePanel.chooseuipanel.Open();           
         });
 
         CompleteButton.onClick.AddListener(() => {
 
             SaveModelData();
-
+            Cursor.SetCursor(null, Vector2.zero, CursorMode.Auto);
         });
 
         EraserButton.onClick.AddListener(() => {
-            if (MousePainter.Instance.erase == true)
-                MousePainter.Instance.erase = false;
-            else
-                MousePainter.Instance.erase = true;
+            MousePainter.Instance.erase = true;
+            Cursor.SetCursor(EraserTexture, Vector2.zero, CursorMode.Auto);
         });
 
-        //RightButton.onClick.AddListener(() => {
-        //    //gamePanel.ratation_right();
-        //});
+        PaintButton.onClick.AddListener(() => {
+            MousePainter.Instance.erase = false;
+            Cursor.SetCursor(PaintTexture, Vector2.zero, CursorMode.Auto);
+        });
 
-        
-
-        //LeftButton.onClick.AddListener(() => {
-        //    //gamePanel.rotation_left();
-        //});
-
-        
+        //PaintRawImagePosition = PaintRawImage.gameObject.transform.localPosition;
     }
 
     public override void Open()
     {
         base.Open();
-        sizeSlider.value = 0.5f;
-        
+        sizeSlider.value = 0.2f;
+        Cursor.SetCursor(PaintTexture, Vector2.zero, CursorMode.Auto);
         ModelControl.Instance.ColorSelector.SetActive(true);
         MousePainter.Instance.IsGamestart = true;
-        ColorSelector.myslf.InitColor();
+        //ColorSelector.myslf.InitColor();
+
+        
     }
 
     public override void Hide()
     {
         base.Hide();
+        Cursor.SetCursor(null, Vector2.zero, CursorMode.Auto);
         MousePainter.Instance.IsGamestart = false;
         gamePanel.chooseuipanel.Open();
         ModelControl.Instance.ColorSelector.SetActive(false);

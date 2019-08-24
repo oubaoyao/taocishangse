@@ -5,6 +5,7 @@
 
 using UnityEngine;
 using System.Collections;
+using Es.InkPainter.Sample;
 
 public class ColorSelector : MonoBehaviour {
 	public Camera refCamera;
@@ -15,14 +16,17 @@ public class ColorSelector : MonoBehaviour {
 	float selectorAngle=0.0f;
 	Vector2 innerDelta=Vector2.zero;
 	public static ColorSelector myslf;
+    private Vector3 outerCursorPosition, innerCursorPosition;
 
-	void Awake () {
+
+    void Awake () {
 		myslf = this;
-	}
+        outerCursorPosition = outerCursor.transform.localPosition;
+        innerCursorPosition = innerCursor.transform.localPosition;
+    }
 	void Start () {
 
         InitColor();
-
     }
 
     public void InitColor()
@@ -32,10 +36,13 @@ public class ColorSelector : MonoBehaviour {
         selectedColor = Color.red;
         SelectInnerColor(Vector2.zero);
         finalColorSprite.color = finalColor;
+        outerCursor.transform.localPosition = outerCursorPosition;
+        innerCursor.transform.localPosition = innerCursorPosition;
     }
 
 	void Update () {
 		if (Input.GetMouseButton (0)) {
+            if(MousePainter.Instance.erase == false)
 			UserInputUpdate ();
 		}
 	}
