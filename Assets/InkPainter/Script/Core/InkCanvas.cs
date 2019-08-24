@@ -3,10 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using Es.InkPainter.Effective;
+using System.IO;
 
 #if UNITY_EDITOR
-
 using System.IO;
+
 using UnityEditor;
 using UnityEditor.SceneManagement;
 

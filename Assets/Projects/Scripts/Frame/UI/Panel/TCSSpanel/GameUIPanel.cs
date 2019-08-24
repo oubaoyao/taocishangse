@@ -67,7 +67,8 @@ public class GameUIPanel : BasePanel
         ModelControl.Instance.ColorSelector.SetActive(true);
         MousePainter.Instance.IsGamestart = true;
         //ColorSelector.myslf.InitColor();
-
+        Debug.Log("Screen.width===" + Screen.width);
+        Debug.Log("Screen.height===" + Screen.height);
         
     }
 
@@ -84,9 +85,9 @@ public class GameUIPanel : BasePanel
     {
         yield return new WaitForEndOfFrame();
         //需要正确设置好图片保存格式
-        Texture2D t = new Texture2D(500, 500, TextureFormat.RGB24, false);
+        Texture2D t = new Texture2D(248, 248, TextureFormat.RGB24, false);
         //按照设定区域读取像素；注意是以左下角为原点读取
-        t.ReadPixels(new Rect(250, 500, 500, 500), 0, 0);
+        t.ReadPixels(new Rect(0.25f*Screen.width, 0.4f * Screen.height, 248, 248), 0, 0);
         t.Apply();
         WorksDataControl.Instance.WorksDisplayTexture.Add(t);
         //二进制转换
@@ -94,6 +95,7 @@ public class GameUIPanel : BasePanel
         
         System.IO.File.WriteAllBytes(path, byt);
         GamePanel.CurrentModel.gameObject.SetActive(false);
+        ModelControl.Instance.ColorSelector.SetActive(false);
         completePanel.Open();
     }
 
