@@ -689,7 +689,7 @@ MonoBehaviour:
   LeftButton: {fileID: 6438072452166573212}
   gamePanel: {fileID: 7169988456926907890}
   completePanel: {fileID: 1154641323375473612}
-  sizeSlider: {fileID: 0}
+  sizeSlider: {fileID: 89665315916391298}
 --- !u!225 &3607539418936427001
 CanvasGroup:
   m_ObjectHideFlags: 0
@@ -1516,6 +1516,7 @@ GameObject:
   - component: {fileID: 7672161730839371497}
   - component: {fileID: 8138531931277908811}
   - component: {fileID: 6438072452166573212}
+  - component: {fileID: 8320384918693472834}
   m_Layer: 5
   m_Name: LeftButton
   m_TagString: Untagged
@@ -1540,7 +1541,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 420, y: 0}
+  m_AnchoredPosition: {x: -452, y: 0}
   m_SizeDelta: {x: 160, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &7672161730839371497
@@ -1622,6 +1623,54 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.UI.Button+ButtonClickedEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
+--- !u!114 &8320384918693472834
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4792250581786645375}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -1862395651, guid: f70555f144d8491a825f0804e09c671c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Delegates:
+  - eventID: 2
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 7083341733064312584}
+          m_MethodName: PointDown_Left
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+      m_TypeName: UnityEngine.EventSystems.EventTrigger+TriggerEvent, UnityEngine.UI,
+        Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+  - eventID: 3
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 7083341733064312584}
+          m_MethodName: PointUp
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+      m_TypeName: UnityEngine.EventSystems.EventTrigger+TriggerEvent, UnityEngine.UI,
+        Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+  delegates: []
 --- !u!1 &4916161511222483797
 GameObject:
   m_ObjectHideFlags: 0
@@ -2505,6 +2554,7 @@ GameObject:
   - component: {fileID: 1063297567333027569}
   - component: {fileID: 2951537351167442765}
   - component: {fileID: 4602136685321029730}
+  - component: {fileID: 1926011867021040785}
   m_Layer: 5
   m_Name: RightButton
   m_TagString: Untagged
@@ -2529,7 +2579,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -453, y: 0}
+  m_AnchoredPosition: {x: 426, y: 0}
   m_SizeDelta: {x: 160, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &1063297567333027569
@@ -2611,6 +2661,54 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.UI.Button+ButtonClickedEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
+--- !u!114 &1926011867021040785
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6110526409757666413}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -1862395651, guid: f70555f144d8491a825f0804e09c671c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Delegates:
+  - eventID: 2
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 7083341733064312584}
+          m_MethodName: PointDown_Right
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+      m_TypeName: UnityEngine.EventSystems.EventTrigger+TriggerEvent, UnityEngine.UI,
+        Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+  - eventID: 3
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 7083341733064312584}
+          m_MethodName: PointUp
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+      m_TypeName: UnityEngine.EventSystems.EventTrigger+TriggerEvent, UnityEngine.UI,
+        Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+  delegates: []
 --- !u!1 &6272136240494755755
 GameObject:
   m_ObjectHideFlags: 0
@@ -2982,7 +3080,7 @@ RectTransform:
   m_GameObject: {fileID: 8183914232539841407}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 1.6441, y: 1.6441, z: 1.6441}
   m_Children:
   - {fileID: 3474073370465014885}
   - {fileID: 6314638539724339489}
@@ -2992,7 +3090,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -352, y: -578}
+  m_AnchoredPosition: {x: -352, y: -599}
   m_SizeDelta: {x: 160, y: 20}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &89665315916391298
@@ -3533,9 +3631,9 @@ PrefabInstance:
       objectReference: {fileID: 2800000, guid: cb2aedb46644b8442983457f17ae45fb, type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c5a56342e80e81844b9817ed1a5780ca, type: 3}
---- !u!114 &7682255842901665207 stripped
+--- !u!114 &2937884894622457303 stripped
 MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 8455014242948763487, guid: c5a56342e80e81844b9817ed1a5780ca,
+  m_CorrespondingSourceObject: {fileID: 3967551331177330495, guid: c5a56342e80e81844b9817ed1a5780ca,
     type: 3}
   m_PrefabInstance: {fileID: 2290894413456927464}
   m_PrefabAsset: {fileID: 0}
@@ -3569,16 +3667,16 @@ MonoBehaviour:
   m_Script: {fileID: 1392445389, guid: f70555f144d8491a825f0804e09c671c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &1529973246594410979 stripped
+--- !u!114 &7682255842901665207 stripped
 MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 788528898917434123, guid: c5a56342e80e81844b9817ed1a5780ca,
+  m_CorrespondingSourceObject: {fileID: 8455014242948763487, guid: c5a56342e80e81844b9817ed1a5780ca,
     type: 3}
   m_PrefabInstance: {fileID: 2290894413456927464}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7ff54728b5a78604493ea3f1a53d0140, type: 3}
+  m_Script: {fileID: 1392445389, guid: f70555f144d8491a825f0804e09c671c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!114 &4417859682774247705 stripped
@@ -3599,15 +3697,15 @@ RectTransform:
     type: 3}
   m_PrefabInstance: {fileID: 2290894413456927464}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &2937884894622457303 stripped
+--- !u!114 &1529973246594410979 stripped
 MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 3967551331177330495, guid: c5a56342e80e81844b9817ed1a5780ca,
+  m_CorrespondingSourceObject: {fileID: 788528898917434123, guid: c5a56342e80e81844b9817ed1a5780ca,
     type: 3}
   m_PrefabInstance: {fileID: 2290894413456927464}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 1392445389, guid: f70555f144d8491a825f0804e09c671c, type: 3}
+  m_Script: {fileID: 11500000, guid: 7ff54728b5a78604493ea3f1a53d0140, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 

@@ -35,7 +35,8 @@ namespace Es.InkPainter.Sample
 		{
 			if(Input.GetMouseButton(0)&& IsGamestart)
 			{
-				var ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+                brush.Color = ColorSelector.GetColor();
+                var ray = Camera.main.ScreenPointToRay(Input.mousePosition);
 				bool success = true;
 				RaycastHit hitInfo;
 				if(Physics.Raycast(ray, out hitInfo))

@@ -14,7 +14,7 @@ public class ColorSelector : MonoBehaviour {
 	Color finalColor, selectedColor;
 	float selectorAngle=0.0f;
 	Vector2 innerDelta=Vector2.zero;
-	static ColorSelector myslf;
+	public static ColorSelector myslf;
 
 	void Awake () {
 		myslf = this;

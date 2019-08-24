@@ -51,13 +51,15 @@ public class GameUIPanel : BasePanel
                 MousePainter.Instance.erase = true;
         });
 
-        RightButton.onClick.AddListener(() => {
-            gamePanel.ratation_right();
-        });
+        //RightButton.onClick.AddListener(() => {
+        //    //gamePanel.ratation_right();
+        //});
 
-        LeftButton.onClick.AddListener(() => {
-            gamePanel.rotation_left();
-        });
+        
+
+        //LeftButton.onClick.AddListener(() => {
+        //    //gamePanel.rotation_left();
+        //});
 
         
     }
@@ -66,8 +68,10 @@ public class GameUIPanel : BasePanel
     {
         base.Open();
         sizeSlider.value = 0.5f;
-        MousePainter.Instance.IsGamestart = true;
+        
         ModelControl.Instance.ColorSelector.SetActive(true);
+        MousePainter.Instance.IsGamestart = true;
+        ColorSelector.myslf.InitColor();
     }
 
     public override void Hide()
@@ -119,6 +123,21 @@ public class GameUIPanel : BasePanel
 
     public void UpdateSizeSlider()
     {
-        MousePainter.Instance.brush.Scale = sizeSlider.value;
+        MousePainter.Instance.brush.Scale = sizeSlider.value/5;
+    }
+
+    public void PointDown_Right()
+    {
+        ModelViewControls.Instance.Start_Rotate_Right();
+    }
+
+    public void PointDown_Left()
+    {
+        ModelViewControls.Instance.Start_Rotate_Left();
+    }
+
+    public void PointUp()
+    {
+        ModelViewControls.Instance.Stop_Rotate();
     }
 }

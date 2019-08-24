@@ -17,8 +17,6 @@ public class GamePanel : BasePanel
     public override void InitFind()
     {
         base.InitFind();
-        //material = Resources.Load<Material>("TexturePainter ( Place Me Out of Resources)/Materials/BaseMaterial");
-
         chooseuipanel = FindTool.FindChildComponent<ChooseUIPanel>(transform, "ChooseUIPanel");
         gameuiPanel = FindTool.FindChildComponent<GameUIPanel>(transform, "GameUIPanel");
 
@@ -32,34 +30,24 @@ public class GamePanel : BasePanel
         InitModel();
     }
 
-    //protected override void Start()
+    //public void rotation_left()
     //{
-    //    base.Start();
-    //    NewMaterial = new Material(material);
-    //    Newmaterial.Add(NewMaterial);
+    //    CurrentModel.transform.eulerAngles += new Vector3(0, 0, 5);
     //}
 
-    public void rotation_left()
-    {
-        //CurrentModel.Rotate(Vector3.back * Time.deltaTime * 5);
-        CurrentModel.transform.eulerAngles += new Vector3(0, 0, 5);
-    }
-
-    public void ratation_right()
-    {
-       // CurrentModel.Rotate(Vector3.forward*Time.deltaTime*5);
-        CurrentModel.transform.eulerAngles -= new Vector3(0, 0, 5);
-    }
+    //public void ratation_right()
+    //{
+  
+    //    CurrentModel.transform.eulerAngles -= new Vector3(0, 0, 5);
+    //}
 
 
     public void InitModel()
     {
-        //MousePainter.Instance.ResetMaterial();
-
         ImageAddListen(chooseuipanel.ImageButtonGroup, 0);
+        //ModelViewControls.Instance.Reset();
         ModelControl.Instance.CloseModel();
         ModelControl.Instance.ModelGroup[0].gameObject.SetActive(true);
-        //ModelControl.Instance.ModelGroup[0].GetComponent<MeshRenderer>().enabled = true;
         CurrentModel = ModelControl.Instance.ModelGroup[0];       
     }
 
@@ -73,7 +61,6 @@ public class GamePanel : BasePanel
             }
             //Debug.LogFormat("i=={0},index=={1},i+index=={2}", i, index, i + index);
             ModelControl.Instance.ModelGroup[i + index].gameObject.SetActive(true);
-            //ModelControl.Instance.ModelGroup[i + index].GetComponent<MeshRenderer>().enabled = true;
             CurrentModel = ModelControl.Instance.ModelGroup[i + index];
         });
     }

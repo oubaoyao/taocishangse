@@ -34,13 +34,13 @@ public class AppreciatePanel : BasePanel
     public override void InitEvent()
     {
         base.InitEvent();
-        Model_Right_Button.onClick.AddListener(() => {
+        //Model_Right_Button.onClick.AddListener(() => {
 
-        });
+        //});
 
-        Model_Left_Button.onClick.AddListener(() => {
+        //Model_Left_Button.onClick.AddListener(() => {
 
-        });
+        //});
 
         Image_Right_Button.onClick.AddListener(() => {
             Right();
@@ -51,7 +51,7 @@ public class AppreciatePanel : BasePanel
         });
 
         BackButton.onClick.AddListener(() => {
-            //ModelControl.Instance.SetMainTexture();
+  
             ModelControl.Instance.CloseModel2();
             TCSSstate.SwitchPanel(MTFrame.MTEvent.SwitchPanelEnum.StartMenuPanel);
 
@@ -62,7 +62,9 @@ public class AppreciatePanel : BasePanel
     {
         base.Open();
         Index = 0;
-        ModelControl.Instance.ResetMaterial();
+        ModelControl.Instance.ColorSelector.SetActive(false);
+        //ModelViewControls.Instance.Reset();
+        //ModelControl.Instance.ResetMaterial();
         if (WorksDataControl.Instance.WorksDisplayTexture.Count > 0)
         {
             WorksDisplayTextureArray = null;
@@ -89,15 +91,6 @@ public class AppreciatePanel : BasePanel
     {
         btn.onClick.AddListener(delegate () {
             ModelControl.Instance.CloseModel2();
-            //foreach (Transform item in ModelControl.Instance.ModelGroup)
-            //{
-            //    item.gameObject.SetActive(false);
-            //    //item.GetComponent<MeshRenderer>().enabled = false;
-            //}
-            //Debug.LogFormat("i=={0},index=={1},i+index=={2}", i, index, i + index);
-            //ModelControl.Instance.ModelGroup[i + index].gameObject.SetActive(true);
-            //ModelControl.Instance.ModelGroup[i + index].GetComponent<MeshRenderer>().enabled = true;
-            //MousePainter.Instance.ResetMaterial();
             if (i+index < WorksDisplayTextureArray.Length && WorksDisplayTextureArray != null)
             {
                 foreach (Transform item in ModelControl.Instance.ModelGroup2)
@@ -134,7 +127,6 @@ public class AppreciatePanel : BasePanel
                 Index = 0;
                 return;
             }
-            Debug.Log("222");
             for (int i = 0; i < ImageGroup.Length; i++)
             {
                 if (i < WorksDisplayTextureArray.Length)
@@ -157,7 +149,6 @@ public class AppreciatePanel : BasePanel
                 Index--;
                 return;
             }
-            Debug.Log("1111");
             for (int i = 0; i < ImageGroup.Length; i++)
             {
                 if (i < WorksDisplayTextureArray.Length)
@@ -170,5 +161,18 @@ public class AppreciatePanel : BasePanel
 
     }
 
+    public void PointDown_Right()
+    {
+        ModelViewControls.Instance.Start_Rotate_Right();
+    }
 
+    public void PointDown_Left()
+    {
+        ModelViewControls.Instance.Start_Rotate_Left();
+    }
+
+    public void PointUp()
+    {
+        ModelViewControls.Instance.Stop_Rotate();
+    }
 }
