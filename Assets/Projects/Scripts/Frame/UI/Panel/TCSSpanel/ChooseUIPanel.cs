@@ -10,6 +10,8 @@ public class ChooseUIPanel : BasePanel
     public Button LeftButton, RightButton, DetermineButton;
     public Button[] ImageButtonGroup;
     public GamePanel gamePanel;
+    public Transform ChooseIngImage;
+    public float[] ChooseIngImageX = { -260.4f, -124.1f, 8.8f, 143.4f, 276f };
 
     public override void InitFind()
     {
@@ -21,6 +23,7 @@ public class ChooseUIPanel : BasePanel
         DetermineButton = FindTool.FindChildComponent<Button>(transform, "DetermineButton");
 
         gamePanel = FindTool.FindParentComponent<GamePanel>(transform, "GamePanel");
+        ChooseIngImage = FindTool.FindChildNode(transform, "ChooseIng");
     }
 
     public override void InitEvent()

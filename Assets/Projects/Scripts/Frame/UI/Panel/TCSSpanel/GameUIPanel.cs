@@ -49,6 +49,7 @@ public class GameUIPanel : BasePanel
         EraserButton.onClick.AddListener(() => {
             MousePainter.Instance.erase = true;
             Cursor.SetCursor(EraserTexture, Vector2.zero, CursorMode.Auto);
+            EraserButton.Select();
         });
 
         PaintButton.onClick.AddListener(() => {
@@ -66,9 +67,6 @@ public class GameUIPanel : BasePanel
         Cursor.SetCursor(PaintTexture, Vector2.zero, CursorMode.Auto);
         ModelControl.Instance.ColorSelector.SetActive(true);
         MousePainter.Instance.IsGamestart = true;
-        //ColorSelector.myslf.InitColor();
-        Debug.Log("Screen.width===" + Screen.width);
-        Debug.Log("Screen.height===" + Screen.height);
         
     }
 

@@ -13,7 +13,6 @@ public class GamePanel : BasePanel
     public ChooseUIPanel chooseuipanel;
     public GameUIPanel gameuiPanel;
 
-
     public override void InitFind()
     {
         base.InitFind();
@@ -48,11 +47,12 @@ public class GamePanel : BasePanel
         //ModelViewControls.Instance.Reset();
         ModelControl.Instance.CloseModel();
         ModelControl.Instance.ModelGroup[0].gameObject.SetActive(true);
-        CurrentModel = ModelControl.Instance.ModelGroup[0];       
+        CurrentModel = ModelControl.Instance.ModelGroup[0];
+        chooseuipanel.ChooseIngImage.localPosition = new Vector3(-260.4f, 324,0);
     }
 
 
-    static void InitButtons(Button btn,int i,int index)
+    void InitButtons(Button btn,int i,int index)
     {
         btn.onClick.AddListener(delegate () {
             foreach (Transform item in ModelControl.Instance.ModelGroup)
@@ -62,10 +62,11 @@ public class GamePanel : BasePanel
             //Debug.LogFormat("i=={0},index=={1},i+index=={2}", i, index, i + index);
             ModelControl.Instance.ModelGroup[i + index].gameObject.SetActive(true);
             CurrentModel = ModelControl.Instance.ModelGroup[i + index];
+            chooseuipanel.ChooseIngImage.DOLocalMoveX(chooseuipanel.ChooseIngImageX[i], 0.5f);
         });
     }
 
-    public static void ImageAddListen(Button[] buttons,int index)
+    public  void ImageAddListen(Button[] buttons,int index)
     {
         foreach (Button item in buttons)
         {
