@@ -29,17 +29,13 @@ public class GamePanel : BasePanel
         InitModel();
     }
 
-    //public void rotation_left()
-    //{
-    //    CurrentModel.transform.eulerAngles += new Vector3(0, 0, 5);
-    //}
-
-    //public void ratation_right()
-    //{
-  
-    //    CurrentModel.transform.eulerAngles -= new Vector3(0, 0, 5);
-    //}
-
+    public override void Hide()
+    {
+        base.Hide();
+        gameuiPanel.Hide();
+        gameuiPanel.completePanel.Hide();
+        ModelControl.Instance.CloseModel();
+    }
 
     public void InitModel()
     {

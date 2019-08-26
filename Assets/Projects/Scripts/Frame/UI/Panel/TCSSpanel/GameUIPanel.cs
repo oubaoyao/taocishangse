@@ -10,11 +10,14 @@ using System;
 public class GameUIPanel : BasePanel
 {
     public Button Backbutton, CompleteButton, EraserButton,RightButton,LeftButton, PaintButton;
+    public Button[] PaintSizeButton;
     public GamePanel gamePanel;
     public CompletePanel completePanel;
-    public Slider sizeSlider;
 
     public Texture2D PaintTexture, EraserTexture;
+    private float[] PaintSize = { 0.1f, 0.25f, 0.5f, 0.75f };
+    private SwitchSprite[] switchSprites;
+    private List<SwitchSprite> EraserAndPaint = new List<SwitchSprite>();
 
     public override void InitFind()
     {
@@ -25,10 +28,12 @@ public class GameUIPanel : BasePanel
         PaintButton = FindTool.FindChildComponent<Button>(transform, "buttons/PaintButton");
         RightButton = FindTool.FindChildComponent<Button>(transform, "buttons/RightButton");
         LeftButton = FindTool.FindChildComponent<Button>(transform, "buttons/LeftButton");
+        PaintSizeButton = FindTool.FindChildNode(transform, "PaintSize/SizeGroup").GetComponentsInChildren<Button>();
+
+        switchSprites = FindTool.FindChildNode(transform, "PaintSize/SizeGroup").GetComponentsInChildren<SwitchSprite>();
 
         completePanel = FindTool.FindChildComponent<CompletePanel>(transform, "CompletePanel");
         gamePanel = FindTool.FindParentComponent<GamePanel>(transform, "GamePanel");
-        sizeSlider = FindTool.FindChildComponent<Slider>(transform, "buttons/Slider");
     }
 
     public override void InitEvent()
@@ -50,20 +55,68 @@ public class GameUIPanel : BasePanel
             MousePainter.Instance.erase = true;
             Cursor.SetCursor(EraserTexture, Vector2.zero, CursorMode.Auto);
             EraserButton.Select();
+            foreach (SwitchSprite item in EraserAndPaint)
+            {
+                item.InitButtonSprite();
+            }
+            EraserAndPaint[1].DownButtonSprite();
         });
 
         PaintButton.onClick.AddListener(() => {
             MousePainter.Instance.erase = false;
             Cursor.SetCursor(PaintTexture, Vector2.zero, CursorMode.Auto);
+            foreach (SwitchSprite item in EraserAndPaint)
+            {
+                item.InitButtonSprite();
+            }
+            EraserAndPaint[0].DownButtonSprite();
         });
 
+        for (int i = 0; i < PaintSizeButton.Length; i++)
+        {
+            InitButton(PaintSizeButton[i], i);      
+        }
+
+        EraserAndPaint.Add(PaintButton.gameObject.GetComponent<SwitchSprite>());
+        EraserAndPaint.Add(EraserButton.gameObject.GetComponent<SwitchSprite>());
         //PaintRawImagePosition = PaintRawImage.gameObject.transform.localPosition;
+    }
+
+    private void InitButton(Button button, int a)
+    {
+        button.onClick.AddListener(() => {
+            foreach (SwitchSprite item in switchSprites)
+            {
+                item.InitButtonSprite();
+            }
+            button.gameObject.GetComponent<SwitchSprite>().DownButtonSprite();
+            MousePainter.Instance.brush.Scale = PaintSize[a]/5;
+        });
+
+    }
+
+    private void InitPaintSize()
+    {
+        foreach (SwitchSprite item in switchSprites)
+        {
+            item.InitButtonSprite();
+        }
+
+        foreach (SwitchSprite item in EraserAndPaint)
+        {
+            item.InitButtonSprite();
+        }
+        switchSprites[0].DownButtonSprite();
+        EraserAndPaint[0].DownButtonSprite();
+        MousePainter.Instance.erase = false;
+        MousePainter.Instance.brush.Scale = PaintSize[0]/5;
     }
 
     public override void Open()
     {
         base.Open();
-        sizeSlider.value = 0.2f;
+        Cursor.visible = true;
+        InitPaintSize();
         Cursor.SetCursor(PaintTexture, Vector2.zero, CursorMode.Auto);
         ModelControl.Instance.ColorSelector.SetActive(true);
         MousePainter.Instance.IsGamestart = true;
@@ -73,6 +126,7 @@ public class GameUIPanel : BasePanel
     public override void Hide()
     {
         base.Hide();
+        //Cursor.visible = false;
         Cursor.SetCursor(null, Vector2.zero, CursorMode.Auto);
         MousePainter.Instance.IsGamestart = false;
         gamePanel.chooseuipanel.Open();
@@ -117,11 +171,6 @@ public class GameUIPanel : BasePanel
         else
             Debug.Log("组件InkCanvas丢失!!!!");
 
-    }
-
-    public void UpdateSizeSlider()
-    {
-        MousePainter.Instance.brush.Scale = sizeSlider.value/5;
     }
 
     public void PointDown_Right()

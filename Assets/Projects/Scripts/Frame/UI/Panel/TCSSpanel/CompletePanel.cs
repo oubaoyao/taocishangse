@@ -40,4 +40,10 @@ public class CompletePanel : BasePanel
             TCSSstate.SwitchPanel(MTFrame.MTEvent.SwitchPanelEnum.StartMenuPanel);      
         });
     }
+
+    public override void Open()
+    {
+        base.Open();
+        //Cursor.visible = false;
+    }
 }

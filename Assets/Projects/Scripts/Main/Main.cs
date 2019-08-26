@@ -50,6 +50,7 @@ public class Main : MonoBehaviour
     void Awake()
     {
         Instance = this;
+        //Cursor.visible = false;
         //GameObject.DontDestroyOnLoad(this.gameObject);
 
 #if UNITY_STANDALONE_WIN
