@@ -14,7 +14,8 @@ public class AppreciatePanel : BasePanel
     public RawImage[] ImageGroup;
     private Texture[] WorksDisplayTextureArray;
     private Texture[] WorksTextureArray;
-
+    public Transform ChooseIngImage;
+    public float[] ChooseIngImageX = { -267.9f, -134.2f, 1.0f, 134.1f, 269.0f };
 
     private int Index = 0;
 
@@ -29,18 +30,12 @@ public class AppreciatePanel : BasePanel
 
         ImageButtonGroup = FindTool.FindChildNode(transform, "ImageGroup").GetComponentsInChildren<Button>();
         ImageGroup = FindTool.FindChildNode(transform, "ImageGroup").GetComponentsInChildren<RawImage>();
+        ChooseIngImage = FindTool.FindChildNode(transform, "ChooseIng");
     }
 
     public override void InitEvent()
     {
         base.InitEvent();
-        //Model_Right_Button.onClick.AddListener(() => {
-
-        //});
-
-        //Model_Left_Button.onClick.AddListener(() => {
-
-        //});
 
         Image_Right_Button.onClick.AddListener(() => {
             Right();
@@ -61,10 +56,10 @@ public class AppreciatePanel : BasePanel
     public override void Open()
     {
         base.Open();
+        ChooseIngImage.GetComponent<Image>().enabled = false;
+        ChooseIngImage.localPosition = new Vector3(-267.8f, -309.7f);
         Index = 0;
         ModelControl.Instance.ColorSelector.SetActive(false);
-        //ModelViewControls.Instance.Reset();
-        //ModelControl.Instance.ResetMaterial();
         if (WorksDataControl.Instance.WorksDisplayTexture.Count > 0)
         {
             WorksDisplayTextureArray = null;
@@ -91,6 +86,7 @@ public class AppreciatePanel : BasePanel
     {
         btn.onClick.AddListener(delegate () {
             ModelControl.Instance.CloseModel2();
+            ChooseIngImage.GetComponent<Image>().enabled = true;
             if (i+index < WorksDisplayTextureArray.Length && WorksDisplayTextureArray != null)
             {
                 foreach (Transform item in ModelControl.Instance.ModelGroup2)
@@ -102,6 +98,7 @@ public class AppreciatePanel : BasePanel
                     }
                 }
             }
+            ChooseIngImage.localPosition = new Vector3(ChooseIngImageX[i], -309.7f, 0);
         });
     }
 

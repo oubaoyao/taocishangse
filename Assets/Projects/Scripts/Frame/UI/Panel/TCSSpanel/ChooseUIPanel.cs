@@ -11,7 +11,7 @@ public class ChooseUIPanel : BasePanel
     public Button[] ImageButtonGroup;
     public GamePanel gamePanel;
     public Transform ChooseIngImage;
-    public float[] ChooseIngImageX = { -260.4f, -124.1f, 8.8f, 143.4f, 276f };
+    public float[] ChooseIngImageX = { -260f, -125.8f, 7.7f, 141.2f, 276.1f };
 
     public override void InitFind()
     {
