@@ -6,7 +6,7 @@ using UnityEngine.UI;
 
 public class ChooseUIPanel : BasePanel
 {
-    public GameScrollItem ScrollItem;
+    //public GameScrollItem ScrollItem;
     public Button LeftButton, RightButton, DetermineButton;
     public Button[] ImageButtonGroup;
     public GamePanel gamePanel;
@@ -16,9 +16,9 @@ public class ChooseUIPanel : BasePanel
     public override void InitFind()
     {
         base.InitFind();
-        ScrollItem = FindTool.FindChildComponent<GameScrollItem>(transform, "ImageGroup");
-        LeftButton = FindTool.FindChildComponent<Button>(transform, "LeftAndRight/left");
-        RightButton = FindTool.FindChildComponent<Button>(transform, "LeftAndRight/Right");
+        //ScrollItem = FindTool.FindChildComponent<GameScrollItem>(transform, "ImageGroup");
+        //LeftButton = FindTool.FindChildComponent<Button>(transform, "LeftAndRight/left");
+        //RightButton = FindTool.FindChildComponent<Button>(transform, "LeftAndRight/Right");
         ImageButtonGroup = FindTool.FindChildNode(transform, "ImageGroup").GetComponentsInChildren<Button>();
         DetermineButton = FindTool.FindChildComponent<Button>(transform, "DetermineButton");
 
@@ -34,13 +34,13 @@ public class ChooseUIPanel : BasePanel
             gamePanel.gameuiPanel.Open();
         });
 
-        LeftButton.onClick.AddListener(() => {
-            ScrollItem.Left();
-        });
+        //LeftButton.onClick.AddListener(() => {
+        //    ScrollItem.Left();
+        //});
 
-        RightButton.onClick.AddListener(() => {
-            ScrollItem.Right();
-        });
+        //RightButton.onClick.AddListener(() => {
+        //    ScrollItem.Right();
+        //});
     }
 
     public override void Open()
