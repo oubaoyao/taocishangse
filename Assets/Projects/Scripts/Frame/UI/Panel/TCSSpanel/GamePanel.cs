@@ -44,7 +44,7 @@ public class GamePanel : BasePanel
         ModelControl.Instance.CloseModel();
         ModelControl.Instance.ModelGroup[0].gameObject.SetActive(true);
         CurrentModel = ModelControl.Instance.ModelGroup[0];
-        chooseuipanel.ChooseIngImage.localPosition = new Vector3(-260f, -325.4f);
+        chooseuipanel.ChooseIngImage.localPosition = new Vector3(-260f, -356f);
     }
 
 
@@ -58,7 +58,7 @@ public class GamePanel : BasePanel
             //Debug.LogFormat("i=={0},index=={1},i+index=={2}", i, index, i + index);
             ModelControl.Instance.ModelGroup[i + index].gameObject.SetActive(true);
             CurrentModel = ModelControl.Instance.ModelGroup[i + index];
-            chooseuipanel.ChooseIngImage.localPosition = new Vector3(chooseuipanel.ChooseIngImageX[i], -325.4f, 0);
+            chooseuipanel.ChooseIngImage.localPosition = new Vector3(chooseuipanel.ChooseIngImageX[i], -356f, 0);
         });
     }
 

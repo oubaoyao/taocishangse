@@ -5,10 +5,11 @@ using MTFrame;
 using UnityEngine.UI;
 using Es.InkPainter.Sample;
 using System.IO;
+using System;
 
 public class AppreciatePanel : BasePanel
 {
-    public Button Model_Right_Button, Model_Left_Button, Image_Right_Button, Image_Left_Button, BackButton;
+    public Button /*Model_Right_Button, Model_Left_Button,*/ Image_Right_Button, Image_Left_Button, BackButton;
     public Button[] ImageButtonGroup;
     public List<Texture> WorksTexture = new List<Texture>();
     public RawImage[] ImageGroup;
@@ -19,11 +20,13 @@ public class AppreciatePanel : BasePanel
 
     private int Index = 0;
 
+    private Transform CurrentModel = null;
+
     public override void InitFind()
     {
         base.InitFind();
-        Model_Right_Button = FindTool.FindChildComponent<Button>(transform, "Buttons/Model_Right_Button");
-        Model_Left_Button = FindTool.FindChildComponent<Button>(transform, "Buttons/Model_Left_Button");
+        //Model_Right_Button = FindTool.FindChildComponent<Button>(transform, "Buttons/Model_Right_Button");
+        //Model_Left_Button = FindTool.FindChildComponent<Button>(transform, "Buttons/Model_Left_Button");
         Image_Right_Button = FindTool.FindChildComponent<Button>(transform, "Buttons/Image_Right_Button");
         Image_Left_Button = FindTool.FindChildComponent<Button>(transform, "Buttons/Image_Left_Button");
         BackButton = FindTool.FindChildComponent<Button>(transform, "Buttons/BackButton");
@@ -56,7 +59,7 @@ public class AppreciatePanel : BasePanel
     public override void Open()
     {
         base.Open();
-        ChooseIngImage.GetComponent<Image>().enabled = false;
+        //ChooseIngImage.GetComponent<Image>().enabled = false;
         ChooseIngImage.localPosition = new Vector3(-267.8f, -309.7f);
         Index = 0;
         ModelControl.Instance.ColorSelector.SetActive(false);
@@ -79,6 +82,25 @@ public class AppreciatePanel : BasePanel
             }
 
             ImageAddListen(ImageButtonGroup, Index);
+            foreach (Transform item in ModelControl.Instance.ModelGroup2)
+            {
+                if (item.name == WorksDataControl.Instance.worksDatas[0].Model_name)
+                {
+                    CurrentModel = item;
+                    item.gameObject.GetComponent<MeshRenderer>().materials[0].mainTexture = WorksTextureArray[0];
+                    item.gameObject.SetActive(true);
+                }
+            }
+        }
+
+        EventManager.AddUpdateListener(MTFrame.MTEvent.UpdateEventEnumType.Update, "OnUpdate", OnUpdate);
+    }
+
+    private void OnUpdate(float timeProcess)
+    {
+        if(CurrentModel!=null)
+        {
+            CurrentModel.Rotate(Vector3.forward);
         }
     }
 
@@ -86,13 +108,14 @@ public class AppreciatePanel : BasePanel
     {
         btn.onClick.AddListener(delegate () {
             ModelControl.Instance.CloseModel2();
-            ChooseIngImage.GetComponent<Image>().enabled = true;
+            //ChooseIngImage.GetComponent<Image>().enabled = true;
             if (i+index < WorksDisplayTextureArray.Length && WorksDisplayTextureArray != null)
             {
                 foreach (Transform item in ModelControl.Instance.ModelGroup2)
                 {
                     if (item.name == WorksDataControl.Instance.worksDatas[i + index].Model_name)
                     {
+                        CurrentModel = item;
                         item.gameObject.GetComponent<MeshRenderer>().materials[0].mainTexture = WorksTextureArray[i + index];
                         item.gameObject.SetActive(true);
                     }
@@ -158,18 +181,24 @@ public class AppreciatePanel : BasePanel
 
     }
 
-    public void PointDown_Right()
+    public override void Hide()
     {
-        ModelViewControls.Instance.Start_Rotate_Right();
+        base.Hide();
+        EventManager.RemoveUpdateListener(MTFrame.MTEvent.UpdateEventEnumType.Update, "OnUpdate", OnUpdate);
     }
 
-    public void PointDown_Left()
-    {
-        ModelViewControls.Instance.Start_Rotate_Left();
-    }
+    //public void PointDown_Right()
+    //{
+    //    ModelViewControls.Instance.Start_Rotate_Right();
+    //}
 
-    public void PointUp()
-    {
-        ModelViewControls.Instance.Stop_Rotate();
-    }
+    //public void PointDown_Left()
+    //{
+    //    ModelViewControls.Instance.Start_Rotate_Left();
+    //}
+
+    //public void PointUp()
+    //{
+    //    ModelViewControls.Instance.Stop_Rotate();
+    //}
 }
