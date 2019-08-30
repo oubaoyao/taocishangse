@@ -6,18 +6,29 @@ using UnityEngine.UI;
 using Es.InkPainter.Sample;
 using Es.InkPainter;
 using System;
+using UnityEngine.EventSystems;
 
 public class GameUIPanel : BasePanel
 {
-    public Button Backbutton, CompleteButton, EraserButton,RightButton,LeftButton, PaintButton;
-    public Button[] PaintSizeButton;
+    public Button Backbutton, CompleteButton, EraserButton, RightButton, LeftButton, PaintButton;
+    public Button[] PaintSizeButton, EraserSizeButton;
     public GamePanel gamePanel;
     public CompletePanel completePanel;
 
     public Texture2D PaintTexture, EraserTexture;
-    private float[] PaintSize = { 0.1f, 0.25f, 0.5f, 0.75f };
-    private SwitchSprite[] switchSprites;
+    private float[] PaintSize = { 0.1f, 0.25f, 0.5f, 0.75f }, EraserSize = { 0.2f, 0.6f };
+    private SwitchSprite[] PanintswitchSprites, EraserswitchSprites;
     private List<SwitchSprite> EraserAndPaint = new List<SwitchSprite>();
+
+    private Vector3 CurrentModelPosition = new Vector3(0, -2.13f, 3.91f);
+
+    private float CurrentPaintSize, CurrentEraserSize, RotateValue = 0;
+
+    public CanvasGroup PaintGroup, EraserGroup;
+
+    Texture2D cursor;
+    private int width = Screen.width/5;
+    private int height = Screen.width / 5;
 
     public override void InitFind()
     {
@@ -28,32 +39,59 @@ public class GameUIPanel : BasePanel
         PaintButton = FindTool.FindChildComponent<Button>(transform, "buttons/PaintButton");
         RightButton = FindTool.FindChildComponent<Button>(transform, "buttons/RightButton");
         LeftButton = FindTool.FindChildComponent<Button>(transform, "buttons/LeftButton");
-        PaintSizeButton = FindTool.FindChildNode(transform, "PaintSize/SizeGroup").GetComponentsInChildren<Button>();
 
-        switchSprites = FindTool.FindChildNode(transform, "PaintSize/SizeGroup").GetComponentsInChildren<SwitchSprite>();
+        PaintSizeButton = FindTool.FindChildNode(transform, "buttons/PaintSize/SizeGroup").GetComponentsInChildren<Button>();
+        EraserSizeButton = FindTool.FindChildNode(transform, "buttons/EraserSize/SizeGroup").GetComponentsInChildren<Button>();
+
+        PanintswitchSprites = FindTool.FindChildNode(transform, "buttons/PaintSize/SizeGroup").GetComponentsInChildren<SwitchSprite>();
+        EraserswitchSprites = FindTool.FindChildNode(transform, "buttons/EraserSize/SizeGroup").GetComponentsInChildren<SwitchSprite>();
 
         completePanel = FindTool.FindChildComponent<CompletePanel>(transform, "CompletePanel");
         gamePanel = FindTool.FindParentComponent<GamePanel>(transform, "GamePanel");
+
+        PaintGroup = FindTool.FindChildNode(transform, "buttons/PaintSize").GetComponentInChildren<CanvasGroup>();
+        EraserGroup = FindTool.FindChildNode(transform, "buttons/EraserSize").GetComponentInChildren<CanvasGroup>();
     }
 
     public override void InitEvent()
     {
         base.InitEvent();
-        Backbutton.onClick.AddListener(() => {
+        Backbutton.onClick.AddListener(() =>
+        {
             Hide();
+            AudioManager.PlayAudio("按键声音", transform, MTFrame.MTAudio.AudioEnunType.Effset);
+            GamePanel.CurrentModel.localPosition = ModelControl.LocalPosition;
             ModelControl.Instance.ResetMaterial();
-            gamePanel.chooseuipanel.Open();           
+            gamePanel.chooseuipanel.Open();
         });
 
-        CompleteButton.onClick.AddListener(() => {
+        //RightButton.onClick.AddListener(() =>
+        //{
+        //    GamePanel.CurrentModel.Rotate(Vector3.forward * 40);
+        //});
 
+        //LeftButton.onClick.AddListener(() =>
+        //{
+        //    GamePanel.CurrentModel.Rotate(Vector3.back * 40);
+        //});
+
+        CompleteButton.onClick.AddListener(() =>
+        {
+            MousePainter.Instance.IsGamestart = false;
+            AudioManager.PlayAudio("按键声音", transform, MTFrame.MTAudio.AudioEnunType.Effset);
+            PaintGroup.alpha = 0;
+            EraserGroup.alpha = 0;
             SaveModelData();
-            Cursor.SetCursor(null, Vector2.zero, CursorMode.Auto);
+            //Cursor.SetCursor(null, Vector2.zero, CursorMode.Auto);
         });
 
-        EraserButton.onClick.AddListener(() => {
+        EraserButton.onClick.AddListener(() =>
+        {
+            AudioManager.PlayAudio("按键声音", transform, MTFrame.MTAudio.AudioEnunType.Effset);
             MousePainter.Instance.erase = true;
-            Cursor.SetCursor(EraserTexture, Vector2.zero, CursorMode.Auto);
+            cursor = EraserTexture;
+            MousePainter.Instance.brush.Scale = CurrentEraserSize;
+            //Cursor.SetCursor(EraserTexture, Vector2.zero, CursorMode.Auto);
             EraserButton.Select();
             foreach (SwitchSprite item in EraserAndPaint)
             {
@@ -62,9 +100,13 @@ public class GameUIPanel : BasePanel
             EraserAndPaint[1].DownButtonSprite();
         });
 
-        PaintButton.onClick.AddListener(() => {
+        PaintButton.onClick.AddListener(() =>
+        {
+            AudioManager.PlayAudio("按键声音", transform, MTFrame.MTAudio.AudioEnunType.Effset);
             MousePainter.Instance.erase = false;
-            Cursor.SetCursor(PaintTexture, Vector2.zero, CursorMode.Auto);
+            cursor = PaintTexture;
+            MousePainter.Instance.brush.Scale = CurrentPaintSize;
+            //Cursor.SetCursor(PaintTexture, Vector2.zero, CursorMode.Auto);
             foreach (SwitchSprite item in EraserAndPaint)
             {
                 item.InitButtonSprite();
@@ -74,7 +116,12 @@ public class GameUIPanel : BasePanel
 
         for (int i = 0; i < PaintSizeButton.Length; i++)
         {
-            InitButton(PaintSizeButton[i], i);      
+            InitPaintButton(PaintSizeButton[i], i);
+        }
+
+        for (int i = 0; i < EraserSizeButton.Length; i++)
+        {
+            InitEraserButton(EraserSizeButton[i], i);
         }
 
         EraserAndPaint.Add(PaintButton.gameObject.GetComponent<SwitchSprite>());
@@ -82,22 +129,49 @@ public class GameUIPanel : BasePanel
         //PaintRawImagePosition = PaintRawImage.gameObject.transform.localPosition;
     }
 
-    private void InitButton(Button button, int a)
+    private void InitPaintButton(Button button, int a)
     {
-        button.onClick.AddListener(() => {
-            foreach (SwitchSprite item in switchSprites)
+        button.onClick.AddListener(() =>
+        {
+            if (!MousePainter.Instance.erase)
             {
-                item.InitButtonSprite();
+                foreach (SwitchSprite item in PanintswitchSprites)
+                {
+                    item.InitButtonSprite();
+                }
+                button.gameObject.GetComponent<SwitchSprite>().DownButtonSprite();
+                MousePainter.Instance.brush.Scale = PaintSize[a] / 5;
+                CurrentPaintSize = PaintSize[a] / 5;
             }
-            button.gameObject.GetComponent<SwitchSprite>().DownButtonSprite();
-            MousePainter.Instance.brush.Scale = PaintSize[a]/5;
         });
 
     }
 
+    private void InitEraserButton(Button button, int a)
+    {
+        button.onClick.AddListener(() =>
+        {
+            if (MousePainter.Instance.erase)
+            {
+                foreach (SwitchSprite item in EraserswitchSprites)
+                {
+                    item.InitButtonSprite();
+                }
+                button.gameObject.GetComponent<SwitchSprite>().DownButtonSprite();
+                MousePainter.Instance.brush.Scale = EraserSize[a] / 5;
+                CurrentEraserSize = EraserSize[a] / 5;
+            }
+        });
+    }
+
     private void InitPaintSize()
     {
-        foreach (SwitchSprite item in switchSprites)
+        foreach (SwitchSprite item in PanintswitchSprites)
+        {
+            item.InitButtonSprite();
+        }
+
+        foreach (SwitchSprite item in EraserswitchSprites)
         {
             item.InitButtonSprite();
         }
@@ -106,31 +180,47 @@ public class GameUIPanel : BasePanel
         {
             item.InitButtonSprite();
         }
-        switchSprites[0].DownButtonSprite();
+        PanintswitchSprites[0].DownButtonSprite();
+        EraserswitchSprites[0].DownButtonSprite();
         EraserAndPaint[0].DownButtonSprite();
+
         MousePainter.Instance.erase = false;
-        MousePainter.Instance.brush.Scale = PaintSize[0]/5;
+        MousePainter.Instance.brush.Scale = PaintSize[0] / 5;
+        CurrentPaintSize = PaintSize[0] / 5;
+        CurrentEraserSize = EraserSize[0] / 5;
+        cursor = PaintTexture;
     }
 
     public override void Open()
     {
         base.Open();
-        Cursor.visible = true;
+        //Cursor.visible = true;
+        
         InitPaintSize();
-        Cursor.SetCursor(PaintTexture, Vector2.zero, CursorMode.Auto);
+        //Cursor.SetCursor(PaintTexture, Vector2.zero, CursorMode.Auto);
         ModelControl.Instance.ColorSelector.SetActive(true);
         MousePainter.Instance.IsGamestart = true;
-        
+        EventManager.RemoveUpdateListener(MTFrame.MTEvent.UpdateEventEnumType.Update, "Aupdate", Aupdate);
+        EventManager.AddUpdateListener(MTFrame.MTEvent.UpdateEventEnumType.Update, "Aupdate", Aupdate);
+    }
+
+    private void Aupdate(float timeProcess)
+    {
+        if (MousePainter.Instance.IsGamestart)
+        {
+            GamePanel.CurrentModel.Rotate(Vector3.forward * Time.deltaTime * RotateValue);
+        }
     }
 
     public override void Hide()
     {
         base.Hide();
         //Cursor.visible = false;
-        Cursor.SetCursor(null, Vector2.zero, CursorMode.Auto);
+        //Cursor.SetCursor(null, Vector2.zero, CursorMode.Auto);
         MousePainter.Instance.IsGamestart = false;
         gamePanel.chooseuipanel.Open();
         ModelControl.Instance.ColorSelector.SetActive(false);
+        EventManager.RemoveUpdateListener(MTFrame.MTEvent.UpdateEventEnumType.Update, "Aupdate", Aupdate);
     }
 
     IEnumerator getScreenTexture(string path)
@@ -139,12 +229,12 @@ public class GameUIPanel : BasePanel
         //需要正确设置好图片保存格式
         Texture2D t = new Texture2D(248, 248, TextureFormat.RGB24, false);
         //按照设定区域读取像素；注意是以左下角为原点读取
-        t.ReadPixels(new Rect(0.25f*Screen.width, 0.4f * Screen.height, 248, 248), 0, 0);
+        t.ReadPixels(new Rect(0.25f * Screen.width, 0.3f * Screen.height, 248, 248), 0, 0);
         t.Apply();
         WorksDataControl.Instance.WorksDisplayTexture.Add(t);
         //二进制转换
         byte[] byt = t.EncodeToJPG();
-        
+
         System.IO.File.WriteAllBytes(path, byt);
         GamePanel.CurrentModel.gameObject.SetActive(false);
         ModelControl.Instance.ColorSelector.SetActive(false);
@@ -175,16 +265,33 @@ public class GameUIPanel : BasePanel
 
     public void PointDown_Right()
     {
-        ModelViewControls.Instance.Start_Rotate_Right();
+        GamePanel.CurrentModel.Rotate(Vector3.forward * -40);
+        RotateValue = -20;
+
+        //ModelViewControls.Instance.Start_Rotate_Right();
     }
 
     public void PointDown_Left()
     {
-        ModelViewControls.Instance.Start_Rotate_Left();
+        GamePanel.CurrentModel.Rotate(Vector3.forward * 40);
+        RotateValue = 20;
+        //GamePanel.CurrentModel.Rotate(Vector3.back * Time.deltaTime);
+        //ModelViewControls.Instance.Start_Rotate_Left();
     }
 
     public void PointUp()
     {
-        ModelViewControls.Instance.Stop_Rotate();
+        RotateValue = 0;
+        //ModelViewControls.Instance.Stop_Rotate();
+    }
+
+    void OnGUI()
+    {
+        if(MousePainter.Instance.IsGamestart)
+        {
+            GUI.DrawTexture(new Rect(Event.current.mousePosition.x - width/5, Event.current.mousePosition.y - height/5, width, height), cursor);
+            //GUI.DrawTexture(new Rect(Event.current.mousePosition.x  , Event.current.mousePosition.y  , width, height), cursor);
+        }
+        
     }
 }

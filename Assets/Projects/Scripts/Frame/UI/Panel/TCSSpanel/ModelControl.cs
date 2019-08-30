@@ -20,6 +20,9 @@ public class ModelControl : MonoBehaviour
 
     public GameObject ColorSelector;
 
+    public static Vector3 LocalPosition = new Vector3(0, -1.43f, 3.83f);
+    public static Vector3 GamePanelModelPosition = new Vector3(0, -2.13f, 3.91f);
+
     private void Awake()
     {
         Instance = this;
@@ -45,6 +48,7 @@ public class ModelControl : MonoBehaviour
         foreach (Transform item in ModelGroup)
         {
             item.gameObject.SetActive(false);
+            item.localPosition = LocalPosition;
             if (item.name == "Cylinder003")
             {
                 item.localEulerAngles = new Vector3(-90, 0, 90);

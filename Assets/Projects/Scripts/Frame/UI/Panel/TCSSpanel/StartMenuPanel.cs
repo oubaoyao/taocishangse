@@ -23,6 +23,7 @@ public class StartMenuPanel : BasePanel
         base.InitEvent();
         PlayButton.onClick .AddListener(() =>
         {
+            AudioManager.PlayAudio("按键声音", transform, MTFrame.MTAudio.AudioEnunType.Effset);
             TCSSstate.SwitchPanel(SwitchPanelEnum.GamePanel);
         });
     }

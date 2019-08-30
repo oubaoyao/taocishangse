@@ -8,6 +8,7 @@ public class SwitchSprite : MonoBehaviour
     private Image buttonImage;
     //private Button button;
     public Sprite UpSprite, DownSprite;
+
     // Start is called before the first frame update
     void Start()
     {

@@ -31,7 +31,9 @@ public class ChooseUIPanel : BasePanel
         base.InitEvent();
         DetermineButton.onClick.AddListener(() => {
             Hide();
+            AudioManager.PlayAudio("按键声音", transform, MTFrame.MTAudio.AudioEnunType.Effset);
             gamePanel.gameuiPanel.Open();
+            GamePanel.CurrentModel.localPosition = ModelControl.GamePanelModelPosition;
         });
 
         //LeftButton.onClick.AddListener(() => {

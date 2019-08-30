@@ -60,7 +60,7 @@ public class AppreciatePanel : BasePanel
     {
         base.Open();
         //ChooseIngImage.GetComponent<Image>().enabled = false;
-        ChooseIngImage.localPosition = new Vector3(-267.8f, -309.7f);
+        ChooseIngImage.localPosition = new Vector3(-267.8f, -346f);
         Index = 0;
         ModelControl.Instance.ColorSelector.SetActive(false);
         if (WorksDataControl.Instance.WorksDisplayTexture.Count > 0)
@@ -100,7 +100,7 @@ public class AppreciatePanel : BasePanel
     {
         if(CurrentModel!=null)
         {
-            CurrentModel.Rotate(Vector3.forward);
+            CurrentModel.Rotate(Vector3.back);
         }
     }
 
@@ -121,7 +121,7 @@ public class AppreciatePanel : BasePanel
                     }
                 }
             }
-            ChooseIngImage.localPosition = new Vector3(ChooseIngImageX[i], -309.7f, 0);
+            ChooseIngImage.localPosition = new Vector3(ChooseIngImageX[i], -346f, 0);
         });
     }
 

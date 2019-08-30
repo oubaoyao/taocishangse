@@ -59,5 +59,7 @@ public class CompletePanel : BasePanel
         base.Hide();
         starAniamtor.SetBool("newstate-starAnimation", false);
         starAniamtor.SetBool("starlooperanimation-newstate", true);
+        gameuipanel.EraserGroup.alpha = 1;
+        gameuipanel.PaintGroup.alpha = 1;
     }
 }

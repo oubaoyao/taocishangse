@@ -15,6 +15,7 @@ public class ModelViewControls : MonoBehaviour {
     public float VerticalValue = 0;
     public float HorizontalValue = 1;
 
+
     private void Awake()
     {
         Instance = this;
