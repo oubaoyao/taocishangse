@@ -1881,7 +1881,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   resolution: {x: 1024, y: 1280}
-  fullScreen: 0
+  fullScreen: 1
   isCursor: 0
   isDebug: 0
 --- !u!114 &1897669314

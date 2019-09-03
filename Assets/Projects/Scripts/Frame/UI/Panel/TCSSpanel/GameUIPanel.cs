@@ -24,7 +24,8 @@ public class GameUIPanel : BasePanel
 
     private float CurrentPaintSize, CurrentEraserSize, RotateValue = 0;
 
-    public CanvasGroup PaintGroup, EraserGroup;
+    public CanvasGroup PaintGroup, EraserGroup,tipgroup;
+    public Animator tips1Anima, tips2Anima;
 
     Texture2D cursor;
     private int width = Screen.width/5;
@@ -51,6 +52,10 @@ public class GameUIPanel : BasePanel
 
         PaintGroup = FindTool.FindChildNode(transform, "buttons/PaintSize").GetComponentInChildren<CanvasGroup>();
         EraserGroup = FindTool.FindChildNode(transform, "buttons/EraserSize").GetComponentInChildren<CanvasGroup>();
+        tipgroup = FindTool.FindChildComponent<CanvasGroup>(transform, "tipGroup");
+
+        tips1Anima = FindTool.FindChildComponent<Animator>(transform, "tipGroup/tips1");
+        tips2Anima = FindTool.FindChildComponent<Animator>(transform, "tipGroup/tips2");
     }
 
     public override void InitEvent()
@@ -190,13 +195,13 @@ public class GameUIPanel : BasePanel
         {
             item.InitButtonSprite();
         }
-        PanintswitchSprites[0].DownButtonSprite();
+        PanintswitchSprites[1].DownButtonSprite();
         EraserswitchSprites[0].DownButtonSprite();
         EraserAndPaint[0].DownButtonSprite();
 
         MousePainter.Instance.erase = false;
-        MousePainter.Instance.brush.Scale = PaintSize[0] / 5;
-        CurrentPaintSize = PaintSize[0] / 5;
+        MousePainter.Instance.brush.Scale = PaintSize[1] / 5;
+        CurrentPaintSize = MousePainter.Instance.brush.Scale;
         CurrentEraserSize = EraserSize[0] / 5;
         cursor = PaintTexture;
     }
@@ -205,13 +210,16 @@ public class GameUIPanel : BasePanel
     {
         base.Open();
         //Cursor.visible = true;
-        
+        OpenTips();
         InitPaintSize();
         //Cursor.SetCursor(PaintTexture, Vector2.zero, CursorMode.Auto);
         ModelControl.Instance.ColorSelector.SetActive(true);
         MousePainter.Instance.IsGamestart = true;
         EventManager.RemoveUpdateListener(MTFrame.MTEvent.UpdateEventEnumType.Update, "Aupdate", Aupdate);
         EventManager.AddUpdateListener(MTFrame.MTEvent.UpdateEventEnumType.Update, "Aupdate", Aupdate);
+
+        TimeTool.Instance.Remove(TimeDownType.NoUnityTimeLineImpact, CloseTips);
+        TimeTool.Instance.AddDelayed(TimeDownType.NoUnityTimeLineImpact, 15, CloseTips);
     }
 
     private void Aupdate(float timeProcess)
@@ -297,6 +305,29 @@ public class GameUIPanel : BasePanel
     {
         RotateValue = 0;
         //ModelViewControls.Instance.Stop_Rotate();
+    }
+
+    private void CloseTips()
+    {
+        tipgroup.alpha = 0;
+        tipgroup.blocksRaycasts = false;
+        //tips1Anima.SetBool("Isstart", true);
+        //tips1Anima.SetBool("Isstop", false);
+
+        //tips2Anima.SetBool("Isstart", true);
+        //tips2Anima.SetBool("Isstop", false);
+    }
+
+    private void OpenTips()
+    {
+        tipgroup.alpha = 1;
+        tipgroup.blocksRaycasts = false;
+
+        //tips1Anima.SetBool("Isstart", false);
+        //tips1Anima.SetBool("Isstop", true);
+
+        //tips2Anima.SetBool("Isstart", false);
+        //tips2Anima.SetBool("Isstop", true);
     }
 
     void OnGUI()

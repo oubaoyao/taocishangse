@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using Newtonsoft.Json;
 using System.IO;
+using MTFrame;
+using System;
 
 [System.Serializable]
 public class WorksData
@@ -59,7 +61,24 @@ public class WorksDataControl : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        if(Input.GetMouseButtonUp(0))
+        {
+            TimeTool.Instance.AddDelayed(TimeDownType.NoUnityTimeLineImpact, 30.0f, BackMainMenu);
+            
+        }
+
+        if(Input.GetMouseButtonDown(0))
+        {
+            TimeTool.Instance.Remove(TimeDownType.NoUnityTimeLineImpact, BackMainMenu);
+        }
+    }
+
+    private void BackMainMenu()
+    {
+        TCSSstate.SwitchPanel(MTFrame.MTEvent.SwitchPanelEnum.StartMenuPanel);
+        ModelControl.Instance.CloseModel();
+        ModelControl.Instance.CloseModel2();
+        GC.Collect();
     }
 
     public void SaveFile(string msg, string FilePath)
