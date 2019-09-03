@@ -103,4 +103,22 @@ public class WorksDataControl : MonoBehaviour
         texture2D.LoadImage(bytes);
         return texture2D;
     }
+
+    public void DeleteTexture()
+    {
+        string str = worksDatas[0].Jpg_path;
+        string str1 = Application.streamingAssetsPath + "/SaveImage/" + str + ".jpg";
+        string str2 = Application.streamingAssetsPath + "/SavePng/" + str + ".png";
+        if(File.Exists(str1))
+        {
+            File.Delete(str1);
+        }
+        if (File.Exists(str2))
+        {
+            File.Delete(str2);
+        }
+        worksDatas.RemoveAt(0);
+        WorksTexture.RemoveAt(0);
+        WorksDisplayTexture.RemoveAt(0);
+    }
 }

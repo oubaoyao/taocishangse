@@ -20,7 +20,7 @@ public class ModelControl : MonoBehaviour
 
     public GameObject ColorSelector;
 
-    public static Vector3 LocalPosition = new Vector3(0, -1.43f, 3.83f);
+    public static Vector3 LocalPosition = new Vector3(0, -1.68f, 3.83f);
     public static Vector3 GamePanelModelPosition = new Vector3(0, -2.13f, 3.91f);
 
     private void Awake()
@@ -53,6 +53,10 @@ public class ModelControl : MonoBehaviour
             {
                 item.localEulerAngles = new Vector3(-90, 0, 90);
             }
+            else if(item.name == "Cylinder001" || item.name == "Cylinder005")
+            {
+                item.localEulerAngles = new Vector3(-90, 0, 180);
+            }
             else
             {
                 item.localEulerAngles = new Vector3(-90, 0, 0);
@@ -69,6 +73,10 @@ public class ModelControl : MonoBehaviour
             if (item.name == "Cylinder003")
             {
                 item.localEulerAngles = new Vector3(-90, 0, 90);
+            }
+            else if (item.name == "Cylinder001" || item.name == "Cylinder005")
+            {
+                item.localEulerAngles = new Vector3(-90, 0, 180);
             }
             else
             {

@@ -16,11 +16,11 @@ public class GameUIPanel : BasePanel
     public CompletePanel completePanel;
 
     public Texture2D PaintTexture, EraserTexture;
-    private float[] PaintSize = { 0.1f, 0.25f, 0.5f, 0.75f }, EraserSize = { 0.2f, 0.6f };
+    private float[] PaintSize = { 0.1f, 0.2f, 0.3f, 0.4f }, EraserSize = { 0.2f, 0.6f };
     private SwitchSprite[] PanintswitchSprites, EraserswitchSprites;
     private List<SwitchSprite> EraserAndPaint = new List<SwitchSprite>();
 
-    private Vector3 CurrentModelPosition = new Vector3(0, -2.13f, 3.91f);
+    private Vector3 CurrentModelPosition = new Vector3(0, -2.12f, 3.91f);
 
     private float CurrentPaintSize, CurrentEraserSize, RotateValue = 0;
 
@@ -227,9 +227,9 @@ public class GameUIPanel : BasePanel
     {
         yield return new WaitForEndOfFrame();
         //需要正确设置好图片保存格式
-        Texture2D t = new Texture2D(248, 248, TextureFormat.RGB24, false);
+        Texture2D t = new Texture2D(610, 610, TextureFormat.RGB24, false);
         //按照设定区域读取像素；注意是以左下角为原点读取
-        t.ReadPixels(new Rect(0.25f * Screen.width, 0.3f * Screen.height, 248, 248), 0, 0);
+        t.ReadPixels(new Rect(0.22f * Screen.width, 0.26f * Screen.height, 610, 610), 0, 0);
         t.Apply();
         WorksDataControl.Instance.WorksDisplayTexture.Add(t);
         //二进制转换
@@ -252,6 +252,10 @@ public class GameUIPanel : BasePanel
         worksData.Texture_Path = str;
 
         WorksDataControl.Instance.worksDatas.Add(worksData);
+        if(WorksDataControl.Instance.worksDatas.Count > 15)
+        {
+            WorksDataControl.Instance.DeleteTexture();
+        }
         StartCoroutine(getScreenTexture(str1));
 
         if (GamePanel.CurrentModel.GetComponent<InkCanvas>() != null)

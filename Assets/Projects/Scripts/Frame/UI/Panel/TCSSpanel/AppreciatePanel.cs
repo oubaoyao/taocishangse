@@ -19,6 +19,7 @@ public class AppreciatePanel : BasePanel
     public float[] ChooseIngImageX = { -267.9f, -134.2f, 1.0f, 134.1f, 269.0f };
 
     private int Index = 0;
+    private int CurrentModelNumber = 0;
 
     private Transform CurrentModel = null;
 
@@ -60,7 +61,7 @@ public class AppreciatePanel : BasePanel
     {
         base.Open();
         //ChooseIngImage.GetComponent<Image>().enabled = false;
-        ChooseIngImage.localPosition = new Vector3(-267.8f, -346f);
+        ChooseIngImage.localPosition = new Vector3(-267.8f, -379.7f);
         Index = 0;
         ModelControl.Instance.ColorSelector.SetActive(false);
         if (WorksDataControl.Instance.WorksDisplayTexture.Count > 0)
@@ -76,7 +77,7 @@ public class AppreciatePanel : BasePanel
                 {
                     if (i < WorksDisplayTextureArray.Length)
                     {
-                        ImageGroup[i].texture = WorksDisplayTextureArray[i];
+                        ImageGroup[i].texture = WorksDisplayTextureArray[WorksDisplayTextureArray.Length - 1 - i];
                     }
                 }
             }
@@ -84,11 +85,12 @@ public class AppreciatePanel : BasePanel
             ImageAddListen(ImageButtonGroup, Index);
             foreach (Transform item in ModelControl.Instance.ModelGroup2)
             {
-                if (item.name == WorksDataControl.Instance.worksDatas[0].Model_name)
+                if (item.name == WorksDataControl.Instance.worksDatas[WorksDisplayTextureArray.Length - 1].Model_name)
                 {
                     CurrentModel = item;
-                    item.gameObject.GetComponent<MeshRenderer>().materials[0].mainTexture = WorksTextureArray[0];
+                    item.gameObject.GetComponent<MeshRenderer>().materials[0].mainTexture = WorksTextureArray[WorksDisplayTextureArray.Length - 1];
                     item.gameObject.SetActive(true);
+                    CurrentModelNumber = WorksDisplayTextureArray.Length - 1;
                 }
             }
         }
@@ -113,15 +115,16 @@ public class AppreciatePanel : BasePanel
             {
                 foreach (Transform item in ModelControl.Instance.ModelGroup2)
                 {
-                    if (item.name == WorksDataControl.Instance.worksDatas[i + index].Model_name)
+                    if (item.name == WorksDataControl.Instance.worksDatas[WorksDisplayTextureArray.Length - 1 - (i + index)].Model_name)
                     {
                         CurrentModel = item;
-                        item.gameObject.GetComponent<MeshRenderer>().materials[0].mainTexture = WorksTextureArray[i + index];
+                        item.gameObject.GetComponent<MeshRenderer>().materials[0].mainTexture = WorksTextureArray[WorksDisplayTextureArray.Length - 1 - (i + index)];
                         item.gameObject.SetActive(true);
+                        CurrentModelNumber = WorksDisplayTextureArray.Length - 1 - (i + index);
                     }
                 }
             }
-            ChooseIngImage.localPosition = new Vector3(ChooseIngImageX[i], -346f, 0);
+            ChooseIngImage.localPosition = new Vector3(ChooseIngImageX[i], -379.7f, 0);
         });
     }
 
@@ -151,10 +154,22 @@ public class AppreciatePanel : BasePanel
             {
                 if (i < WorksDisplayTextureArray.Length)
                 {
-                    ImageGroup[i].texture = WorksDisplayTextureArray[i + Index];
+                    ImageGroup[i].texture = WorksDisplayTextureArray[WorksDisplayTextureArray.Length - 1 - (i + Index)];
                 }
             }
             ImageAddListen(ImageButtonGroup, Index);
+            CurrentModelNumber++;
+            ModelControl.Instance.CloseModel2();
+            foreach (Transform item in ModelControl.Instance.ModelGroup2)
+            {
+                if (item.name == WorksDataControl.Instance.worksDatas[CurrentModelNumber].Model_name)
+                {
+                    CurrentModel = item;
+                    item.gameObject.GetComponent<MeshRenderer>().materials[0].mainTexture = WorksTextureArray[CurrentModelNumber];
+                    item.gameObject.SetActive(true);
+                   
+                }
+            }
         }
 
     }
@@ -173,10 +188,22 @@ public class AppreciatePanel : BasePanel
             {
                 if (i < WorksDisplayTextureArray.Length)
                 {
-                    ImageGroup[i].texture = WorksDisplayTextureArray[i + Index];
+                    ImageGroup[i].texture = WorksDisplayTextureArray[WorksDisplayTextureArray.Length - 1 - (i + Index)];
                 }
             }
             ImageAddListen(ImageButtonGroup, Index);
+            CurrentModelNumber--;
+            ModelControl.Instance.CloseModel2();
+            foreach (Transform item in ModelControl.Instance.ModelGroup2)
+            {
+                if (item.name == WorksDataControl.Instance.worksDatas[CurrentModelNumber].Model_name)
+                {
+                    CurrentModel = item;
+                    item.gameObject.GetComponent<MeshRenderer>().materials[0].mainTexture = WorksTextureArray[CurrentModelNumber];
+                    item.gameObject.SetActive(true);
+
+                }
+            }
         }
 
     }
