@@ -594,7 +594,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   brush:
-    brushTexture: {fileID: 2800000, guid: f198c1c995ef08c478009b65a48af828, type: 3}
+    brushTexture: {fileID: 2800000, guid: 5e835d5452a326146b348618bb79c7eb, type: 3}
     brushNormalTexture: {fileID: 2800000, guid: 945b831b22eb06945bf77e00f16ff51a,
       type: 3}
     brushHeightTexture: {fileID: 0}
@@ -1584,7 +1584,7 @@ Canvas:
   serializedVersion: 3
   m_RenderMode: 1
   m_Camera: {fileID: 581037058}
-  m_PlaneDistance: 9.6
+  m_PlaneDistance: 10
   m_PixelPerfect: 0
   m_ReceivesEvents: 1
   m_OverrideSorting: 0
@@ -1880,9 +1880,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f658da40184f9d949b0f91e4b415b96a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  resolution: {x: 512, y: 640}
+  resolution: {x: 1024, y: 1280}
   fullScreen: 0
-  isCursor: 1
+  isCursor: 0
   isDebug: 0
 --- !u!114 &1897669314
 MonoBehaviour:

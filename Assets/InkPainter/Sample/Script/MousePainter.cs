@@ -33,6 +33,7 @@ namespace Es.InkPainter.Sample
 
         private void Update()
 		{
+            //Debug.Log("1111");
 			if(Input.GetMouseButton(0)&& IsGamestart)
 			{
                 brush.Color = ColorSelector.GetColor();

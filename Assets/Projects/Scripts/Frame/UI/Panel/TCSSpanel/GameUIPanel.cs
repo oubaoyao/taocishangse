@@ -16,7 +16,7 @@ public class GameUIPanel : BasePanel
     public CompletePanel completePanel;
 
     public Texture2D PaintTexture, EraserTexture;
-    private float[] PaintSize = { 0.1f, 0.2f, 0.3f, 0.4f }, EraserSize = { 0.2f, 0.6f };
+    private float[] PaintSize = { 0.025f, 0.05f, 0.075f, 0.1f }, EraserSize = { 0.1f, 0.2f };
     private SwitchSprite[] PanintswitchSprites, EraserswitchSprites;
     private List<SwitchSprite> EraserAndPaint = new List<SwitchSprite>();
 
@@ -82,36 +82,16 @@ public class GameUIPanel : BasePanel
             PaintGroup.alpha = 0;
             EraserGroup.alpha = 0;
             SaveModelData();
-            //Cursor.SetCursor(null, Vector2.zero, CursorMode.Auto);
         });
 
         EraserButton.onClick.AddListener(() =>
         {
-            AudioManager.PlayAudio("按键声音", transform, MTFrame.MTAudio.AudioEnunType.Effset);
-            MousePainter.Instance.erase = true;
-            cursor = EraserTexture;
-            MousePainter.Instance.brush.Scale = CurrentEraserSize;
-            //Cursor.SetCursor(EraserTexture, Vector2.zero, CursorMode.Auto);
-            EraserButton.Select();
-            foreach (SwitchSprite item in EraserAndPaint)
-            {
-                item.InitButtonSprite();
-            }
-            EraserAndPaint[1].DownButtonSprite();
+            ChooseEraser();
         });
 
         PaintButton.onClick.AddListener(() =>
         {
-            AudioManager.PlayAudio("按键声音", transform, MTFrame.MTAudio.AudioEnunType.Effset);
-            MousePainter.Instance.erase = false;
-            cursor = PaintTexture;
-            MousePainter.Instance.brush.Scale = CurrentPaintSize;
-            //Cursor.SetCursor(PaintTexture, Vector2.zero, CursorMode.Auto);
-            foreach (SwitchSprite item in EraserAndPaint)
-            {
-                item.InitButtonSprite();
-            }
-            EraserAndPaint[0].DownButtonSprite();
+            ChoosePaint();
         });
 
         for (int i = 0; i < PaintSizeButton.Length; i++)
@@ -129,10 +109,39 @@ public class GameUIPanel : BasePanel
         //PaintRawImagePosition = PaintRawImage.gameObject.transform.localPosition;
     }
 
+    private void ChooseEraser()
+    {
+        AudioManager.PlayAudio("按键声音", transform, MTFrame.MTAudio.AudioEnunType.Effset);
+        MousePainter.Instance.erase = true;
+        cursor = EraserTexture;
+        MousePainter.Instance.brush.Scale = CurrentEraserSize;
+        EraserButton.Select();
+        foreach (SwitchSprite item in EraserAndPaint)
+        {
+            item.InitButtonSprite();
+        }
+        EraserAndPaint[1].DownButtonSprite();
+    }
+
+    private void ChoosePaint()
+    {
+        AudioManager.PlayAudio("按键声音", transform, MTFrame.MTAudio.AudioEnunType.Effset);
+        MousePainter.Instance.erase = false;
+        cursor = PaintTexture;
+        MousePainter.Instance.brush.Scale = CurrentPaintSize;
+        //Cursor.SetCursor(PaintTexture, Vector2.zero, CursorMode.Auto);
+        foreach (SwitchSprite item in EraserAndPaint)
+        {
+            item.InitButtonSprite();
+        }
+        EraserAndPaint[0].DownButtonSprite();
+    }
+
     private void InitPaintButton(Button button, int a)
     {
         button.onClick.AddListener(() =>
         {
+            ChoosePaint();
             if (!MousePainter.Instance.erase)
             {
                 foreach (SwitchSprite item in PanintswitchSprites)
@@ -151,6 +160,7 @@ public class GameUIPanel : BasePanel
     {
         button.onClick.AddListener(() =>
         {
+            ChooseEraser();
             if (MousePainter.Instance.erase)
             {
                 foreach (SwitchSprite item in EraserswitchSprites)
