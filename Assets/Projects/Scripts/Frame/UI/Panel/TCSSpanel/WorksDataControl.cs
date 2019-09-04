@@ -52,10 +52,6 @@ public class WorksDataControl : MonoBehaviour
                 WorksDisplayTexture.Add(LoadByIO(Application.streamingAssetsPath + "/SaveImage/" + worksDatasGroup.worksDatas[i].Jpg_path + ".jpg"));
             }
         }
-    //else
-    //{
-    //    worksDatas = null;
-    //}
     }
 
     // Update is called once per frame
@@ -63,7 +59,7 @@ public class WorksDataControl : MonoBehaviour
     {
         if(Input.GetMouseButtonUp(0))
         {
-            TimeTool.Instance.AddDelayed(TimeDownType.NoUnityTimeLineImpact, 30.0f, BackMainMenu);
+            TimeTool.Instance.AddDelayed(TimeDownType.NoUnityTimeLineImpact, 120.0f, BackMainMenu);
             
         }
 
