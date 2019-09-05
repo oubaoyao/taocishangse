@@ -10,6 +10,7 @@ public class StartMenuPanel : BasePanel
     public Button PlayButton;
     public Animator tiltleAnimator, StartButton;
 
+
     public override void InitFind()
     {
         base.InitFind();
@@ -36,6 +37,10 @@ public class StartMenuPanel : BasePanel
 
         StartButton.SetBool("start", true);
         StartButton.SetBool("stop", false);
+
+        AudioManager.StopAudio("Little West - Lost In My View-背景音乐", transform, MTFrame.MTAudio.AudioEnunType.BGM);
+        AudioManager.PlayAudio("陶瓷上色-游戏待机(Walking With A Pet)", transform, MTFrame.MTAudio.AudioEnunType.BGM, 0.25f, true);
+        
     }
 
     public override void Hide()
@@ -43,5 +48,8 @@ public class StartMenuPanel : BasePanel
         base.Hide();
         tiltleAnimator.SetBool("newstate-tiltle", false);
         tiltleAnimator.SetBool("loopertiltle-Newstate", true);
+        AudioManager.StopAudio("陶瓷上色-游戏待机(Walking With A Pet)", transform, MTFrame.MTAudio.AudioEnunType.BGM);
+        AudioManager.PlayAudio("Little West - Lost In My View-背景音乐", transform, MTFrame.MTAudio.AudioEnunType.BGM, 0.25f, true);
+        
     }
 }

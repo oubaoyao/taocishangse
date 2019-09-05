@@ -104,7 +104,14 @@ namespace Es.InkPainter.Sample
                     lastPoint = hitInfo.point;
                 }
 			}
-		}
+
+
+           
+            if (Input.GetMouseButtonUp(0))
+            {
+                lastPoint = Vector3.zero;
+            }
+        }
 
         //public void OnGUI()
         //{

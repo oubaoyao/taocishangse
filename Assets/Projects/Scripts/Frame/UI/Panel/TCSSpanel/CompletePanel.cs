@@ -65,6 +65,7 @@ public class CompletePanel : BasePanel
         DisplayRawImage.texture = WorksDataControl.Instance.WorksDisplayTexture[WorksDataControl.Instance.WorksDisplayTexture.Count - 1];
 
         TimeTool.Instance.AddDelayed(TimeDownType.NoUnityTimeLineImpact, 1.0f, Displayzhuangshi);
+        AudioManager.PlayAudio("陶瓷星星出现-结束升级失败胜利_0 _19.mp3_爱给网_aigei_com", transform, MTFrame.MTAudio.AudioEnunType.Effset);
     }
 
     private void Displayzhuangshi()
@@ -76,6 +77,7 @@ public class CompletePanel : BasePanel
     {
         base.Hide();
         tiltle.Stop();
+        AudioManager.StopAudio("陶瓷星星出现-结束升级失败胜利_0 _19.mp3_爱给网_aigei_com", transform, MTFrame.MTAudio.AudioEnunType.Effset);
         TimeTool.Instance.Remove(TimeDownType.NoUnityTimeLineImpact, Displayzhuangshi);
         starAniamtor.SetBool("newstate-starAnimation", false);
         starAniamtor.SetBool("starlooperanimation-newstate", true);
