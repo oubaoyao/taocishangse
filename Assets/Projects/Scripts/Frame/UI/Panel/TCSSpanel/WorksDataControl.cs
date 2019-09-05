@@ -67,6 +67,11 @@ public class WorksDataControl : MonoBehaviour
         {
             TimeTool.Instance.Remove(TimeDownType.NoUnityTimeLineImpact, BackMainMenu);
         }
+
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            Application.Quit();
+        }
     }
 
     private void BackMainMenu()

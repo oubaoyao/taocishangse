@@ -54,6 +54,7 @@ public class GamePanel : BasePanel
     void InitButtons(Button btn,int i,int index)
     {
         btn.onClick.AddListener(delegate () {
+            AudioManager.PlayAudio("按键声音", transform, MTFrame.MTAudio.AudioEnunType.Effset);
             foreach (Transform item in ModelControl.Instance.ModelGroup)
             {
                 item.gameObject.SetActive(false);

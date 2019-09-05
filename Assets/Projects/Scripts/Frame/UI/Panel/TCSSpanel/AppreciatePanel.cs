@@ -46,15 +46,17 @@ public class AppreciatePanel : BasePanel
         base.InitEvent();
 
         Image_Right_Button.onClick.AddListener(() => {
+            AudioManager.PlayAudio("按键声音", transform, MTFrame.MTAudio.AudioEnunType.Effset);
             Right();
         });
 
         Image_Left_Button.onClick.AddListener(() => {
+            AudioManager.PlayAudio("按键声音", transform, MTFrame.MTAudio.AudioEnunType.Effset);
             Left();
         });
 
         BackButton.onClick.AddListener(() => {
-  
+            AudioManager.PlayAudio("按键声音", transform, MTFrame.MTAudio.AudioEnunType.Effset);
             ModelControl.Instance.CloseModel2();
             TCSSstate.SwitchPanel(MTFrame.MTEvent.SwitchPanelEnum.StartMenuPanel);
 
@@ -115,6 +117,7 @@ public class AppreciatePanel : BasePanel
     {
         btn.onClick.AddListener(delegate () {
             ModelControl.Instance.CloseModel2();
+            AudioManager.PlayAudio("按键声音", transform, MTFrame.MTAudio.AudioEnunType.Effset);
             //ChooseIngImage.GetComponent<Image>().enabled = true;
             if (i+index < WorksDisplayTextureArray.Length && WorksDisplayTextureArray != null)
             {

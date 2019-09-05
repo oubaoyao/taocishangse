@@ -47,61 +47,64 @@ namespace Es.InkPainter.Sample
                 var ray = Camera.main.ScreenPointToRay(Input.mousePosition);
 				bool success = true;
 				RaycastHit hitInfo;
-				if(Physics.Raycast(ray, out hitInfo))
-				{
-					var paintObject = hitInfo.transform.GetComponent<InkCanvas>();
-					if(paintObject != null)
-						switch(useMethodType)
-						{
-							case UseMethodType.RaycastHitInfo:
-								success = erase ? paintObject.Erase(brush, hitInfo) : paintObject.Paint(brush, hitInfo);
-								break;
-
-							case UseMethodType.WorldPoint:
-								success = erase ? paintObject.Erase(brush, hitInfo.point) : paintObject.Paint(brush, hitInfo.point);
-								break;
-
-							case UseMethodType.NearestSurfacePoint:
-								success = erase ? paintObject.EraseNearestTriangleSurface(brush, hitInfo.point) : paintObject.PaintNearestTriangleSurface(brush, hitInfo.point);
-								break;
-
-							case UseMethodType.DirectUV:
-								if(!(hitInfo.collider is MeshCollider))
-									Debug.LogWarning("Raycast may be unexpected if you do not use MeshCollider.");
-								success = erase ? paintObject.EraseUVDirect(brush, hitInfo.textureCoord) : paintObject.PaintUVDirect(brush, hitInfo.textureCoord);
-								break;
-						}
-					if(!success)
-						Debug.LogError("Failed to paint.");
-
-                    if (lastPoint == Vector3.zero)
+                if (Physics.Raycast(ray, out hitInfo))
+                {
+                    var paintObject = hitInfo.transform.GetComponent<InkCanvas>();
+                    if (paintObject != null)
                     {
-                        lastPoint = hitInfo.point;
-                        return;
-                    }
-                    float distance = Vector3.Distance(hitInfo.point, lastPoint);
-                    if (distance > brush.Scale)
-                    {
-                        Vector3 direction = (hitInfo.point - lastPoint).normalized;
-                        int num = (int)(distance / brush.Scale);
-
-                        for (int i = 0; i <= num - 1; i++)
+                        switch (useMethodType)
                         {
-                            Vector3 lerpPoint = lastPoint + direction * (i + 1) * brush.Scale;
-                            Ray mRay = new Ray(ray.origin, (lerpPoint - ray.origin).normalized);
-                            Debug.DrawLine(mRay.origin, lerpPoint);
-                            RaycastHit newHitInfo;
-                            if (Physics.Raycast(mRay, out newHitInfo))
-                            {
-                                success = erase ? paintObject.Erase(brush, newHitInfo) : paintObject.Paint(brush, newHitInfo);
-                            }
+                            case UseMethodType.RaycastHitInfo:
+                                Debug.Log("1111");
+                                success = erase ? paintObject.Erase(brush, hitInfo) : paintObject.Paint(brush, hitInfo);
+                                break;
+
+                            case UseMethodType.WorldPoint:
+                                success = erase ? paintObject.Erase(brush, hitInfo.point) : paintObject.Paint(brush, hitInfo.point);
+                                break;
+
+                            case UseMethodType.NearestSurfacePoint:
+                                success = erase ? paintObject.EraseNearestTriangleSurface(brush, hitInfo.point) : paintObject.PaintNearestTriangleSurface(brush, hitInfo.point);
+                                break;
+
+                            case UseMethodType.DirectUV:
+                                if (!(hitInfo.collider is MeshCollider))
+                                    Debug.LogWarning("Raycast may be unexpected if you do not use MeshCollider.");
+                                success = erase ? paintObject.EraseUVDirect(brush, hitInfo.textureCoord) : paintObject.PaintUVDirect(brush, hitInfo.textureCoord);
+                                break;
                         }
                         if (!success)
+                            Debug.LogError("Failed to paint.");
+
+                        if (lastPoint == Vector3.zero)
                         {
-                            Debug.LogError("Failed lerp to point");
+                            lastPoint = hitInfo.point;
+                            return;
                         }
+                        float distance = Vector3.Distance(hitInfo.point, lastPoint);
+                        if (distance > brush.Scale)
+                        {
+                            Vector3 direction = (hitInfo.point - lastPoint).normalized;
+                            int num = (int)(distance / (brush.Scale));
+                            //Debug.Log("补间个数===" + num/5);
+                            for (int i = 0; i <= num - 1; i=i+3)
+                            {
+                                Vector3 lerpPoint = lastPoint + direction * (i + 1) * brush.Scale;
+                                Ray mRay = new Ray(ray.origin, (lerpPoint - ray.origin).normalized);
+                                Debug.DrawLine(mRay.origin, lerpPoint);
+                                RaycastHit newHitInfo;
+                                if (Physics.Raycast(mRay, out newHitInfo))
+                                {
+                                    success = erase ? paintObject.Erase(brush, newHitInfo) : paintObject.Paint(brush, newHitInfo);
+                                }
+                            }
+                            if (!success)
+                            {
+                                Debug.LogError("Failed lerp to point");
+                            }
+                        }
+                        lastPoint = hitInfo.point;
                     }
-                    lastPoint = hitInfo.point;
                 }
 			}
 

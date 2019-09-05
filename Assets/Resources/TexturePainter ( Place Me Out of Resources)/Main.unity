@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.27118313, g: 0.3675113, b: 0.544674, a: 1}
+  m_IndirectSpecularColor: {r: 0.27118117, g: 0.36750576, b: 0.544655, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &4
 LightmapSettings:
@@ -229,7 +229,7 @@ Transform:
   m_LocalScale: {x: 4.89, y: 4.89, z: 4.89}
   m_Children: []
   m_Father: {fileID: 1038867821}
-  m_RootOrder: 2
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &221827730
 MonoBehaviour:
@@ -1153,8 +1153,8 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 678728236}
-  - {fileID: 1143578780}
   - {fileID: 221827729}
+  - {fileID: 1143578780}
   - {fileID: 403688191}
   - {fileID: 520447818}
   m_Father: {fileID: 1800735146}
@@ -1192,7 +1192,7 @@ Transform:
   m_LocalScale: {x: 4.89, y: 4.89, z: 4.89}
   m_Children: []
   m_Father: {fileID: 1038867821}
-  m_RootOrder: 1
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1143578781
 MonoBehaviour:
@@ -1380,8 +1380,8 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 5748944476078566985}
-  - {fileID: 5748944476078566987}
   - {fileID: 5748944476078566989}
+  - {fileID: 5748944476078566987}
   - {fileID: 5748944476078566991}
   - {fileID: 5748944476078566977}
   m_Father: {fileID: 1800735146}
@@ -1421,7 +1421,7 @@ Light:
   serializedVersion: 8
   m_Type: 1
   m_Color: {r: 1, g: 0.95686275, b: 0.8392157, a: 1}
-  m_Intensity: 1
+  m_Intensity: 0.88
   m_Range: 10
   m_SpotAngle: 30
   m_CookieSize: 10
@@ -1455,7 +1455,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1637215528}
-  m_LocalRotation: {x: -0.04345977, y: -0.16761257, z: -0.01611567, w: 0.9847627}
+  m_LocalRotation: {x: -0.04351573, y: -0.1678284, z: -0.01613642, w: 0.9847231}
   m_LocalPosition: {x: 0, y: 4, z: -4}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
@@ -1842,7 +1842,7 @@ Transform:
   m_LocalScale: {x: 4.89, y: 4.89, z: 4.89}
   m_Children: []
   m_Father: {fileID: 1485575855}
-  m_RootOrder: 1
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &5748944476078566989
 Transform:
@@ -1856,7 +1856,7 @@ Transform:
   m_LocalScale: {x: 4.89, y: 4.89, z: 4.89}
   m_Children: []
   m_Father: {fileID: 1485575855}
-  m_RootOrder: 2
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &5748944476078566991
 Transform:

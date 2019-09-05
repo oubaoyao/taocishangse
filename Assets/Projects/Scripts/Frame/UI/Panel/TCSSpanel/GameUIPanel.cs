@@ -16,7 +16,7 @@ public class GameUIPanel : BasePanel
     public CompletePanel completePanel;
 
     public Texture2D PaintTexture, EraserTexture;
-    private float[] PaintSize = { 0.025f, 0.05f, 0.075f, 0.1f }, EraserSize = { 0.1f, 0.2f };
+    private float[] PaintSize = { 0.025f, 0.05f, 0.075f, 0.1f }, EraserSize = { 0.05f, 0.15f };
     private SwitchSprite[] PanintswitchSprites, EraserswitchSprites;
     private List<SwitchSprite> EraserAndPaint = new List<SwitchSprite>();
 
@@ -25,7 +25,7 @@ public class GameUIPanel : BasePanel
     private float CurrentPaintSize, CurrentEraserSize, RotateValue = 0;
 
     public CanvasGroup PaintGroup, EraserGroup,tipgroup;
-    public Animator tips1Anima, tips2Anima;
+    public Animator tips1Anima/*, tips2Anima*/;
     public Animation startcreattiltle;
 
     Texture2D cursor;
@@ -56,7 +56,7 @@ public class GameUIPanel : BasePanel
         tipgroup = FindTool.FindChildComponent<CanvasGroup>(transform, "tipGroup");
 
         tips1Anima = FindTool.FindChildComponent<Animator>(transform, "tipGroup/tips1");
-        tips2Anima = FindTool.FindChildComponent<Animator>(transform, "tipGroup/tips2");
+        //tips2Anima = FindTool.FindChildComponent<Animator>(transform, "tipGroup/tips2");
 
         startcreattiltle = FindTool.FindChildComponent<Animation>(transform, "startcreattiltle");
     }
@@ -75,18 +75,19 @@ public class GameUIPanel : BasePanel
 
         //RightButton.onClick.AddListener(() =>
         //{
-        //    GamePanel.CurrentModel.Rotate(Vector3.forward * 40);
+        //    AudioManager.PlayAudio("按键声音", transform, MTFrame.MTAudio.AudioEnunType.Effset);
         //});
 
         //LeftButton.onClick.AddListener(() =>
         //{
-        //    GamePanel.CurrentModel.Rotate(Vector3.back * 40);
+        //    AudioManager.PlayAudio("按键声音", transform, MTFrame.MTAudio.AudioEnunType.Effset);
         //});
 
         CompleteButton.onClick.AddListener(() =>
         {
             MousePainter.Instance.IsGamestart = false;
             AudioManager.PlayAudio("按键声音", transform, MTFrame.MTAudio.AudioEnunType.Effset);
+            startcreattiltle.Stop();
             PaintGroup.alpha = 0;
             EraserGroup.alpha = 0;
             SaveModelData();
@@ -293,6 +294,7 @@ public class GameUIPanel : BasePanel
 
     public void PointDown_Right()
     {
+        AudioManager.PlayAudio("按键声音", transform, MTFrame.MTAudio.AudioEnunType.Effset);
         GamePanel.CurrentModel.Rotate(Vector3.forward * -40);
         RotateValue = -20;
 
@@ -301,6 +303,7 @@ public class GameUIPanel : BasePanel
 
     public void PointDown_Left()
     {
+        AudioManager.PlayAudio("按键声音", transform, MTFrame.MTAudio.AudioEnunType.Effset);
         GamePanel.CurrentModel.Rotate(Vector3.forward * 40);
         RotateValue = 20;
         //GamePanel.CurrentModel.Rotate(Vector3.back * Time.deltaTime);

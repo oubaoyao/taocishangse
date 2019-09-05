@@ -90,7 +90,7 @@ public class ModelControl : MonoBehaviour
         foreach (InkCanvas item in ModelInkGroup)
         {
             item.ResetPaint();
-            Debug.Log("复原");
+            //Debug.Log("复原");
         }
     }
 
