@@ -55,7 +55,7 @@ namespace Es.InkPainter.Sample
                         switch (useMethodType)
                         {
                             case UseMethodType.RaycastHitInfo:
-                                Debug.Log("1111");
+                                //Debug.Log("1111");
                                 success = erase ? paintObject.Erase(brush, hitInfo) : paintObject.Paint(brush, hitInfo);
                                 break;
 
