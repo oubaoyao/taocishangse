@@ -26,6 +26,7 @@ public class GameUIPanel : BasePanel
 
     public CanvasGroup PaintGroup, EraserGroup,tipgroup;
     public Animator tips1Anima, tips2Anima;
+    public Animation startcreattiltle;
 
     Texture2D cursor;
     private int width = Screen.width/5;
@@ -56,6 +57,8 @@ public class GameUIPanel : BasePanel
 
         tips1Anima = FindTool.FindChildComponent<Animator>(transform, "tipGroup/tips1");
         tips2Anima = FindTool.FindChildComponent<Animator>(transform, "tipGroup/tips2");
+
+        startcreattiltle = FindTool.FindChildComponent<Animation>(transform, "startcreattiltle");
     }
 
     public override void InitEvent()
@@ -212,6 +215,7 @@ public class GameUIPanel : BasePanel
         //Cursor.visible = true;
         OpenTips();
         InitPaintSize();
+        startcreattiltle.Play();
         //Cursor.SetCursor(PaintTexture, Vector2.zero, CursorMode.Auto);
         ModelControl.Instance.ColorSelector.SetActive(true);
         MousePainter.Instance.IsGamestart = true;
@@ -235,6 +239,7 @@ public class GameUIPanel : BasePanel
         base.Hide();
         //Cursor.visible = false;
         //Cursor.SetCursor(null, Vector2.zero, CursorMode.Auto);
+        startcreattiltle.Stop();
         MousePainter.Instance.IsGamestart = false;
         gamePanel.chooseuipanel.Open();
         ModelControl.Instance.ColorSelector.SetActive(false);

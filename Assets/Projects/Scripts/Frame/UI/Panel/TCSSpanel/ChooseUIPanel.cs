@@ -34,6 +34,7 @@ public class ChooseUIPanel : BasePanel
             AudioManager.PlayAudio("按键声音", transform, MTFrame.MTAudio.AudioEnunType.Effset);
             gamePanel.gameuiPanel.Open();
             GamePanel.CurrentModel.localPosition = ModelControl.GamePanelModelPosition;
+
         });
 
         //LeftButton.onClick.AddListener(() => {
@@ -54,5 +55,6 @@ public class ChooseUIPanel : BasePanel
     public override void Hide()
     {
         base.Hide();
+        gamePanel.Choosetiltle.Stop();
     }
 }

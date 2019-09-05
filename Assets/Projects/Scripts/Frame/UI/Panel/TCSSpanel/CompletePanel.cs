@@ -4,6 +4,7 @@ using UnityEngine;
 using MTFrame;
 using UnityEngine.UI;
 using Es.InkPainter.Sample;
+using System;
 
 public class CompletePanel : BasePanel
 {
@@ -11,6 +12,8 @@ public class CompletePanel : BasePanel
     public GameUIPanel gameuipanel;
     public Animator starAniamtor;
     public RawImage DisplayRawImage;
+    public CanvasGroup zhuangshicanvas;
+    public Animation tiltle;
 
     public override void InitFind()
     {
@@ -23,6 +26,9 @@ public class CompletePanel : BasePanel
         starAniamtor = FindTool.FindChildComponent<Animator>(transform, "BGImage/StarAnima");
 
         DisplayRawImage = FindTool.FindChildComponent<RawImage>(transform, "DisplayGroup/DisplayRaw");
+
+        zhuangshicanvas = FindTool.FindChildComponent<CanvasGroup>(transform, "DisplayGroup/zhuangshi");
+        tiltle = FindTool.FindChildComponent<Animation>(transform, "DisplayGroup/tiltle");
     }
 
     public override void InitEvent()
@@ -52,18 +58,29 @@ public class CompletePanel : BasePanel
     public override void Open()
     {
         base.Open();
+        tiltle.Play();
         //Cursor.visible = false;
         starAniamtor.SetBool("newstate-starAnimation", true);
         starAniamtor.SetBool("starlooperanimation-newstate", false);
         DisplayRawImage.texture = WorksDataControl.Instance.WorksDisplayTexture[WorksDataControl.Instance.WorksDisplayTexture.Count - 1];
+
+        TimeTool.Instance.AddDelayed(TimeDownType.NoUnityTimeLineImpact, 1.0f, Displayzhuangshi);
+    }
+
+    private void Displayzhuangshi()
+    {
+        zhuangshicanvas.alpha = 1;
     }
 
     public override void Hide()
     {
         base.Hide();
+        tiltle.Stop();
+        TimeTool.Instance.Remove(TimeDownType.NoUnityTimeLineImpact, Displayzhuangshi);
         starAniamtor.SetBool("newstate-starAnimation", false);
         starAniamtor.SetBool("starlooperanimation-newstate", true);
         gameuipanel.EraserGroup.alpha = 1;
         gameuipanel.PaintGroup.alpha = 1;
+        zhuangshicanvas.alpha = 0;
     }
 }

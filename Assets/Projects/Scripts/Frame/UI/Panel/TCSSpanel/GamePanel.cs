@@ -12,13 +12,14 @@ public class GamePanel : BasePanel
 
     public ChooseUIPanel chooseuipanel;
     public GameUIPanel gameuiPanel;
+    public Animation Choosetiltle;
 
     public override void InitFind()
     {
         base.InitFind();
         chooseuipanel = FindTool.FindChildComponent<ChooseUIPanel>(transform, "ChooseUIPanel");
         gameuiPanel = FindTool.FindChildComponent<GameUIPanel>(transform, "GameUIPanel");
-
+        Choosetiltle = FindTool.FindChildComponent<Animation>(transform, "Choosetiltle");
     }
 
     public override void Open()
@@ -27,6 +28,7 @@ public class GamePanel : BasePanel
         gameuiPanel.Hide();
         gameuiPanel.completePanel.Hide();
         InitModel();
+        Choosetiltle.Play();
     }
 
     public override void Hide()
@@ -35,6 +37,7 @@ public class GamePanel : BasePanel
         gameuiPanel.Hide();
         gameuiPanel.completePanel.Hide();
         ModelControl.Instance.CloseModel();
+        Choosetiltle.Stop();
     }
 
     public void InitModel()

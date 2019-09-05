@@ -21,6 +21,8 @@ public class AppreciatePanel : BasePanel
     private int Index = 0;
     private int CurrentModelNumber = 0;
 
+    public Animation Appreciatetiltle;
+
     private Transform CurrentModel = null;
 
     public override void InitFind()
@@ -35,6 +37,8 @@ public class AppreciatePanel : BasePanel
         ImageButtonGroup = FindTool.FindChildNode(transform, "ImageGroup").GetComponentsInChildren<Button>();
         ImageGroup = FindTool.FindChildNode(transform, "ImageGroup").GetComponentsInChildren<RawImage>();
         ChooseIngImage = FindTool.FindChildNode(transform, "ChooseIng");
+
+        Appreciatetiltle = FindTool.FindChildComponent<Animation>(transform, "Appreciatetiltle");
     }
 
     public override void InitEvent()
@@ -61,6 +65,7 @@ public class AppreciatePanel : BasePanel
     {
         base.Open();
         //ChooseIngImage.GetComponent<Image>().enabled = false;
+        Appreciatetiltle.Play();
         ChooseIngImage.localPosition = new Vector3(-267.8f, -379.7f);
         Index = 0;
         ModelControl.Instance.ColorSelector.SetActive(false);
@@ -212,6 +217,7 @@ public class AppreciatePanel : BasePanel
     {
         base.Hide();
         EventManager.RemoveUpdateListener(MTFrame.MTEvent.UpdateEventEnumType.Update, "OnUpdate", OnUpdate);
+        Appreciatetiltle.Stop();
     }
 
     //public void PointDown_Right()
