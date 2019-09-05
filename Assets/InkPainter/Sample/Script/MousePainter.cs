@@ -26,9 +26,16 @@ namespace Es.InkPainter.Sample
 
         public bool IsGamestart = false;
 
+        private Vector3 lastPoint;
+
         private void Awake()
         {
             Instance = this;
+        }
+
+        private void Start()
+        {
+            lastPoint = Vector3.zero;
         }
 
         private void Update()
@@ -66,7 +73,36 @@ namespace Es.InkPainter.Sample
 						}
 					if(!success)
 						Debug.LogError("Failed to paint.");
-				}
+
+                    if (lastPoint == Vector3.zero)
+                    {
+                        lastPoint = hitInfo.point;
+                        return;
+                    }
+                    float distance = Vector3.Distance(hitInfo.point, lastPoint);
+                    if (distance > brush.Scale)
+                    {
+                        Vector3 direction = (hitInfo.point - lastPoint).normalized;
+                        int num = (int)(distance / brush.Scale);
+
+                        for (int i = 0; i <= num - 1; i++)
+                        {
+                            Vector3 lerpPoint = lastPoint + direction * (i + 1) * brush.Scale;
+                            Ray mRay = new Ray(ray.origin, (lerpPoint - ray.origin).normalized);
+                            Debug.DrawLine(mRay.origin, lerpPoint);
+                            RaycastHit newHitInfo;
+                            if (Physics.Raycast(mRay, out newHitInfo))
+                            {
+                                success = erase ? paintObject.Erase(brush, newHitInfo) : paintObject.Paint(brush, newHitInfo);
+                            }
+                        }
+                        if (!success)
+                        {
+                            Debug.LogError("Failed lerp to point");
+                        }
+                    }
+                    lastPoint = hitInfo.point;
+                }
 			}
 		}
 
