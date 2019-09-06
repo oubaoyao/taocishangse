@@ -109,7 +109,7 @@ public class AppreciatePanel : BasePanel
     {
         if(CurrentModel!=null)
         {
-            CurrentModel.Rotate(Vector3.back);
+            CurrentModel.Rotate(Vector3.back*0.6f);
         }
     }
 
