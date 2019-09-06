@@ -22,6 +22,7 @@ public class ModelControl : MonoBehaviour
 
     public static Vector3 LocalPosition = new Vector3(0, -1.68f, 3.83f);
     public static Vector3 GamePanelModelPosition = new Vector3(0, -2.13f, 3.91f);
+    public static Vector3 Cylinder001Position = new Vector3(0,-2.5f, 3.9f);
 
     private void Awake()
     {
@@ -48,14 +49,19 @@ public class ModelControl : MonoBehaviour
         foreach (Transform item in ModelGroup)
         {
             item.gameObject.SetActive(false);
-            item.localPosition = LocalPosition;
-            if (item.name == "Cylinder003")
+            if(item.name == "Cylinder001"|| item.name == "Cylinder002"|| item.name == "Cylinder005")
+            {
+                item.localPosition = new Vector3(0,-2.01f,3.9f);
+            }
+            else
+            {
+                item.localPosition = LocalPosition;
+            }
+           
+
+            if (item.name == "Cylinder003" || item.name == "Cylinder004")
             {
                 item.localEulerAngles = new Vector3(-90, 0, 90);
-            }
-            else if(item.name == "Cylinder001" || item.name == "Cylinder005")
-            {
-                item.localEulerAngles = new Vector3(-90, 0, 180);
             }
             else
             {
@@ -70,13 +76,19 @@ public class ModelControl : MonoBehaviour
         foreach (Transform item in ModelGroup2)
         {
             item.gameObject.SetActive(false);
-            if (item.name == "Cylinder003")
+            //if (item.name == "Cylinder001" || item.name == "Cylinder002" || item.name == "Cylinder005")
+            //{
+            //    item.localPosition = new Vector3(0, -2.01f, 3.9f);
+            //}
+            //else
+            //{
+            //    item.localPosition = LocalPosition;
+            //}
+
+
+            if (item.name == "Cylinder003" || item.name == "Cylinder004")
             {
                 item.localEulerAngles = new Vector3(-90, 0, 90);
-            }
-            else if (item.name == "Cylinder001" || item.name == "Cylinder005")
-            {
-                item.localEulerAngles = new Vector3(-90, 0, 180);
             }
             else
             {
