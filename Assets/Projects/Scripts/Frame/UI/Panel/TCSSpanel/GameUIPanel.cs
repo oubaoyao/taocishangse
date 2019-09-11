@@ -295,7 +295,7 @@ public class GameUIPanel : BasePanel
     public void PointDown_Right()
     {
         AudioManager.PlayAudio("按键声音", transform, MTFrame.MTAudio.AudioEnunType.Effset);
-        GamePanel.CurrentModel.Rotate(Vector3.forward * -40);
+        GamePanel.CurrentModel.Rotate(Vector3.forward * -20);
         RotateValue = -20;
 
         //ModelViewControls.Instance.Start_Rotate_Right();
@@ -304,7 +304,7 @@ public class GameUIPanel : BasePanel
     public void PointDown_Left()
     {
         AudioManager.PlayAudio("按键声音", transform, MTFrame.MTAudio.AudioEnunType.Effset);
-        GamePanel.CurrentModel.Rotate(Vector3.forward * 40);
+        GamePanel.CurrentModel.Rotate(Vector3.forward * 20);
         RotateValue = 20;
         //GamePanel.CurrentModel.Rotate(Vector3.back * Time.deltaTime);
         //ModelViewControls.Instance.Start_Rotate_Left();

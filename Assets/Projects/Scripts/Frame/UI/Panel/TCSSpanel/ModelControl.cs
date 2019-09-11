@@ -106,11 +106,11 @@ public class ModelControl : MonoBehaviour
         }
     }
 
-    private void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.P))
-        {
-            ResetMaterial();
-        }
-    }
+    //private void Update()
+    //{
+    //    if (Input.GetKeyDown(KeyCode.P))
+    //    {
+    //        ResetMaterial();
+    //    }
+    //}
 }
