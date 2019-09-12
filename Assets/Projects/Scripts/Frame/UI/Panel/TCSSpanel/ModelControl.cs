@@ -15,8 +15,8 @@ public class ModelControl : MonoBehaviour
     public List<Transform> ModelGroup2;
 
     public List<InkCanvas> ModelInkGroup;
-    public Texture WhiteTexture;
-    public Material WhiteMaterial;
+    //public Texture WhiteTexture;
+    //public Material WhiteMaterial;
 
     public GameObject ColorSelector;
 
