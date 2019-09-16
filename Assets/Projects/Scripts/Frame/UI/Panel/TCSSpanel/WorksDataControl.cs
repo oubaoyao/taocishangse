@@ -19,6 +19,12 @@ public class WorksDataGroup
     public WorksData[] worksDatas;
 }
 
+[System.Serializable]
+public class Texture2DGroup
+{
+  public Texture2D[] texture2Ds;
+}
+
 
 public class WorksDataControl : MonoBehaviour
 {
@@ -27,7 +33,7 @@ public class WorksDataControl : MonoBehaviour
     private string WorksJsonDataPath = "/WorksDatas";
     private string WorksJsonDataName = "WorksJsonDatas.Json";
     //public Texture2D texture;
-    public List<Texture2D[]> WorksTexture = new List<Texture2D[]>();
+    public List<Texture2DGroup> WorksTexture = new List<Texture2DGroup>();
     public List<Texture2D> WorksDisplayTexture = new List<Texture2D>();
 
     private void Awake()
@@ -45,16 +51,19 @@ public class WorksDataControl : MonoBehaviour
             //string str = Resources.Load<TextAsset>("WorksDatas/WorksJsonDatas").text;
             string str = File.ReadAllText(Application.streamingAssetsPath + WorksJsonDataPath + "/" + WorksJsonDataName);
             WorksDataGroup worksDatasGroup = JsonConvert.DeserializeObject<WorksDataGroup>(str);
-            List<Texture2D> texture2Ds = new List<Texture2D>();
+            
             for (int i = 0; i < worksDatasGroup.worksDatas.Length; i++)
             {
+                List<Texture2D> texture2Ds = new List<Texture2D>();
                 worksDatas.Add(worksDatasGroup.worksDatas[i]);
                 
                 for (int j = 0; j < worksDatasGroup.worksDatas[i].Texture_Path.Length; j++)
                 {
                     texture2Ds.Add(LoadByIO(Application.streamingAssetsPath + "/SavePng/" + worksDatasGroup.worksDatas[i].Texture_Path[j] + ".png"));
                 }
-                WorksTexture.Add(texture2Ds.ToArray());
+                Texture2DGroup texture2DGroup = new Texture2DGroup();
+                texture2DGroup.texture2Ds = texture2Ds.ToArray();
+                WorksTexture.Add(texture2DGroup);
                 WorksDisplayTexture.Add(LoadByIO(Application.streamingAssetsPath + "/SaveImage/" + worksDatasGroup.worksDatas[i].Jpg_path + ".jpg"));
             }
         }

@@ -293,9 +293,11 @@ public class GameUIPanel : BasePanel
         worksData.Texture_Path = temp.ToArray();
 
         WorksDataControl.Instance.worksDatas.Add(worksData);
-        WorksDataControl.Instance.WorksTexture.Add(texture2Ds.ToArray());
+        Texture2DGroup texture2DGroup = new Texture2DGroup();
+        texture2DGroup.texture2Ds = texture2Ds.ToArray();
+        WorksDataControl.Instance.WorksTexture.Add(texture2DGroup);
 
-        if (WorksDataControl.Instance.worksDatas.Count > 15)
+        if (WorksDataControl.Instance.worksDatas.Count > 10)
         {
             WorksDataControl.Instance.DeleteTexture();
         }

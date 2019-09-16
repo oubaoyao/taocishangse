@@ -96,7 +96,7 @@ public class AppreciatePanel : BasePanel
                 if (item.name == WorksDataControl.Instance.worksDatas[WorksDisplayTextureArray.Length - 1].Model_name)
                 {
                     CurrentModel = item;
-                    Texture2D[] texture2Ds = WorksDataControl.Instance.WorksTexture[WorksDisplayTextureArray.Length - 1];
+                    Texture2DGroup texture2DGroup = WorksDataControl.Instance.WorksTexture[WorksDisplayTextureArray.Length - 1];
                     List<Transform> InkTranforms = new List<Transform>();
                     foreach (Transform tra in item)
                     {
@@ -105,7 +105,7 @@ public class AppreciatePanel : BasePanel
                     Transform[] transforms = InkTranforms.ToArray();
                     for (int i = 0; i < transforms.Length; i++)
                     {
-                        transforms[i].gameObject.GetComponent<MeshRenderer>().materials[0].mainTexture = texture2Ds[i];
+                        transforms[i].gameObject.GetComponent<MeshRenderer>().materials[0].mainTexture = texture2DGroup.texture2Ds[i];
                     }
                     //item.gameObject.GetComponent<MeshRenderer>().materials[0].mainTexture = WorksTextureArray[WorksDisplayTextureArray.Length - 1];
                     item.gameObject.SetActive(true);
@@ -138,7 +138,7 @@ public class AppreciatePanel : BasePanel
                     if (item.name == WorksDataControl.Instance.worksDatas[WorksDisplayTextureArray.Length - 1 - (i + index)].Model_name)
                     {
                         CurrentModel = item;
-                        Texture2D[] texture2Ds = WorksDataControl.Instance.WorksTexture[WorksDisplayTextureArray.Length - 1 - (i + index)];
+                        Texture2DGroup texture2DGroup = WorksDataControl.Instance.WorksTexture[WorksDisplayTextureArray.Length - 1 - (i + index)];
                         List<Transform> InkTranforms = new List<Transform>();
                         foreach (Transform tra in item)
                         {
@@ -147,7 +147,7 @@ public class AppreciatePanel : BasePanel
                         Transform[] transforms = InkTranforms.ToArray();
                         for (int j = 0; j < transforms.Length; j++)
                         {
-                            transforms[j].gameObject.GetComponent<MeshRenderer>().materials[0].mainTexture = texture2Ds[j];
+                            transforms[j].gameObject.GetComponent<MeshRenderer>().materials[0].mainTexture = texture2DGroup.texture2Ds[j];
                         }
                         //item.gameObject.GetComponent<MeshRenderer>().materials[0].mainTexture = WorksTextureArray[WorksDisplayTextureArray.Length - 1 - (i + index)];
                         item.gameObject.SetActive(true);
@@ -196,7 +196,7 @@ public class AppreciatePanel : BasePanel
                 if (item.name == WorksDataControl.Instance.worksDatas[CurrentModelNumber].Model_name)
                 {
                     CurrentModel = item;
-                    Texture2D[] texture2Ds = WorksDataControl.Instance.WorksTexture[CurrentModelNumber];
+                    Texture2DGroup texture2DGroup = WorksDataControl.Instance.WorksTexture[CurrentModelNumber];
                     List<Transform> InkTranforms = new List<Transform>();
                     foreach (Transform tra in item)
                     {
@@ -205,7 +205,7 @@ public class AppreciatePanel : BasePanel
                     Transform[] transforms = InkTranforms.ToArray();
                     for (int j = 0; j < transforms.Length; j++)
                     {
-                        transforms[j].gameObject.GetComponent<MeshRenderer>().materials[0].mainTexture = texture2Ds[j];
+                        transforms[j].gameObject.GetComponent<MeshRenderer>().materials[0].mainTexture = texture2DGroup.texture2Ds[j];
                     }
 
                     //item.gameObject.GetComponent<MeshRenderer>().materials[0].mainTexture = WorksTextureArray[CurrentModelNumber];
@@ -242,7 +242,7 @@ public class AppreciatePanel : BasePanel
                 if (item.name == WorksDataControl.Instance.worksDatas[CurrentModelNumber].Model_name)
                 {
                     CurrentModel = item;
-                    Texture2D[] texture2Ds = WorksDataControl.Instance.WorksTexture[CurrentModelNumber];
+                    Texture2DGroup texture2DGroup = WorksDataControl.Instance.WorksTexture[CurrentModelNumber];
                     List<Transform> InkTranforms = new List<Transform>();
                     foreach (Transform tra in item)
                     {
@@ -251,7 +251,7 @@ public class AppreciatePanel : BasePanel
                     Transform[] transforms = InkTranforms.ToArray();
                     for (int j = 0; j < transforms.Length; j++)
                     {
-                        transforms[j].gameObject.GetComponent<MeshRenderer>().materials[0].mainTexture = texture2Ds[j];
+                        transforms[j].gameObject.GetComponent<MeshRenderer>().materials[0].mainTexture = texture2DGroup.texture2Ds[j];
                     }
                     //item.gameObject.GetComponent<MeshRenderer>().materials[0].mainTexture = WorksTextureArray[CurrentModelNumber];
                     item.gameObject.SetActive(true);
