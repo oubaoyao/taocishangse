@@ -33,15 +33,18 @@ public class ChooseUIPanel : BasePanel
             Hide();
             AudioManager.PlayAudio("按键声音", transform, MTFrame.MTAudio.AudioEnunType.Effset);
             gamePanel.gameuiPanel.Open();
-            if(GamePanel.CurrentModel.name == "Cylinder001" || GamePanel.CurrentModel.name == "Cylinder002"|| GamePanel.CurrentModel.name == "Cylinder005")
+            if(GamePanel.CurrentModel.name == "Cylinder001" || GamePanel.CurrentModel.name == "Cylinder003")
             {
-                GamePanel.CurrentModel.localPosition = ModelControl.Cylinder001Position;
+                GamePanel.CurrentModel.localPosition = new Vector3(0,-2.32f,3.9f);
+            }
+            else if(GamePanel.CurrentModel.name == "Cylinder004")
+            {
+                GamePanel.CurrentModel.localPosition = new Vector3(-0.55f, -2.59f, 3.9f);
             }
             else
             {
-                GamePanel.CurrentModel.localPosition = ModelControl.GamePanelModelPosition;
+                GamePanel.CurrentModel.localPosition = new Vector3(0, -2.59f, 3.9f);
             }
-            
 
         });
 

@@ -10,7 +10,7 @@ using System;
 public class WorksData
 {
     public string Model_name;
-    public string Texture_Path;
+    public string[] Texture_Path;
     public string Jpg_path;
 }
 
@@ -27,7 +27,7 @@ public class WorksDataControl : MonoBehaviour
     private string WorksJsonDataPath = "/WorksDatas";
     private string WorksJsonDataName = "WorksJsonDatas.Json";
     //public Texture2D texture;
-    public List<Texture2D> WorksTexture = new List<Texture2D>();
+    public List<Texture2D[]> WorksTexture = new List<Texture2D[]>();
     public List<Texture2D> WorksDisplayTexture = new List<Texture2D>();
 
     private void Awake()
@@ -45,10 +45,16 @@ public class WorksDataControl : MonoBehaviour
             //string str = Resources.Load<TextAsset>("WorksDatas/WorksJsonDatas").text;
             string str = File.ReadAllText(Application.streamingAssetsPath + WorksJsonDataPath + "/" + WorksJsonDataName);
             WorksDataGroup worksDatasGroup = JsonConvert.DeserializeObject<WorksDataGroup>(str);
+            List<Texture2D> texture2Ds = new List<Texture2D>();
             for (int i = 0; i < worksDatasGroup.worksDatas.Length; i++)
             {
                 worksDatas.Add(worksDatasGroup.worksDatas[i]);
-                WorksTexture.Add(LoadByIO(Application.streamingAssetsPath + "/SavePng/" + worksDatasGroup.worksDatas[i].Texture_Path + ".png"));
+                
+                for (int j = 0; j < worksDatasGroup.worksDatas[i].Texture_Path.Length; j++)
+                {
+                    texture2Ds.Add(LoadByIO(Application.streamingAssetsPath + "/SavePng/" + worksDatasGroup.worksDatas[i].Texture_Path[j] + ".png"));
+                }
+                WorksTexture.Add(texture2Ds.ToArray());
                 WorksDisplayTexture.Add(LoadByIO(Application.streamingAssetsPath + "/SaveImage/" + worksDatasGroup.worksDatas[i].Jpg_path + ".jpg"));
             }
         }
@@ -126,17 +132,24 @@ public class WorksDataControl : MonoBehaviour
 
     public void DeleteTexture()
     {
-        string str = worksDatas[0].Jpg_path;
-        string str1 = Application.streamingAssetsPath + "/SaveImage/" + str + ".jpg";
-        string str2 = Application.streamingAssetsPath + "/SavePng/" + str + ".png";
-        if(File.Exists(str1))
+        string jpgname = worksDatas[0].Jpg_path;
+        string[] PngName = worksDatas[0].Texture_Path;
+        string jpgPath = Application.streamingAssetsPath + "/SaveImage/" + jpgname + ".jpg";
+        
+        if(File.Exists(jpgPath))
         {
-            File.Delete(str1);
+            File.Delete(jpgPath);
         }
-        if (File.Exists(str2))
+
+        for (int i = 0; i < PngName.Length; i++)
         {
-            File.Delete(str2);
+            string PngPath = Application.streamingAssetsPath + "/SavePng/" + PngName[i] + ".png";
+            if (File.Exists(PngPath))
+            {
+                File.Delete(PngPath);
+            }
         }
+
         worksDatas.RemoveAt(0);
         WorksTexture.RemoveAt(0);
         WorksDisplayTexture.RemoveAt(0);

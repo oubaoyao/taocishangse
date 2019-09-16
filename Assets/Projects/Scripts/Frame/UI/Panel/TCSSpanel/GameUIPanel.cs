@@ -68,8 +68,10 @@ public class GameUIPanel : BasePanel
         {
             Hide();
             AudioManager.PlayAudio("按键声音", transform, MTFrame.MTAudio.AudioEnunType.Effset);
-            GamePanel.CurrentModel.localPosition = ModelControl.LocalPosition;
-            ModelControl.Instance.ResetMaterial();
+            //GamePanel.CurrentModel.localPosition = ModelControl.LocalPosition;
+            //ModelControl.Instance.CloseModel();
+            //ModelControl.Instance.ModelGroup[0].gameObject.SetActive(true);
+            //ModelControl.Instance.ResetMaterial();
             gamePanel.chooseuipanel.Open();
         });
 
@@ -271,25 +273,33 @@ public class GameUIPanel : BasePanel
         WorksData worksData = new WorksData();
         string str = Time.time.ToString();
         string str1 = Application.streamingAssetsPath + "/SaveImage/" + str + ".jpg";
-        string str2 = Application.streamingAssetsPath + "/SavePng/" + str + ".png";
+        
         worksData.Model_name = GamePanel.CurrentModel.name;
         worksData.Jpg_path = str;
-        worksData.Texture_Path = str;
+
+        InkCanvas[] inkCanvas = GamePanel.CurrentModel.GetComponentsInChildren<InkCanvas>();
+        List<string> temp = new List<string>();
+        List<Texture2D> texture2Ds = new List<Texture2D>();
+        DateTime dt = DateTime.Now;  
+        for (int i = 0; i < inkCanvas.Length; i++)
+        {
+            string str3 = dt.ToFileTime().ToString() + i.ToString() + Time.time.ToString();
+            Debug.Log("ToUniversalTime===" + dt.ToUniversalTime().ToString());
+            string str2 = Application.streamingAssetsPath + "/SavePng/" + str3 + ".png";
+            temp.Add(str3);
+            texture2Ds.Add(inkCanvas[i].SaveRenderTextureToPNG(str2));
+        }
+
+        worksData.Texture_Path = temp.ToArray();
 
         WorksDataControl.Instance.worksDatas.Add(worksData);
-        if(WorksDataControl.Instance.worksDatas.Count > 15)
+        WorksDataControl.Instance.WorksTexture.Add(texture2Ds.ToArray());
+
+        if (WorksDataControl.Instance.worksDatas.Count > 15)
         {
             WorksDataControl.Instance.DeleteTexture();
         }
         StartCoroutine(getScreenTexture(str1));
-
-        if (GamePanel.CurrentModel.GetComponent<InkCanvas>() != null)
-        {
-            GamePanel.CurrentModel.GetComponent<InkCanvas>().SaveRenderTextureToPNG(str2);
-        }
-        else
-            Debug.Log("组件InkCanvas丢失!!!!");
-
     }
 
     public void PointDown_Right()

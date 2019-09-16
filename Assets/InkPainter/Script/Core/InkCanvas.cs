@@ -344,6 +344,7 @@ namespace Es.InkPainter
 		/// </summary>
 		private void SetMaterial()
 		{
+            
 			if(paintMainMaterial == null)
 				paintMainMaterial = new Material(Resources.Load<Material>("Es.InkPainter.PaintMain"));
 			if(paintNormalMaterial == null)
@@ -351,14 +352,14 @@ namespace Es.InkPainter
 			if(paintHeightMaterial == null)
 				paintHeightMaterial = new Material(Resources.Load<Material>("Es.InkPainter.PaintHeight"));
 			var m = GetComponent<Renderer>().materials;
-			for(int i = 0; i < m.Length; ++i)
+            for (int i = 0; i < m.Length; ++i)
 			{
                 if (paintSet[i].material == null)
                     paintSet[i].material = m[i];
 			}
 		}
 
-        public void SaveRenderTextureToPNG(string path)
+        public Texture2D SaveRenderTextureToPNG(string path)
         {
             //string path = EditorUtility.SaveFilePanel("Save to png", Application.dataPath, textureName + "_painted.png", "png");
             
@@ -367,7 +368,7 @@ namespace Es.InkPainter
             RenderTexture.active = renderTexture;
             newTex.ReadPixels(new Rect(0, 0, renderTexture.width, renderTexture.height), 0, 0);
             newTex.Apply();
-            WorksDataControl.Instance.WorksTexture.Add(newTex);
+            //WorksDataControl.Instance.WorksTexture.Add(newTex);
 
             byte[] pngData = newTex.EncodeToPNG();
             if (pngData != null)
@@ -375,6 +376,7 @@ namespace Es.InkPainter
                 File.WriteAllBytes(path, pngData);   
             }
             Debug.Log(path);
+            return newTex;
         }
 
 

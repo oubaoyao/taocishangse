@@ -6,6 +6,7 @@ using UnityEngine.UI;
 using Es.InkPainter.Sample;
 using System.IO;
 using System;
+using Es.InkPainter;
 
 public class AppreciatePanel : BasePanel
 {
@@ -14,7 +15,7 @@ public class AppreciatePanel : BasePanel
     public List<Texture> WorksTexture = new List<Texture>();
     public RawImage[] ImageGroup;
     private Texture[] WorksDisplayTextureArray;
-    private Texture[] WorksTextureArray;
+    //private Texture[] WorksTextureArray;
     public Transform ChooseIngImage;
     public float[] ChooseIngImageX = { -267.9f, -134.2f, 1.0f, 134.1f, 269.0f };
 
@@ -74,9 +75,9 @@ public class AppreciatePanel : BasePanel
         if (WorksDataControl.Instance.WorksDisplayTexture.Count > 0)
         {
             WorksDisplayTextureArray = null;
-            WorksTextureArray = null;
+            //WorksTextureArray = null;
             WorksDisplayTextureArray = WorksDataControl.Instance.WorksDisplayTexture.ToArray();
-            WorksTextureArray = WorksDataControl.Instance.WorksTexture.ToArray();
+            //WorksTextureArray = WorksDataControl.Instance.WorksTexture.ToArray();
 
             if (WorksDisplayTextureArray.Length != 0)
             {
@@ -95,7 +96,18 @@ public class AppreciatePanel : BasePanel
                 if (item.name == WorksDataControl.Instance.worksDatas[WorksDisplayTextureArray.Length - 1].Model_name)
                 {
                     CurrentModel = item;
-                    item.gameObject.GetComponent<MeshRenderer>().materials[0].mainTexture = WorksTextureArray[WorksDisplayTextureArray.Length - 1];
+                    Texture2D[] texture2Ds = WorksDataControl.Instance.WorksTexture[WorksDisplayTextureArray.Length - 1];
+                    List<Transform> InkTranforms = new List<Transform>();
+                    foreach (Transform tra in item)
+                    {
+                        InkTranforms.Add(tra);
+                    }
+                    Transform[] transforms = InkTranforms.ToArray();
+                    for (int i = 0; i < transforms.Length; i++)
+                    {
+                        transforms[i].gameObject.GetComponent<MeshRenderer>().materials[0].mainTexture = texture2Ds[i];
+                    }
+                    //item.gameObject.GetComponent<MeshRenderer>().materials[0].mainTexture = WorksTextureArray[WorksDisplayTextureArray.Length - 1];
                     item.gameObject.SetActive(true);
                     CurrentModelNumber = WorksDisplayTextureArray.Length - 1;
                 }
@@ -126,7 +138,18 @@ public class AppreciatePanel : BasePanel
                     if (item.name == WorksDataControl.Instance.worksDatas[WorksDisplayTextureArray.Length - 1 - (i + index)].Model_name)
                     {
                         CurrentModel = item;
-                        item.gameObject.GetComponent<MeshRenderer>().materials[0].mainTexture = WorksTextureArray[WorksDisplayTextureArray.Length - 1 - (i + index)];
+                        Texture2D[] texture2Ds = WorksDataControl.Instance.WorksTexture[WorksDisplayTextureArray.Length - 1 - (i + index)];
+                        List<Transform> InkTranforms = new List<Transform>();
+                        foreach (Transform tra in item)
+                        {
+                            InkTranforms.Add(tra);
+                        }
+                        Transform[] transforms = InkTranforms.ToArray();
+                        for (int j = 0; j < transforms.Length; j++)
+                        {
+                            transforms[j].gameObject.GetComponent<MeshRenderer>().materials[0].mainTexture = texture2Ds[j];
+                        }
+                        //item.gameObject.GetComponent<MeshRenderer>().materials[0].mainTexture = WorksTextureArray[WorksDisplayTextureArray.Length - 1 - (i + index)];
                         item.gameObject.SetActive(true);
                         CurrentModelNumber = WorksDisplayTextureArray.Length - 1 - (i + index);
                     }
@@ -173,7 +196,19 @@ public class AppreciatePanel : BasePanel
                 if (item.name == WorksDataControl.Instance.worksDatas[CurrentModelNumber].Model_name)
                 {
                     CurrentModel = item;
-                    item.gameObject.GetComponent<MeshRenderer>().materials[0].mainTexture = WorksTextureArray[CurrentModelNumber];
+                    Texture2D[] texture2Ds = WorksDataControl.Instance.WorksTexture[CurrentModelNumber];
+                    List<Transform> InkTranforms = new List<Transform>();
+                    foreach (Transform tra in item)
+                    {
+                        InkTranforms.Add(tra);
+                    }
+                    Transform[] transforms = InkTranforms.ToArray();
+                    for (int j = 0; j < transforms.Length; j++)
+                    {
+                        transforms[j].gameObject.GetComponent<MeshRenderer>().materials[0].mainTexture = texture2Ds[j];
+                    }
+
+                    //item.gameObject.GetComponent<MeshRenderer>().materials[0].mainTexture = WorksTextureArray[CurrentModelNumber];
                     item.gameObject.SetActive(true);
                    
                 }
@@ -207,7 +242,18 @@ public class AppreciatePanel : BasePanel
                 if (item.name == WorksDataControl.Instance.worksDatas[CurrentModelNumber].Model_name)
                 {
                     CurrentModel = item;
-                    item.gameObject.GetComponent<MeshRenderer>().materials[0].mainTexture = WorksTextureArray[CurrentModelNumber];
+                    Texture2D[] texture2Ds = WorksDataControl.Instance.WorksTexture[CurrentModelNumber];
+                    List<Transform> InkTranforms = new List<Transform>();
+                    foreach (Transform tra in item)
+                    {
+                        InkTranforms.Add(tra);
+                    }
+                    Transform[] transforms = InkTranforms.ToArray();
+                    for (int j = 0; j < transforms.Length; j++)
+                    {
+                        transforms[j].gameObject.GetComponent<MeshRenderer>().materials[0].mainTexture = texture2Ds[j];
+                    }
+                    //item.gameObject.GetComponent<MeshRenderer>().materials[0].mainTexture = WorksTextureArray[CurrentModelNumber];
                     item.gameObject.SetActive(true);
 
                 }

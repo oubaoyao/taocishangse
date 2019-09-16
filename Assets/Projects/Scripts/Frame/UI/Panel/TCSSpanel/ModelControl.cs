@@ -20,9 +20,8 @@ public class ModelControl : MonoBehaviour
 
     public GameObject ColorSelector;
 
-    public static Vector3 LocalPosition = new Vector3(0, -1.68f, 3.83f);
-    public static Vector3 GamePanelModelPosition = new Vector3(0, -2.13f, 3.91f);
-    public static Vector3 Cylinder001Position = new Vector3(0,-2.5f, 3.9f);
+    //public static Vector3 LocalPosition = new Vector3(0, -1.68f, 3.83f);
+
 
     private void Awake()
     {
@@ -34,7 +33,10 @@ public class ModelControl : MonoBehaviour
         foreach (Transform item in ModelTransform)
         {
             ModelGroup.Add(item);
-            ModelInkGroup.Add(item.GetComponent<InkCanvas>());
+            foreach (InkCanvas ink in item.gameObject.GetComponentsInChildren<InkCanvas>())
+            {
+                ModelInkGroup.Add(ink.GetComponent<InkCanvas>());
+            }         
         }
 
         foreach (Transform item in ModelTransform2)
@@ -49,24 +51,21 @@ public class ModelControl : MonoBehaviour
         foreach (Transform item in ModelGroup)
         {
             item.gameObject.SetActive(false);
-            if(item.name == "Cylinder001"|| item.name == "Cylinder002"|| item.name == "Cylinder005")
+            if(item.name == "Cylinder004")
             {
-                item.localPosition = new Vector3(0,-2.01f,3.9f);
+                item.localPosition = new Vector3(-0.55f, -2.19f, 3.9f);
+            }
+            else if(item.name == "Cylinder002")
+            {
+                item.localPosition = new Vector3(0.25f, -2.01f, 3.79f);
             }
             else
             {
-                item.localPosition = LocalPosition;
+                item.localPosition = new Vector3(0, -2.01f, 3.9f);
             }
-           
 
-            if (item.name == "Cylinder003" || item.name == "Cylinder004")
-            {
-                item.localEulerAngles = new Vector3(-90, 0, 90);
-            }
-            else
-            {
-                item.localEulerAngles = new Vector3(-90, 0, 0);
-            }
+            item.localEulerAngles = new Vector3(-90, 0, 0);
+
         }
         
     }
@@ -76,24 +75,9 @@ public class ModelControl : MonoBehaviour
         foreach (Transform item in ModelGroup2)
         {
             item.gameObject.SetActive(false);
-            //if (item.name == "Cylinder001" || item.name == "Cylinder002" || item.name == "Cylinder005")
-            //{
-            //    item.localPosition = new Vector3(0, -2.01f, 3.9f);
-            //}
-            //else
-            //{
-            //    item.localPosition = LocalPosition;
-            //}
 
+            item.localEulerAngles = new Vector3(-90, 0, 0);
 
-            if (item.name == "Cylinder003" || item.name == "Cylinder004")
-            {
-                item.localEulerAngles = new Vector3(-90, 0, 90);
-            }
-            else
-            {
-                item.localEulerAngles = new Vector3(-90, 0, 0);
-            }
         }
     }
 
