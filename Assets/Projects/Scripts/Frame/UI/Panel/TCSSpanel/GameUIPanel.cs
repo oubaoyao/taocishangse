@@ -22,10 +22,10 @@ public class GameUIPanel : BasePanel
 
     private Vector3 CurrentModelPosition = new Vector3(0, -2.12f, 3.91f);
 
-    private float CurrentPaintSize, CurrentEraserSize, RotateValue = 0;
+    private float CurrentPaintSize, CurrentEraserSize/*, RotateValue = 0*/;
 
     public CanvasGroup PaintGroup, EraserGroup,tipgroup;
-    public Animator tips1Anima/*, tips2Anima*/;
+    public Animator tips1Anima;
     public Animation startcreattiltle;
 
     Texture2D cursor;
@@ -39,8 +39,8 @@ public class GameUIPanel : BasePanel
         CompleteButton = FindTool.FindChildComponent<Button>(transform, "buttons/CompleteButton");
         EraserButton = FindTool.FindChildComponent<Button>(transform, "buttons/EraserButton");
         PaintButton = FindTool.FindChildComponent<Button>(transform, "buttons/PaintButton");
-        RightButton = FindTool.FindChildComponent<Button>(transform, "buttons/RightButton");
-        LeftButton = FindTool.FindChildComponent<Button>(transform, "buttons/LeftButton");
+        //RightButton = FindTool.FindChildComponent<Button>(transform, "buttons/RightButton");
+        //LeftButton = FindTool.FindChildComponent<Button>(transform, "buttons/LeftButton");
 
         PaintSizeButton = FindTool.FindChildNode(transform, "buttons/PaintSize/SizeGroup").GetComponentsInChildren<Button>();
         EraserSizeButton = FindTool.FindChildNode(transform, "buttons/EraserSize/SizeGroup").GetComponentsInChildren<Button>();
@@ -56,7 +56,6 @@ public class GameUIPanel : BasePanel
         tipgroup = FindTool.FindChildComponent<CanvasGroup>(transform, "tipGroup");
 
         tips1Anima = FindTool.FindChildComponent<Animator>(transform, "tipGroup/tips1");
-        //tips2Anima = FindTool.FindChildComponent<Animator>(transform, "tipGroup/tips2");
 
         startcreattiltle = FindTool.FindChildComponent<Animation>(transform, "startcreattiltle");
     }
@@ -68,22 +67,8 @@ public class GameUIPanel : BasePanel
         {
             Hide();
             AudioManager.PlayAudio("按键声音", transform, MTFrame.MTAudio.AudioEnunType.Effset);
-            //GamePanel.CurrentModel.localPosition = ModelControl.LocalPosition;
-            //ModelControl.Instance.CloseModel();
-            //ModelControl.Instance.ModelGroup[0].gameObject.SetActive(true);
-            //ModelControl.Instance.ResetMaterial();
             gamePanel.chooseuipanel.Open();
         });
-
-        //RightButton.onClick.AddListener(() =>
-        //{
-        //    AudioManager.PlayAudio("按键声音", transform, MTFrame.MTAudio.AudioEnunType.Effset);
-        //});
-
-        //LeftButton.onClick.AddListener(() =>
-        //{
-        //    AudioManager.PlayAudio("按键声音", transform, MTFrame.MTAudio.AudioEnunType.Effset);
-        //});
 
         CompleteButton.onClick.AddListener(() =>
         {
@@ -140,7 +125,7 @@ public class GameUIPanel : BasePanel
         MousePainter.Instance.erase = false;
         cursor = PaintTexture;
         MousePainter.Instance.brush.Scale = CurrentPaintSize;
-        //Cursor.SetCursor(PaintTexture, Vector2.zero, CursorMode.Auto);
+        
         foreach (SwitchSprite item in EraserAndPaint)
         {
             item.InitButtonSprite();
@@ -215,38 +200,37 @@ public class GameUIPanel : BasePanel
     public override void Open()
     {
         base.Open();
-        //Cursor.visible = true;
         OpenTips();
         InitPaintSize();
         startcreattiltle.Play();
         //Cursor.SetCursor(PaintTexture, Vector2.zero, CursorMode.Auto);
         ModelControl.Instance.ColorSelector.SetActive(true);
+        ModelControl.Instance.Buttons.SetActive(true);
         MousePainter.Instance.IsGamestart = true;
-        EventManager.RemoveUpdateListener(MTFrame.MTEvent.UpdateEventEnumType.Update, "Aupdate", Aupdate);
-        EventManager.AddUpdateListener(MTFrame.MTEvent.UpdateEventEnumType.Update, "Aupdate", Aupdate);
+        //EventManager.RemoveUpdateListener(MTFrame.MTEvent.UpdateEventEnumType.Update, "Aupdate", Aupdate);
+        //EventManager.AddUpdateListener(MTFrame.MTEvent.UpdateEventEnumType.Update, "Aupdate", Aupdate);
 
         TimeTool.Instance.Remove(TimeDownType.NoUnityTimeLineImpact, CloseTips);
         TimeTool.Instance.AddDelayed(TimeDownType.NoUnityTimeLineImpact, 15, CloseTips);
     }
 
-    private void Aupdate(float timeProcess)
-    {
-        if (MousePainter.Instance.IsGamestart)
-        {
-            GamePanel.CurrentModel.Rotate(Vector3.forward * Time.deltaTime * RotateValue);
-        }
-    }
+    //private void Aupdate(float timeProcess)
+    //{
+    //    if (MousePainter.Instance.IsGamestart)
+    //    {
+    //        GamePanel.CurrentModel.Rotate(Vector3.forward * Time.deltaTime * RotateValue);
+    //    }
+    //}
 
     public override void Hide()
     {
         base.Hide();
-        //Cursor.visible = false;
-        //Cursor.SetCursor(null, Vector2.zero, CursorMode.Auto);
         startcreattiltle.Stop();
         MousePainter.Instance.IsGamestart = false;
         gamePanel.chooseuipanel.Open();
         ModelControl.Instance.ColorSelector.SetActive(false);
-        EventManager.RemoveUpdateListener(MTFrame.MTEvent.UpdateEventEnumType.Update, "Aupdate", Aupdate);
+        ModelControl.Instance.Buttons.SetActive(false);
+        //EventManager.RemoveUpdateListener(MTFrame.MTEvent.UpdateEventEnumType.Update, "Aupdate", Aupdate);
     }
 
     IEnumerator getScreenTexture(string path)
@@ -264,12 +248,21 @@ public class GameUIPanel : BasePanel
         System.IO.File.WriteAllBytes(path, byt);
         GamePanel.CurrentModel.gameObject.SetActive(false);
         ModelControl.Instance.ColorSelector.SetActive(false);
+        ModelControl.Instance.Buttons.SetActive(false);
         completePanel.Open();
     }
 
     private void SaveModelData()
     {
         CloseTips();
+        if(GamePanel.CurrentModel.name == "Cylinder003")
+        {
+            GamePanel.CurrentModel.localScale = new Vector3(0.5f, 0.5f, 0.5f);
+        }
+        else
+        {
+            GamePanel.CurrentModel.localScale = new Vector3(0.6f, 0.6f, 0.6f);
+        }
         WorksData worksData = new WorksData();
         string str = Time.time.ToString();
         string str1 = Application.streamingAssetsPath + "/SaveImage/" + str + ".jpg";
@@ -304,51 +297,41 @@ public class GameUIPanel : BasePanel
         StartCoroutine(getScreenTexture(str1));
     }
 
-    public void PointDown_Right()
-    {
-        AudioManager.PlayAudio("按键声音", transform, MTFrame.MTAudio.AudioEnunType.Effset);
-        GamePanel.CurrentModel.Rotate(Vector3.forward * -18);
-        RotateValue = -20;
+    //public void PointDown_Right()
+    //{
+    //    AudioManager.PlayAudio("按键声音", transform, MTFrame.MTAudio.AudioEnunType.Effset);
+    //    GamePanel.CurrentModel.Rotate(Vector3.forward * -18);
+    //    RotateValue = -20;
 
-        //ModelViewControls.Instance.Start_Rotate_Right();
-    }
+    //    //ModelViewControls.Instance.Start_Rotate_Right();
+    //}
 
-    public void PointDown_Left()
-    {
-        AudioManager.PlayAudio("按键声音", transform, MTFrame.MTAudio.AudioEnunType.Effset);
-        GamePanel.CurrentModel.Rotate(Vector3.forward * 18);
-        RotateValue = 20;
-        //GamePanel.CurrentModel.Rotate(Vector3.back * Time.deltaTime);
-        //ModelViewControls.Instance.Start_Rotate_Left();
-    }
+    //public void PointDown_Left()
+    //{
+    //    AudioManager.PlayAudio("按键声音", transform, MTFrame.MTAudio.AudioEnunType.Effset);
+    //    GamePanel.CurrentModel.Rotate(Vector3.forward * 18);
+    //    RotateValue = 20;
+    //    //GamePanel.CurrentModel.Rotate(Vector3.back * Time.deltaTime);
+    //    //ModelViewControls.Instance.Start_Rotate_Left();
+    //}
 
-    public void PointUp()
-    {
-        RotateValue = 0;
-        //ModelViewControls.Instance.Stop_Rotate();
-    }
+    //public void PointUp()
+    //{
+    //    RotateValue = 0;
+    //    //ModelViewControls.Instance.Stop_Rotate();
+    //}
 
     private void CloseTips()
     {
         tipgroup.alpha = 0;
         tipgroup.blocksRaycasts = false;
-        //tips1Anima.SetBool("Isstart", true);
-        //tips1Anima.SetBool("Isstop", false);
 
-        //tips2Anima.SetBool("Isstart", true);
-        //tips2Anima.SetBool("Isstop", false);
     }
 
     private void OpenTips()
     {
         tipgroup.alpha = 1;
         tipgroup.blocksRaycasts = false;
-
-        //tips1Anima.SetBool("Isstart", false);
-        //tips1Anima.SetBool("Isstop", true);
-
-        //tips2Anima.SetBool("Isstart", false);
-        //tips2Anima.SetBool("Isstop", true);
     }
 
     void OnGUI()

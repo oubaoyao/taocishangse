@@ -72,6 +72,7 @@ public class AppreciatePanel : BasePanel
         ChooseIngImage.localPosition = new Vector3(-267.8f, -379.7f);
         Index = 0;
         ModelControl.Instance.ColorSelector.SetActive(false);
+        ModelControl.Instance.Buttons.SetActive(false);
         if (WorksDataControl.Instance.WorksDisplayTexture.Count > 0)
         {
             WorksDisplayTextureArray = null;

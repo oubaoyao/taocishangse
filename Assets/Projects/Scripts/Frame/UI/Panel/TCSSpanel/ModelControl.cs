@@ -19,6 +19,9 @@ public class ModelControl : MonoBehaviour
     //public Material WhiteMaterial;
 
     public GameObject ColorSelector;
+    public GameObject Buttons;
+
+    private float RotateValue = 0, factor = 0.2f,maxfactor = 1.0f,minfactor = 0.6f;
 
     //public static Vector3 LocalPosition = new Vector3(0, -1.68f, 3.83f);
 
@@ -65,9 +68,9 @@ public class ModelControl : MonoBehaviour
             }
 
             item.localEulerAngles = new Vector3(-90, 0, 0);
-
+            item.localScale = new Vector3(0.6f, 0.6f, 0.6f);
         }
-        
+        ModelGroup[2].localScale = new Vector3(0.5f, 0.5f, 0.5f);
     }
 
     public void CloseModel2()
@@ -90,6 +93,88 @@ public class ModelControl : MonoBehaviour
         }
     }
 
+    public void PointDown_Right()
+    {
+        AudioManager.PlayAudio("按键声音", transform, MTFrame.MTAudio.AudioEnunType.Effset);
+        GamePanel.CurrentModel.Rotate(Vector3.forward * -18);
+        RotateValue = -20;
+
+        //ModelViewControls.Instance.Start_Rotate_Right();
+    }
+
+    public void PointDown_Left()
+    {
+        AudioManager.PlayAudio("按键声音", transform, MTFrame.MTAudio.AudioEnunType.Effset);
+        GamePanel.CurrentModel.Rotate(Vector3.forward * 18);
+        RotateValue = 20;
+        //GamePanel.CurrentModel.Rotate(Vector3.back * Time.deltaTime);
+        //ModelViewControls.Instance.Start_Rotate_Left();
+    }
+
+    public void PointUp()
+    {
+        RotateValue = 0;
+        //ModelViewControls.Instance.Stop_Rotate();
+    }
+
+    public void EnlargeButton()
+    {
+        float temp = GamePanel.CurrentModel.localScale.x;
+        temp = temp * (1 + factor);
+        if (GamePanel.CurrentModel.name == "Cylinder003")
+        {
+            if (temp > 0.8f)
+            {
+                temp = 0.8f;
+            }
+        }
+        else if(GamePanel.CurrentModel.name == "Cylinder001")
+        {
+            if (temp > 0.9f)
+            {
+                temp = 0.9f;
+            }
+        }
+        else
+        {
+            if (temp > maxfactor)
+            {
+                temp = maxfactor;
+            }
+        }     
+        GamePanel.CurrentModel.localScale = new Vector3(temp, temp, temp);
+    }
+
+    public void NarrowButton()
+    {
+        float temp = GamePanel.CurrentModel.localScale.x;
+        temp = temp * (1 - factor);
+        if (GamePanel.CurrentModel.name == "Cylinder003")
+        {
+            if (temp < 0.5f)
+            {
+                temp = 0.5f;
+            }
+        }
+        else
+        {
+            if (temp < minfactor)
+            {
+                temp = minfactor;
+            }
+        }
+        GamePanel.CurrentModel.localScale = new Vector3(temp, temp, temp);
+    }
+
+    private void Update()
+    {
+        if (MousePainter.Instance.IsGamestart)
+        {
+            GamePanel.CurrentModel.Rotate(Vector3.forward * Time.deltaTime * RotateValue);
+        }
+    }
+
+    
     //private void Update()
     //{
     //    if (Input.GetKeyDown(KeyCode.P))
