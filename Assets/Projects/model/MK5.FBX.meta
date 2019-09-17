@@ -1,22 +1,22 @@
 fileFormatVersion: 2
-guid: 893f56220ed2f0e408505a3d5a263957
+guid: ba3c924cc91d3314b91c1c3ec7de28a5
 ModelImporter:
   serializedVersion: 23
   fileIDToRecycleName:
     100000: //RootNode
     100002: mk5
-    100004: mk5-2
+    100004: mk5-1
     400000: //RootNode
     400002: mk5
-    400004: mk5-2
-    2100000: 'Material #9'
-    2100002: 'Material #8'
+    400004: mk5-1
+    2100000: 'Material #8'
+    2100002: default1
     2300000: mk5
-    2300002: mk5-2
+    2300002: mk5-1
     3300000: mk5
-    3300002: mk5-2
-    4300000: mk5-2
-    4300002: mk5
+    3300002: mk5-1
+    4300000: mk5
+    4300002: mk5-1
     7400000: Take 001
     9500000: //RootNode
   externalObjects: {}
@@ -71,7 +71,7 @@ ModelImporter:
     secondaryUVHardAngle: 88
     secondaryUVPackMargin: 4
     useFileScale: 0
-    previousCalculatedGlobalScale: 1
+    previousCalculatedGlobalScale: 0.01
     hasPreviousCalculatedGlobalScale: 1
   tangentSpace:
     normalSmoothAngle: 60
